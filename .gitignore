@@ -1,13 +1,23 @@
+# Manual builds
+builds/
+
+# Dependencies
 node_modules/
+
+# Expo
 .expo/
+web-build/
+
+# NPM files
 npm-debug.*
+
+# Certificates/credentials
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 *.orig.*
-web-build/
 
-# macOS
+# OS-specific
 .DS_Store

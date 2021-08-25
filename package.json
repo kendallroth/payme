@@ -1,11 +1,22 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "version": "0.1.0",
+  "homepage": "https://gitlab.com/kendallroth/payme",
+  "author": {
+    "email": "kendall@kendallroth.ca",
+    "name": "Kendall Roth",
+    "url": "https://www.kendallroth.ca"
+  },
+  "repository": {
+    "url": "https://gitlab.com/kendallroth/payme"
+  },
   "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "lint": "eslint .",
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios"
   },
   "dependencies": {
     "expo": "~42.0.1",
@@ -13,12 +24,18 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "expo-splash-screen": "~0.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@react-native-community/eslint-config": "^3.0.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint": "^7.32.0",
+    "prettier": "^2.3.2",
     "typescript": "~4.0.0"
   },
   "private": true
