@@ -15,6 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,json}\"",
     "lint": "eslint .",
     "start": "expo start",
+    "start:wsl": "REACT_NATIVE_PACKAGER_HOSTNAME=$(netsh.exe interface ip show address 'Ethernet' | grep 'IP Address' | sed -r 's/^.*IP Address:\\W*//') expo start",
     "start:android": "expo start --android",
     "start:ios": "expo start --ios"
   },

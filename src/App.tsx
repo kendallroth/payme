@@ -2,7 +2,10 @@ import { registerRootComponent } from "expo";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+// Components
+import Home from "./Home";
 
 const App = (): ReactElement | null => {
   const [isAppReady, setIsAppReady] = useState(false);
@@ -33,8 +36,8 @@ const App = (): ReactElement | null => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
+      <Home />
     </View>
   );
 };
