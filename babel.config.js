@@ -25,8 +25,7 @@ module.exports = function (api) {
     env: {
       production: {
         // Remove console statements from app during release builds
-        // plugins: ["react-native-paper/babel", "transform-remove-console"],
-        plugins: ["transform-remove-console"],
+        plugins: ["react-native-paper/babel", "transform-remove-console"],
       },
     },
   };

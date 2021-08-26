@@ -1,28 +1,32 @@
-import React, { ReactElement, useCallback, useLayoutEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import React, { ReactElement, useLayoutEffect } from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // Utilities
 import { colors } from "@theme";
+import { IconButton } from "react-native-paper";
 
 const MainScreen = (): ReactElement | null => {
   const navigation = useNavigation();
 
-  /*useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <Button title="About" onPress={onAboutPress} />,
-    });
-  }, [navigation, onAboutPress]);*/
+  useLayoutEffect(() => {
+    const onAboutPress = () => navigation.navigate("About");
 
-  /** Go to "About" page */
-  const onAboutPress = useCallback(() => {
-    navigation.navigate("About");
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          color={colors.primary}
+          icon="information"
+          onPress={onAboutPress}
+        />
+      ),
+    });
   }, [navigation]);
 
   return (
     <View style={styles.page}>
-      <Text>Welcome!</Text>
-      <Button title="About" onPress={onAboutPress} />
+      <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
+      <Text style={styles.pageTitle}>PayMe</Text>
     </View>
   );
 };
@@ -32,7 +36,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.background,
+  },
+  pageLogo: {
+    height: 64,
+    width: 64,
+    borderRadius: 16,
+  },
+  pageTitle: {
+    marginTop: 16,
+    fontSize: 24,
+    color: colors.primary,
   },
 });
 
