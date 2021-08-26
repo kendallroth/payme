@@ -26,6 +26,7 @@ module.exports = {
     "no-console": "warn",
     "prettier/prettier": "warn",
     "prefer-const": "warn",
+    "react/display-name": "off",
     "react-native/no-color-literals": "warn",
     "react-native/no-inline-styles": "off",
     "react-native/no-unused-styles": "warn",

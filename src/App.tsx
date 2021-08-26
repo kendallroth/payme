@@ -3,9 +3,12 @@ import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import "react-native-gesture-handler";
 
 // Components
-import Home from "./Home";
+import Router from "./Router";
+
+// Utilities
 
 const App = (): ReactElement | null => {
   const [isAppReady, setIsAppReady] = useState(false);
@@ -35,18 +38,16 @@ const App = (): ReactElement | null => {
   if (!isAppReady) return null;
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <StatusBar style="auto" />
-      <Home />
+    <View style={styles.app} onLayout={onLayoutRootView}>
+      <StatusBar style="light" />
+      <Router />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  app: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
