@@ -7,7 +7,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 import "react-native-gesture-handler";
 
 // Components
-import Router from "./Router";
+import AppRouter from "./Router";
 
 // Utilities
 import theme, { colors } from "@styles/theme";
@@ -42,7 +42,7 @@ const App = (): ReactElement | null => {
     <PaperProvider theme={theme}>
       <View style={styles.app} onLayout={onLayoutRootView}>
         <StatusBar style="auto" />
-        <Router />
+        <AppRouter />
       </View>
     </PaperProvider>
   );

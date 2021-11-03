@@ -1,20 +1,18 @@
 import React from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
 
 // Components
-import MainScreen from "@screens/MainScreen";
-import AboutScreen from "@screens/Settings/AboutScreen";
+import MainTabRouter from "@screens/Main/MainTabRouter";
+import { AboutScreen } from "@screens/Main/Settings";
 
 // Utilities
 import { colors } from "@styles/theme";
 
 const Stack = createStackNavigator();
-// const Stack = createNativeStackNavigator();
 
 const navigationTheme = {
   ...DefaultTheme,
@@ -25,11 +23,11 @@ const navigationTheme = {
   },
 };
 
-const Router = (): React.ReactElement => {
+const AppRouter = (): React.ReactElement => {
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator
-        initialRouteName="Main"
+        initialRouteName="MainStack"
         screenOptions={{
           // NOTE: Default transition can cause flickering if header color is different than page!
           ...TransitionPresets.DefaultTransition,
@@ -42,11 +40,11 @@ const Router = (): React.ReactElement => {
           },
         }}
       >
-        <Stack.Screen name="Main" component={MainScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen component={MainTabRouter} name="MainStack" />
+        <Stack.Screen component={AboutScreen} name="About" />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Router;
+export default AppRouter;

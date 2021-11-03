@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: `${colors.primary}aa`,
   },
   aboutDeveloperActionsText: {
+    color: colors.white,
     fontSize: 15,
   },
   aboutDeveloperText: {
