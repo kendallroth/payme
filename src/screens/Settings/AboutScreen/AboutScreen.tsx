@@ -1,16 +1,18 @@
+import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
-import React, { ReactElement } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Chip, Text } from "react-native-paper";
+
+// Components
+import { AppBar, Page } from "@components/layout";
 
 // Utilities
 import config from "@config";
 import { colors } from "@theme";
-import { ScrollView } from "react-native-gesture-handler";
 
-const AboutScreen = (): ReactElement | null => {
+const AboutScreen = (): ReactElement => {
   const { links } = config;
   const developerActions = [
     { icon: "account", name: "Portfolio", url: links.developerUrl },
@@ -24,7 +26,8 @@ const AboutScreen = (): ReactElement | null => {
   };
 
   return (
-    <View style={styles.page}>
+    <Page>
+      <AppBar title="About" />
       <ScrollView contentContainerStyle={styles.pageContent}>
         <Text style={styles.aboutDescription}>
           &ldquo;PayMe&rdquo; is a simple mobile app to track who has paid for
@@ -56,7 +59,7 @@ const AboutScreen = (): ReactElement | null => {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </Page>
   );
 };
 
@@ -92,9 +95,6 @@ const styles = StyleSheet.create({
   aboutDeveloperText: {
     color: colors.primary,
     textAlign: "center",
-  },
-  page: {
-    flexGrow: 1,
   },
   pageContent: {
     flexGrow: 1,

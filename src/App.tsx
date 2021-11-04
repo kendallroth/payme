@@ -7,7 +7,8 @@ import { Provider as PaperProvider } from "react-native-paper";
 import "react-native-gesture-handler";
 
 // Components
-import AppRouter from "./Router";
+import ContextProvider from "@contexts/ContextProvider";
+import AppRouter from "./AppRouter";
 
 // Utilities
 import theme, { colors } from "@styles/theme";
@@ -26,6 +27,9 @@ const App = (): ReactElement | null => {
     prepare();
   }, []);
 
+  /**
+   * Primary view layout handler
+   */
   const onLayoutRootView = useCallback(async () => {
     if (isAppReady) {
       // This tells the splash screen to hide immediately! If we call this after `setAppIsReady`,
@@ -36,14 +40,17 @@ const App = (): ReactElement | null => {
     }
   }, [isAppReady]);
 
+  // Prevent rest of app from loading before ready
   if (!isAppReady) return null;
 
   return (
     <PaperProvider theme={theme}>
-      <View style={styles.app} onLayout={onLayoutRootView}>
-        <StatusBar style="auto" />
-        <AppRouter />
-      </View>
+      <ContextProvider>
+        <View style={styles.app} onLayout={onLayoutRootView}>
+          <StatusBar style="auto" />
+          <AppRouter />
+        </View>
+      </ContextProvider>
     </PaperProvider>
   );
 };

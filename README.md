@@ -11,6 +11,16 @@ Simple app that tracks who has paid for an event.
 - Events (_list of events for payment_)
 - People (_lists of common groups of payees_)
 
+## Development
+
+```sh
+# Start Metro bundler (with hot reload)
+npm run start
+
+# Start Metro bundler after clearing build cache
+npm run start -- --clear
+```
+
 ## UI
 
 ### Components

@@ -1,6 +1,7 @@
 // Utilities
 import { version } from "../../package.json";
 
+/** App configuration links */
 interface IAppConfigLinks {
   /** App developer email */
   developerEmail: string;
@@ -10,6 +11,7 @@ interface IAppConfigLinks {
   gitlabUrl: string;
 }
 
+/** App configuration */
 interface IAppConfig {
   /** App links */
   links: IAppConfigLinks;
