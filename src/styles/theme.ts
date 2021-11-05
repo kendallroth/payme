@@ -8,6 +8,10 @@ const colors = {
   background: "#efefef",
   // Color literals
   transparent: "transparent",
+  grey: {
+    light: "#cdcdcd",
+    lightest: "#dedede",
+  },
   white: "#ffffff",
   black: "#000000",
 };

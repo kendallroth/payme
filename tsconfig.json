@@ -29,6 +29,7 @@
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
       "@theme": ["src/styles/theme.ts"],
+      "@typings": ["src/typings"],
       "@typings/*": ["src/typings/*"],
       "@utilities/*": ["src/utilities/*"]
     }

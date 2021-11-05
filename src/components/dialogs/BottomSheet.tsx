@@ -12,6 +12,7 @@ import {
   ViewStyle,
 } from "react-native";
 import Modal from "react-native-modal";
+import { Text } from "react-native-paper";
 
 // Utilities
 import { colors } from "@theme";
@@ -19,10 +20,18 @@ import { colors } from "@theme";
 export type BottomSheetProps = {
   /** Modal contents */
   children: ReactElement | ReactElement[];
-  /** Whether modal can be closed */
+  /**
+   * Whether modal can be closed
+   *
+   * NOTE: Not implemented yet
+   */
   closable?: boolean;
+  /** Whether content should be inset horizontally (20px) */
+  inset?: boolean;
   /** Modal content style */
   style?: StyleProp<ViewStyle>;
+  /** Modal title */
+  title?: string;
   /** Close callback */
   onClose?: () => void;
 };
@@ -32,21 +41,18 @@ export type BottomSheetRef = {
   close: () => void;
   /** Open the modal */
   open: () => void;
-  /** Toggle whether the modal is open */
-  toggle: () => void;
 };
 
 const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
   (props: BottomSheetProps, ref) => {
-    const { children, closable = false, style = {}, onClose = null } = props;
+    const { children, inset = true, style = {}, title, onClose = null } = props;
 
     const [isOpen, setIsOpen] = useState(false);
 
-    useImperativeHandle(ref, () => {
+    useImperativeHandle(ref, (): BottomSheetRef => {
       return {
         close,
         open,
-        toggle,
       };
     });
 
@@ -69,13 +75,6 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
       setIsOpen(true);
     };
 
-    /**
-     * Toggle the modal
-     */
-    const toggle = (): void => {
-      setIsOpen(!isOpen);
-    };
-
     return (
       <Modal
         backdropColor={colors.background}
@@ -88,41 +87,48 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         onBackdropPress={close}
         onBackButtonPress={close}
       >
-        <View style={[styles.sheetContent, style]}>
+        <View
+          style={[
+            styles.sheetContent,
+            inset ? styles.sheetInset : undefined,
+            style,
+          ]}
+        >
+          {Boolean(title) && (
+            <Text
+              style={[styles.sheetTitle, inset ? undefined : styles.sheetInset]}
+            >
+              {title}
+            </Text>
+          )}
           {children}
-          {/* {closable && (
-          <Pressable style={styles.sheetCloseButton} onPress={close}>
-            <Icon color={colors.background} name="close" />
-          </Pressable>
-        )} */}
         </View>
       </Modal>
     );
   },
 );
 
-const sheetColor = "#121212";
+const sheetPadding = 20;
 const styles = StyleSheet.create({
-  sheetCloseButton: {
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 48,
-    height: 48,
-    marginVertical: 16,
-    backgroundColor: colors.primary,
-    borderRadius: 24,
-  },
   sheetContent: {
-    paddingVertical: 16,
+    paddingVertical: sheetPadding,
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
-    backgroundColor: sheetColor,
+    backgroundColor: colors.white,
     width: "100%",
+  },
+  // Optional inset applied to content/title
+  sheetInset: {
+    paddingHorizontal: sheetPadding,
   },
   sheetModal: {
     justifyContent: "flex-end",
     margin: 0,
+  },
+  sheetTitle: {
+    marginBottom: sheetPadding,
+    fontSize: 18,
+    fontWeight: "700",
   },
 });
 

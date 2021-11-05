@@ -29,6 +29,10 @@ module.exports = {
   rules: {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { varsIgnorePattern: "styles" },
+    ],
     "@typescript-eslint/explicit-function-return-type": "off", // Disable for all files (enable for TS)
     "no-console": "warn",
     "prettier/prettier": "warn",
