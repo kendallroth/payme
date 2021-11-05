@@ -34,3 +34,9 @@ Vector images are taken from [UnDraw](https://undraw.co/illustrations) and edite
 ### App Icons
 
 Icons were generated with the [Build Icon](https://buildicon.netlify.app/?color=white&emoji=palms_up_together) tool.
+
+## Notes
+
+### Linting
+
+`@react-native-community/eslint-config` does not work on Mac for some reason (works on Ubuntu) since the recent upgrade to Expo SDK 43. After spending too much time trying to debug the issue, I have replaced the package with its dependencies until it can be resolved.
