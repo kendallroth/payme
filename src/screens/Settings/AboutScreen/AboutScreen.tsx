@@ -21,7 +21,7 @@ const AboutScreen = (): ReactElement => {
   ];
 
   /** Open an external link */
-  const onLink = (link: string) => {
+  const onLink = (link: string): void => {
     Linking.openURL(link);
   };
 
@@ -41,7 +41,7 @@ const AboutScreen = (): ReactElement => {
             {developerActions.map((action) => (
               <Chip
                 key={action.name}
-                icon={(iconProps) => (
+                icon={(iconProps): ReactElement => (
                   <Icon
                     {...iconProps}
                     color={`${colors.white}aa`}
@@ -51,7 +51,7 @@ const AboutScreen = (): ReactElement => {
                 )}
                 style={styles.aboutDeveloperActionsChip}
                 textStyle={styles.aboutDeveloperActionsText}
-                onPress={() => onLink(action.url)}
+                onPress={(): void => onLink(action.url)}
               >
                 {action.name}
               </Chip>

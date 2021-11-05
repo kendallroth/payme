@@ -15,4 +15,3 @@ const PeopleStack = (): ReactElement => {
 };
 
 export default PeopleStack;
-

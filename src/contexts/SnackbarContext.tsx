@@ -20,9 +20,9 @@ interface ISnackbarState {
 
 type SnackbarOptions = Partial<ISnackbarState>;
 
-interface ISnackbarContext {
+export interface ISnackbarContext {
   /** Close notification */
-  closeNotification: () => void
+  closeNotification: () => void;
   /** Notify user (regular) */
   notify: (message: string, options?: SnackbarOptions) => void;
   /** Notify user (error) */
@@ -47,8 +47,8 @@ const initialState: ISnackbarState = {
   message: "",
   open: false,
   type: "info",
-  onDismiss: () => {},
-  onPress: () => {},
+  onDismiss: () => null,
+  onPress: () => null,
 };
 
 const reducer = (
@@ -73,9 +73,10 @@ const reducer = (
   }
 };
 
+// @ts-ignore - Will be set by context provider
 const SnackbarContext = React.createContext<ISnackbarContext>({});
 
-const SnackbarProvider = (props: SnackbarProviderProps) => {
+const SnackbarProvider = (props: SnackbarProviderProps): ReactElement => {
   const { children } = props;
   const [snackbar, snackbarDispatch] = useReducer(reducer, initialState);
 
@@ -100,7 +101,7 @@ const SnackbarProvider = (props: SnackbarProviderProps) => {
   /**
    * Handle closing the snackbar
    */
-  const onDismiss = () => {
+  const onDismiss = (): void => {
     closeNotification();
 
     snackbar?.onDismiss();
@@ -109,7 +110,7 @@ const SnackbarProvider = (props: SnackbarProviderProps) => {
   /**
    * Close the notification
    */
-  const closeNotification = () => snackbarDispatch({ type: "close" });
+  const closeNotification = (): void => snackbarDispatch({ type: "close" });
 
   /**
    * Open a notification
@@ -117,7 +118,7 @@ const SnackbarProvider = (props: SnackbarProviderProps) => {
    * @param message - Notification message
    * @param options - Snackbar options
    */
-  const notify = (message: string, options: SnackbarOptions = {}) => {
+  const notify = (message: string, options: SnackbarOptions = {}): void => {
     // Close the previous notification
     closeNotification();
 
@@ -133,7 +134,10 @@ const SnackbarProvider = (props: SnackbarProviderProps) => {
    * @param message - Notification message
    * @param options - Snackbar options
    */
-  const notifyError = (message: string, options: SnackbarOptions = {}) => {
+  const notifyError = (
+    message: string,
+    options: SnackbarOptions = {},
+  ): void => {
     notify(message, { ...options, type: "error" });
   };
 
@@ -143,6 +147,7 @@ const SnackbarProvider = (props: SnackbarProviderProps) => {
     >
       {children}
       <Snackbar
+        // @ts-ignore - Cannot cast to snackbar actions
         action={snackbarAction}
         duration={snackbar.duration}
         style={snackbarStyle}

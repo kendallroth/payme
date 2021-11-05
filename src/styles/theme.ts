@@ -6,6 +6,8 @@ const colors = {
   ...DefaultTheme.colors,
   primary: colorPrimary,
   background: "#efefef",
+  // Color literals
+  transparent: "transparent",
   white: "#ffffff",
   black: "#000000",
 };

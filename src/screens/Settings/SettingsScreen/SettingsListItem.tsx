@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { List } from "react-native-paper";
-import { StyleSheet } from "react-native";
 
 // Utilities
 import { useSnackbar } from "@hooks";
@@ -32,26 +31,22 @@ const SettingsListItem = (props: Props): ReactElement => {
     }
 
     navigator.navigate(route);
-  }, [disabled, route]);
+  }, [implemented, navigator, notifyError, route]);
 
   return (
     <List.Item
       {...props}
       disabled={disabled}
-      left={(leftProps) => <List.Icon {...leftProps} icon={icon} />}
+      left={(leftProps): ReactElement => (
+        <List.Icon {...leftProps} icon={icon} />
+      )}
       title={title}
-      right={(rightProps) =>
+      right={(rightProps): ReactElement | null =>
         disabled ? null : <List.Icon {...rightProps} icon="chevron-right" />
       }
       onPress={onItemPress}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-});
 
 export default SettingsListItem;

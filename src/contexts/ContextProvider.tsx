@@ -18,7 +18,7 @@ type ProviderComposerProps = {
 
 type ContextProviderProps = {
   children: ReactElement | ReactElement[];
-}
+};
 
 /**
  * Compose Context providers together
@@ -26,9 +26,7 @@ type ContextProviderProps = {
  * @param {Node}     children  - React children
  * @param {Object[]} providers - React context providers
  */
-const ProviderComposer = (
-  props: ProviderComposerProps,
-): ReactElement => {
+const ProviderComposer = (props: ProviderComposerProps): ReactElement => {
   const { children, providers } = props;
 
   // TODO: Figure out why this was causing a TS error
@@ -51,7 +49,7 @@ const ContextProvider = (props: ContextProviderProps): ReactElement => {
   const { children } = props;
 
   return (
-    <ProviderComposer providers={[<SnackbarProvider />]}>
+    <ProviderComposer providers={[<SnackbarProvider key="snackbar" />]}>
       {children}
     </ProviderComposer>
   );

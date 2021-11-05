@@ -25,16 +25,27 @@ module.exports = {
     "prettier",
     "plugin:prettier/recommended",
   ],
-  plugins: ["react-native"],
+  plugins: ["react", "react-native"],
   rules: {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-function-return-type": "off", // Disable for all files (enable for TS)
     "no-console": "warn",
     "prettier/prettier": "warn",
     "prefer-const": "warn",
     "react/display-name": "off",
     "react-native/no-color-literals": "warn",
     "react-native/no-inline-styles": "off",
+    // TODO: Determine if this rule is working
     "react-native/no-unused-styles": "warn",
   },
+  overrides: [
+    // TypeScript overrides
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": "warn",
+      },
+    },
+  ],
 };

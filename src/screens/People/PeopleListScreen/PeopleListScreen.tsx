@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { Text } from "react-native-paper";
 
 // Components
 import { AppBar, ComingSoon, Page } from "@components/layout";

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // Components
@@ -16,7 +16,7 @@ const HomeScreen = (): ReactElement | null => {
       <AppBar back={false} title="PayMe">
         <AppBar.Action
           icon="cog"
-          onPress={() => navigation.navigate("SettingsRouter")}
+          onPress={(): void => navigation.navigate("SettingsRouter")}
         />
       </AppBar>
       <Image source={require("@assets/icon.png")} style={styles.pageLogo} />

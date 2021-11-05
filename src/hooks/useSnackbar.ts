@@ -2,7 +2,7 @@ import { useCallback, useContext } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 // Utilities
-import { SnackbarContext } from "@contexts";
+import { ISnackbarContext, SnackbarContext } from "@contexts";
 
 interface ISnackbarHookOptions {
   /** Whether snackbar should be dismissed on screen transition */
@@ -15,7 +15,7 @@ interface ISnackbarHookOptions {
  * @param   options - Snackbar hook options
  * @returns Snackbar manager
  */
-const useSnackbar = (options?: ISnackbarHookOptions) => {
+const useSnackbar = (options?: ISnackbarHookOptions): ISnackbarContext => {
   const snackbar = useContext(SnackbarContext);
 
   const { cleanup: shouldRemoveOnTransition = true } = options ?? {};
@@ -23,7 +23,7 @@ const useSnackbar = (options?: ISnackbarHookOptions) => {
   // Remove snackbar when leaving page by default
   useFocusEffect(
     useCallback(() => {
-      return () => {
+      return (): void => {
         if (shouldRemoveOnTransition) {
           snackbar.closeNotification();
         }

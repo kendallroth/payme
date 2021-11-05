@@ -10,11 +10,7 @@ export type Props = {
 const Page = (props: Props): ReactElement => {
   const { children } = props;
 
-  return (
-    <View style={styles.page}>
-      {children}
-    </View>
-  );
+  return <View style={styles.page}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -24,4 +20,3 @@ const styles = StyleSheet.create({
 });
 
 export default Page;
-

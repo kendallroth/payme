@@ -17,7 +17,7 @@ const App = (): ReactElement | null => {
   const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    const prepare = async () => {
+    const prepare = async (): Promise<void> => {
       // Prevent hiding the splash screen automatically (ignore errors)
       await SplashScreen.preventAutoHideAsync().catch();
 

@@ -36,7 +36,7 @@ const AppBar = (props: Props): ReactElement => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "transparent",
+    backgroundColor: colors.transparent,
     elevation: 0,
     shadowOpacity: 0,
   },

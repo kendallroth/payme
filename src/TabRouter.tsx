@@ -3,8 +3,8 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 
 // Components
 import { HomeScreen } from "@screens/Home";
-import { EventsListScreen, EventsRouter } from "@screens/Events";
-import { PeopleListScreen, PeopleRouter } from "@screens/People";
+import { EventsListScreen } from "@screens/Events";
+import { PeopleListScreen } from "@screens/People";
 
 // Utilities
 import { colors } from "@styles/theme";

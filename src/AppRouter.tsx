@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet } from "react-native";
 
 // Components
 import MainTabRouter from "./TabRouter";
@@ -32,11 +31,5 @@ const AppRouter = (): ReactElement => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-});
 
 export default AppRouter;
