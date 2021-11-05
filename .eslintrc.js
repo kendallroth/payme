@@ -13,13 +13,19 @@ module.exports = {
     },
   },
   extends: [
-    "@react-native-community",
+    // NOTE: Had to disable this config because it caused problems after an Expo upgrade.
+    //         Have posted in a GitHub issue but am still awaiting a resolution. Instead,
+    //         the individual ESLint packages are installed/configured here temporarily.
+    //       Added configs 'plugin:react-hooks/recommended' and plugins 'react-native'
+    // "@react-native-community",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
     // Disable ESLint rules that would conflict with Prettier
     "prettier",
     "plugin:prettier/recommended",
   ],
+  plugins: ["react-native"],
   rules: {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
