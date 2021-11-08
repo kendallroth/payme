@@ -17,6 +17,8 @@ class SettingsService {
    * Get app's stored language
    */
   async getLanguage(): Promise<AppLanguage> {
+    // NOTE: Not implemented yet (using Redux Persist instead)...
+
     try {
       const languageString = await AsyncStorage.getItem(
         this.STORAGE_KEY_LANGUAGE,
@@ -37,6 +39,8 @@ class SettingsService {
    * @param language - App's current language
    */
   async setLanguage(language: AppLanguage): Promise<void> {
+    // NOTE: Not implemented yet (using Redux Persist instead)...
+
     try {
       await AsyncStorage.setItem(this.STORAGE_KEY_LANGUAGE, language);
     } catch {

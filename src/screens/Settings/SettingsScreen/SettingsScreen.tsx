@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
 
@@ -12,7 +12,8 @@ import { LanguageIcon } from "@components/icons";
 
 // Utilities
 import config from "@config";
-import { LANGUAGES } from "@utilities/constants";
+import { useAppDispatch, useAppSelector } from "@hooks";
+import { selectLanguageConfig, setAppLanguage } from "@store/slices/settings";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
@@ -21,18 +22,26 @@ import { AppLanguage } from "@typings";
 const SettingsScreen = (): ReactElement => {
   const languageRef = useRef<BottomSheetRef>(null);
 
-  // TODO: Move to store
-  const [language, setLanguage] = useState(AppLanguage.ENGLISH);
+  const dispatch = useAppDispatch();
+  const languageConfig = useAppSelector(selectLanguageConfig);
 
-  const languageFlag = LANGUAGES[language].flag;
+  const languageCode = languageConfig.code;
+  const languageFlag = languageConfig.flag;
 
+  /**
+   * Open the language selector
+   */
   const onOpenLanguage = (): void => {
     languageRef.current?.open();
   };
 
+  /**
+   * Set the selected app language
+   *
+   * @param value - App language
+   */
   const onSelectLanguage = (value: AppLanguage): void => {
-    // TODO: Refactor to use store
-    setLanguage(value);
+    dispatch(setAppLanguage(value));
 
     languageRef.current?.close();
   };
@@ -73,7 +82,7 @@ const SettingsScreen = (): ReactElement => {
       </View>
       <LanguageModal
         ref={languageRef}
-        language={language}
+        language={languageCode}
         onSelect={onSelectLanguage}
       />
     </Page>
