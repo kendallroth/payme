@@ -30,9 +30,9 @@ const SettingsScreen = (): ReactElement => {
     languageRef.current?.open();
   };
 
-  const onSelectLanguage = (language: AppLanguage): void => {
+  const onSelectLanguage = (value: AppLanguage): void => {
     // TODO: Refactor to use store
-    setLanguage(language);
+    setLanguage(value);
 
     languageRef.current?.close();
   };

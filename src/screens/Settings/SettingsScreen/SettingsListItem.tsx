@@ -52,14 +52,16 @@ const SettingsListItem = (props: Props): ReactElement => {
   /**
    * Render right icon
    *
-   * @param   props - Right props
+   * @param   rightProps - Right props
    * @returns Rendered right icon
    */
-  const renderRight = (props: any): ReactElement | null => {
+  const renderRight = (rightProps: any): ReactElement | null => {
     if (right) {
-      return right(props);
+      return right(rightProps);
     } else {
-      return disabled ? null : <List.Icon {...props} icon="chevron-right" />;
+      return disabled ? null : (
+        <List.Icon {...rightProps} icon="chevron-right" />
+      );
     }
   };
 
