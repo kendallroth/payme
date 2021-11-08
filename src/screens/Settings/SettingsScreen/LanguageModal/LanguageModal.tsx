@@ -1,9 +1,11 @@
 import React, { forwardRef, ReactElement } from "react";
 import { StyleSheet } from "react-native";
+import { List } from "react-native-paper";
 
 // Components
 import { BottomSheet } from "@components/dialogs";
-import LanguageModalItem from "./LanguageModalItem";
+import { LanguageIcon } from "@components/icons";
+import SettingsModalListItem from "../SettingsModalListItem";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
@@ -27,10 +29,24 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
       <BottomSheet ref={ref} inset={false} title="Select Language">
         {languages.map(
           (language): ReactElement => (
-            <LanguageModalItem
+            <SettingsModalListItem
               key={language.code}
               disabled={language.disabled}
-              language={language}
+              left={(leftProps: any): ReactElement => (
+                <List.Icon
+                  {...leftProps}
+                  icon={({ size }): ReactElement => (
+                    <LanguageIcon
+                      flag={language.flag}
+                      selected={currentLanguage === language.code}
+                      size={size * 1.25}
+                      // Move icon to right to compensate for increased size
+                      style={{ marginLeft: size * 1.25 - size }}
+                    />
+                  )}
+                />
+              )}
+              title={language.title}
               selected={currentLanguage === language.code}
               onPress={(): void => onSelect(language.code)}
             />

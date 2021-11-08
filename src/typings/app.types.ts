@@ -18,3 +18,22 @@ export interface IAppLanguageConfig {
   /** Language title */
   title: string;
 }
+
+/** Supported app themes */
+export enum AppTheme {
+  AUTO = "auto",
+  DARK = "dark",
+  LIGHT = "light",
+}
+
+/** App theme configuration */
+export interface IAppThemeConfig {
+  /** Theme code/key */
+  code: AppTheme;
+  /** Whether theme is disabled */
+  disabled?: boolean;
+  /** Theme icon name */
+  icon: string;
+  /** Theme name */
+  title: string;
+}

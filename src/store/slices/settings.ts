@@ -1,21 +1,29 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Utilities
-import { LANGUAGES } from "@utilities/constants";
+import { LANGUAGES, THEMES } from "@utilities/constants";
 import { addDebugDataAction, resetStoreAction } from "../actions";
 
 // Types
-import { AppLanguage, IAppLanguageConfig } from "@typings";
+import {
+  AppLanguage,
+  AppTheme,
+  IAppLanguageConfig,
+  IAppThemeConfig,
+} from "@typings";
 import { RootState } from "../index";
 
 interface SettingsState {
   /** App language (for internationalization) */
   language: AppLanguage;
+  /** App theme */
+  theme: AppTheme;
 }
 
+// Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
-  // Default to English until app settings are loaded
   language: AppLanguage.ENGLISH,
+  theme: AppTheme.LIGHT,
 };
 
 const settingsSlice = createSlice({
@@ -26,6 +34,11 @@ const settingsSlice = createSlice({
       if (!action.payload) return;
 
       state.language = action.payload;
+    },
+    setAppTheme: (state, action: PayloadAction<AppTheme>) => {
+      if (!action.payload) return;
+
+      state.theme = action.payload;
     },
   },
   extraReducers: {},
@@ -61,8 +74,10 @@ export const selectLanguage = (state: RootState): AppLanguage =>
   state.settings.language;
 export const selectLanguageConfig = (state: RootState): IAppLanguageConfig =>
   LANGUAGES[state.settings.language];
+export const selectThemeConfig = (state: RootState): IAppThemeConfig =>
+  THEMES[state.settings.theme];
 
 export { addDebugData, resetApp };
-export const { setAppLanguage } = settingsSlice.actions;
+export const { setAppLanguage, setAppTheme } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

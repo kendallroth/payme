@@ -2,7 +2,12 @@
 import { ES, FR, US } from "country-flag-icons/string/3x2";
 
 // Types
-import { AppLanguage, IAppLanguageConfig } from "@typings";
+import {
+  AppLanguage,
+  AppTheme,
+  IAppLanguageConfig,
+  IAppThemeConfig,
+} from "@typings";
 
 // TODO: Move to better location (likely store?) or at least populate store
 export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
@@ -23,5 +28,24 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
     disabled: false,
     flag: ES,
     title: "Spanish",
+  },
+};
+
+export const THEMES: Record<AppTheme, IAppThemeConfig> = {
+  [AppTheme.AUTO]: {
+    code: AppTheme.AUTO,
+    disabled: true,
+    icon: "brightness-auto",
+    title: "Auto",
+  },
+  [AppTheme.LIGHT]: {
+    code: AppTheme.LIGHT,
+    icon: "weather-sunny",
+    title: "Light",
+  },
+  [AppTheme.DARK]: {
+    code: AppTheme.DARK,
+    icon: "weather-night",
+    title: "Dark",
   },
 };
