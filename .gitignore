@@ -4,6 +4,9 @@ builds/
 # Dependencies
 node_modules/
 
+# Test files
+coverage/
+
 # Expo
 .expo/
 web-build/

@@ -5,7 +5,7 @@
  * @param   value       - Test value
  * @returns Whether value is within enum
  */
-const isInEnum = (enumeration: any, value: string): boolean => {
+const isInEnum = (enumeration: any, value: string | null): boolean => {
   return Object.values(enumeration).includes(value);
 };
 

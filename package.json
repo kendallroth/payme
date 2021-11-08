@@ -1,6 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "version": "0.1.0",
+  "private": true,
   "homepage": "https://gitlab.com/kendallroth/payme",
   "author": {
     "email": "kendall@kendallroth.ca",
@@ -17,7 +18,11 @@
     "start": "expo start",
     "start:wsl": "REACT_NATIVE_PACKAGER_HOSTNAME=$(netsh.exe interface ip show address 'Ethernet' | grep 'IP Address' | sed -r 's/^.*IP Address:\\W*//') expo start",
     "start:android": "expo start --android",
-    "start:ios": "expo start --ios"
+    "start:ios": "expo start --ios",
+    "test": "npm run test:only",
+    "test:cover": "npm run test:only -- --coverage",
+    "test:only": "jest --verbose",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
@@ -47,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@react-native-community/eslint-config": "^3.0.1",
+    "@types/jest": "^27.0.2",
     "@types/react": "~17.0.21",
     "@types/react-native": "^0.64.2",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
@@ -61,8 +67,16 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-native": "^3.11.0",
+    "husky": "^7.0.4",
+    "jest-expo": "^43.0.1",
+    "lint-staged": "^11.2.6",
     "prettier": "^2.3.2",
     "typescript": "~4.3.5"
   },
-  "private": true
+  "lint-staged": {
+    "{src}/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
 }
