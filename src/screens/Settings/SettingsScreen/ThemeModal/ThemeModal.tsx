@@ -1,4 +1,5 @@
 import React, { forwardRef, ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { List } from "react-native-paper";
 
@@ -24,10 +25,16 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
   (props: ThemeModalProps, ref): ReactElement => {
     const { theme: currentTheme, onSelect } = props;
 
+    const { t } = useTranslation();
+
     const themes = Object.values(THEMES);
 
     return (
-      <BottomSheet ref={ref} inset={false} title="Select Theme">
+      <BottomSheet
+        ref={ref}
+        inset={false}
+        title={t("screens.settingsTheme.title")}
+      >
         {themes.map(
           (theme): ReactElement => (
             <SettingsModalListItem
@@ -37,7 +44,7 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
                 <List.Icon {...leftProps} icon={theme.icon} />
               )}
               selected={currentTheme === theme.code}
-              title={theme.title}
+              title={t(theme.title)}
               onPress={(): void => onSelect(theme.code)}
             />
           ),

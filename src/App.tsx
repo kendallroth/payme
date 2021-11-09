@@ -15,6 +15,7 @@ import AppRouter from "./AppRouter";
 // Utilities
 import setupStore from "@store";
 import theme, { colors } from "@styles/theme";
+import "./localization/config";
 
 // NOTE: Optimize React Navigation memory usage/performance?
 // Taken from: https://reactnavigation.org/docs/react-native-screens/

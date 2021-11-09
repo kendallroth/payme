@@ -1,12 +1,14 @@
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 
 // Components
 import { AppBar, ComingSoon, Page } from "@components/layout";
 
 const EventsListScreen = (): ReactElement => {
+  const { t } = useTranslation();
   return (
     <Page>
-      <AppBar title="Events" />
+      <AppBar title={t("screens.events.title")} />
       <ComingSoon />
     </Page>
   );

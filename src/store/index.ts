@@ -1,3 +1,4 @@
+import i18n from "i18next";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   persistReducer,
@@ -33,7 +34,11 @@ const store = configureStore({
 });
 
 const setupStore = (): any => {
-  const persistor = persistStore(store);
+  const persistor = persistStore(store, null, () => {
+    // NOTE: Language is loaded when store is rehydrated from async storage
+    const language = store.getState().settings.language;
+    i18n.changeLanguage(language);
+  });
 
   // @ts-ignore
   if (process.env.NODE_ENV === "development" && module.hot) {

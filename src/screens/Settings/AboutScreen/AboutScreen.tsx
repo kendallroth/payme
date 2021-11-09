@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
+import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Chip, Text } from "react-native-paper";
 
@@ -13,11 +14,25 @@ import config from "@config";
 import { colors } from "@theme";
 
 const AboutScreen = (): ReactElement => {
+  const { t } = useTranslation();
+
   const { links } = config;
   const developerActions = [
-    { icon: "account", name: "Portfolio", url: links.developerUrl },
-    { icon: "gitlab", name: "Repository", url: links.gitlabUrl },
-    { icon: "email", name: "Contact", url: `mailto:${links.developerEmail}` },
+    {
+      icon: "account",
+      name: t("screens.settingsAbout.chipPortfolio"),
+      url: links.developerUrl,
+    },
+    {
+      icon: "gitlab",
+      name: t("screens.settingsAbout.chipRepository"),
+      url: links.gitlabUrl,
+    },
+    {
+      icon: "email",
+      name: t("screens.settingsAbout.chipContact"),
+      url: `mailto:${links.developerEmail}`,
+    },
   ];
 
   /** Open an external link */
@@ -27,15 +42,16 @@ const AboutScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title="About" />
+      <AppBar title={t("screens.settingsAbout.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
         <Text style={styles.aboutDescription}>
-          &ldquo;PayMe&rdquo; is a simple mobile app to track who has paid for
-          an event.
+          {t("screens.settingsAbout.appDescription")}
         </Text>
         <View style={styles.aboutDeveloper}>
           <Text style={styles.aboutDeveloperText}>
-            Developed by Kendall Roth &copy; {dayjs().format("YYYY")}
+            {t("screens.settingsAbout.appDeveloped", {
+              date: dayjs().format("YYYY"),
+            })}
           </Text>
           <View style={styles.aboutDeveloperActions}>
             {developerActions.map((action) => (

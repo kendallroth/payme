@@ -1,4 +1,5 @@
 import React, { forwardRef, ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { List } from "react-native-paper";
 
@@ -23,10 +24,16 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
   (props: LanguageModalProps, ref): ReactElement => {
     const { language: currentLanguage, onSelect } = props;
 
+    const { t } = useTranslation();
+
     const languages = Object.values(LANGUAGES);
 
     return (
-      <BottomSheet ref={ref} inset={false} title="Select Language">
+      <BottomSheet
+        ref={ref}
+        inset={false}
+        title={t("screens.settingsLanguage.title")}
+      >
         {languages.map(
           (language): ReactElement => (
             <SettingsModalListItem
@@ -46,7 +53,8 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
                   )}
                 />
               )}
-              title={language.title}
+              // TODO: https://brainsandbeards.com/blog/i18n-in-react-native-apps#overrides
+              title={t(language.title)}
               selected={currentLanguage === language.code}
               onPress={(): void => onSelect(language.code)}
             />

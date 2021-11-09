@@ -1,4 +1,5 @@
 import React, { ReactElement, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
 
@@ -31,6 +32,7 @@ const SettingsScreen = (): ReactElement => {
 
   const dispatch = useAppDispatch();
   const { notifyError } = useSnackbar();
+  const { i18n, t } = useTranslation();
 
   const languageConfig = useAppSelector(selectLanguageConfig);
   const themeConfig = useAppSelector(selectThemeConfig);
@@ -55,6 +57,9 @@ const SettingsScreen = (): ReactElement => {
    * @param value - App language
    */
   const onSelectLanguage = (value: AppLanguage): void => {
+    // Change language in localization context
+    i18n.changeLanguage(value);
+
     dispatch(setAppLanguage(value));
 
     languageRef.current?.close();
@@ -66,10 +71,11 @@ const SettingsScreen = (): ReactElement => {
    * @param value - App theme
    */
   const onSelectTheme = (value: AppTheme): void => {
-    dispatch(setAppTheme(value));
-
+    // TODO: Support dark theme
     if (value !== AppTheme.LIGHT) {
-      notifyError("Theme not supported yet");
+      notifyError(t("errors.notImplemented"));
+    } else {
+      dispatch(setAppTheme(value));
     }
 
     themeRef.current?.close();
@@ -77,9 +83,15 @@ const SettingsScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title="Settings" />
-      <SettingsListItem icon="information" route="About" title="About" />
-      <List.Subheader>Customize</List.Subheader>
+      <AppBar title={t("screens.settings.title")} />
+      <SettingsListItem
+        icon="information"
+        route="About"
+        title={t("screens.settingsAbout.title")}
+      />
+      <List.Subheader>
+        {t("screens.settings.listSectionCustomize")}
+      </List.Subheader>
       <SettingsListItem
         icon="flag"
         right={(rightProps): ReactElement => (
@@ -90,7 +102,7 @@ const SettingsScreen = (): ReactElement => {
             style={styles.settingsLanguageIcon}
           />
         )}
-        title="Language"
+        title={t("screens.settings.listItemLanguage")}
         onPress={onOpenLanguage}
       />
       <SettingsListItem
@@ -98,15 +110,15 @@ const SettingsScreen = (): ReactElement => {
         right={(rightProps): ReactElement => (
           <List.Icon {...rightProps} icon={themeConfig.icon} />
         )}
-        title="Appearance"
+        title={t("screens.settings.listItemAppearance")}
         onPress={onOpenTheme}
       />
-      <List.Subheader>Help</List.Subheader>
+      <List.Subheader>{t("screens.settings.listSectionHelp")}</List.Subheader>
       <SettingsListItem
         implemented={false}
         icon="bug"
         route="SettingsBug"
-        title="Report a bug"
+        title={t("screens.settings.listItemBug")}
       />
       <View style={styles.settingsFooter}>
         <Text style={styles.settingsFooterVersion}>v{config.version}</Text>

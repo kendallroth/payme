@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 // Components
@@ -15,6 +16,8 @@ const Tabs = createMaterialBottomTabNavigator();
 // Maybe because I navigate to the router instead of the route (but it is handled by tabs...)???
 
 const TabRouter = (): ReactElement => {
+  const { t } = useTranslation();
+
   return (
     <Tabs.Navigator
       backBehavior="firstRoute"
@@ -23,17 +26,17 @@ const TabRouter = (): ReactElement => {
     >
       <Tabs.Screen
         component={HomeScreen}
-        name="Home"
+        name={t("screens.home.title")}
         options={{ tabBarIcon: "home" }}
       />
       <Tabs.Screen
         component={EventsListScreen}
-        name="Events"
+        name={t("screens.events.title")}
         options={{ tabBarIcon: "calendar" }}
       />
       <Tabs.Screen
         component={PeopleListScreen}
-        name="People"
+        name={t("screens.people.title")}
         options={{ tabBarIcon: "account-multiple" }}
       />
       {/* <Tabs.Screen

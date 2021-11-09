@@ -1,0 +1,56 @@
+{
+  "_comment": "src/localization/en/translation.json",
+  "app": {},
+  "common": {
+    "comingSoon": "Coming Soon!"
+  },
+  "confirmations": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "no": "No",
+    "yes": "Yes"
+  },
+  "errors": {
+    "notImplemented": "Not implemented yet"
+  },
+  "screens": {
+    "events": {
+      "title": "Events"
+    },
+    "home": {
+      "title": "Home"
+    },
+    "people": {
+      "title": "People"
+    },
+    "settings": {
+      "title": "Settings",
+      "listItemAbout": "About",
+      "listItemBug": "Report a bug",
+      "listItemAppearance": "Appearance",
+      "listItemLanguage": "Language",
+      "listSectionCustomize": "Customize",
+      "listSectionHelp": "Help"
+    },
+    "settingsAbout": {
+      "title": "About",
+      "appDescription": "“PayMe” is a simple mobile app to track who has paid for an event.",
+      "appDeveloped": "Developed by Kendall Roth © {{date}}",
+      "chipContact": "Contact",
+      "chipPortfolio": "Portfolio",
+      "chipRepository": "Repository"
+    },
+    "settingsLanguage": {
+      "title": "Select Language",
+      "itemEnglish": "English",
+      "itemFrench": "French",
+      "itemSpanish": "Spanish"
+    },
+    "settingsTheme": {
+      "title": "Select Theme",
+      "itemAuto": "Auto",
+      "itemDark": "Dark",
+      "itemLight": "Light"
+    }
+  }
+}

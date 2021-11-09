@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import { List } from "react-native-paper";
 
@@ -33,12 +34,13 @@ const SettingsListItem = (props: Props): ReactElement => {
     onPress,
   } = props;
 
-  const { notifyError } = useSnackbar();
   const navigator = useNavigation();
+  const { notifyError } = useSnackbar();
+  const { t } = useTranslation();
 
   const onItemPress = useCallback(() => {
     if (!implemented) {
-      notifyError("Not implemented yet");
+      notifyError(t("errors.notImplemented"));
       return;
     }
 
@@ -47,7 +49,7 @@ const SettingsListItem = (props: Props): ReactElement => {
     } else if (onPress) {
       onPress();
     }
-  }, [implemented, navigator, notifyError, onPress, route]);
+  }, [implemented, navigator, notifyError, onPress, route, t]);
 
   /**
    * Render right icon

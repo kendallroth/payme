@@ -15,19 +15,19 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
     code: AppLanguage.ENGLISH,
     disabled: false,
     flag: US,
-    title: "English",
+    title: "screens.settingsLanguage.itemEnglish",
   },
   [AppLanguage.FRENCH]: {
     code: AppLanguage.FRENCH,
     disabled: true,
     flag: FR,
-    title: "French",
+    title: "screens.settingsLanguage.itemFrench",
   },
   [AppLanguage.SPANISH]: {
     code: AppLanguage.SPANISH,
     disabled: false,
     flag: ES,
-    title: "Spanish",
+    title: "screens.settingsLanguage.itemSpanish",
   },
 };
 
@@ -36,16 +36,16 @@ export const THEMES: Record<AppTheme, IAppThemeConfig> = {
     code: AppTheme.AUTO,
     disabled: true,
     icon: "brightness-auto",
-    title: "Auto",
+    title: "screens.settingsTheme.itemAuto",
   },
   [AppTheme.LIGHT]: {
     code: AppTheme.LIGHT,
     icon: "weather-sunny",
-    title: "Light",
+    title: "screens.settingsTheme.itemLight",
   },
   [AppTheme.DARK]: {
     code: AppTheme.DARK,
     icon: "weather-night",
-    title: "Dark",
+    title: "screens.settingsTheme.itemDark",
   },
 };

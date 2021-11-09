@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 
 // Utilities
 import { colors } from "@theme";
@@ -14,13 +15,15 @@ export type ComingSoonProps = {
 };
 
 const ComingSoon = (props: ComingSoonProps): ReactElement => {
-  const { description, title = "Coming Soon!" } = props;
+  const { description, title = "common.comingSoon" } = props;
+
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Icon color={`${colors.primary}aa`} name="hammer-wrench" size={96} />
-        <Text style={styles.contentTitle}>{title}</Text>
+        <Text style={styles.contentTitle}>{t(title)}</Text>
         {Boolean(description) && (
           <Text style={styles.contentDescription}>{description}</Text>
         )}
