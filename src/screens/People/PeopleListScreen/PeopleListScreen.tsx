@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import { AppBar, ComingSoon, Page } from "@components/layout";
 
 const PeopleListScreen = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["screens"]);
 
   return (
     <Page>
-      <AppBar title={t("screens.people.title")} />
+      <AppBar title={t("screens:people.title")} />
       <ComingSoon />
     </Page>
   );

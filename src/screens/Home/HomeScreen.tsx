@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Text } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
@@ -11,6 +13,8 @@ import { AppBar, Page } from "@components/layout";
 const HomeScreen = (): ReactElement | null => {
   const navigation = useNavigation();
 
+  const { t } = useTranslation(["screens"]);
+
   return (
     <Page>
       <AppBar back={false} title="PayMe">
@@ -20,6 +24,7 @@ const HomeScreen = (): ReactElement | null => {
         />
       </AppBar>
       <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
+      <Text style={styles.pageWelcome}>{t("screens:home.welcomeText")}</Text>
     </Page>
   );
 };
@@ -30,6 +35,11 @@ const styles = StyleSheet.create({
     width: 64,
     alignSelf: "center",
     borderRadius: 16,
+  },
+  pageWelcome: {
+    marginTop: 32,
+    fontSize: 28,
+    textAlign: "center",
   },
 });
 

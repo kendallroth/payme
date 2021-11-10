@@ -36,11 +36,11 @@ const SettingsListItem = (props: Props): ReactElement => {
 
   const navigator = useNavigation();
   const { notifyError } = useSnackbar();
-  const { t } = useTranslation();
+  const { t } = useTranslation(["common"]);
 
   const onItemPress = useCallback(() => {
     if (!implemented) {
-      notifyError(t("errors.notImplemented"));
+      notifyError(t("common:errors.notImplemented"));
       return;
     }
 

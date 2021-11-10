@@ -10,20 +10,20 @@ import { colors } from "@theme";
 export type ComingSoonProps = {
   /** Explanation of timing, etc */
   description?: string;
-  /** Explanation title */
-  title?: string;
 };
 
 const ComingSoon = (props: ComingSoonProps): ReactElement => {
-  const { description, title = "common.comingSoon" } = props;
+  const { description } = props;
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(["common"]);
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Icon color={`${colors.primary}aa`} name="hammer-wrench" size={96} />
-        <Text style={styles.contentTitle}>{t(title)}</Text>
+        <Text style={styles.contentTitle}>
+          {t("common:phrases.comingSoon")}
+        </Text>
         {Boolean(description) && (
           <Text style={styles.contentDescription}>{description}</Text>
         )}

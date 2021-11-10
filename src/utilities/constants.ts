@@ -1,4 +1,5 @@
-// TODO: Figure out typings
+// TODO: Fix once maintainer updates with type definitions
+// @ts-ignore
 import { ES, FR, US } from "country-flag-icons/string/3x2";
 
 // Types
@@ -15,19 +16,19 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
     code: AppLanguage.ENGLISH,
     disabled: false,
     flag: US,
-    title: "screens.settingsLanguage.itemEnglish",
+    title: "English",
   },
   [AppLanguage.FRENCH]: {
     code: AppLanguage.FRENCH,
     disabled: true,
     flag: FR,
-    title: "screens.settingsLanguage.itemFrench",
+    title: "Français",
   },
   [AppLanguage.SPANISH]: {
     code: AppLanguage.SPANISH,
     disabled: false,
     flag: ES,
-    title: "screens.settingsLanguage.itemSpanish",
+    title: "Español",
   },
 };
 
@@ -36,16 +37,16 @@ export const THEMES: Record<AppTheme, IAppThemeConfig> = {
     code: AppTheme.AUTO,
     disabled: true,
     icon: "brightness-auto",
-    title: "screens.settingsTheme.itemAuto",
+    title: "screens:settingsTheme.itemAuto",
   },
   [AppTheme.LIGHT]: {
     code: AppTheme.LIGHT,
     icon: "weather-sunny",
-    title: "screens.settingsTheme.itemLight",
+    title: "screens:settingsTheme.itemLight",
   },
   [AppTheme.DARK]: {
     code: AppTheme.DARK,
     icon: "weather-night",
-    title: "screens.settingsTheme.itemDark",
+    title: "screens:settingsTheme.itemDark",
   },
 };

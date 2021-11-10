@@ -16,7 +16,7 @@ const Tabs = createMaterialBottomTabNavigator();
 // Maybe because I navigate to the router instead of the route (but it is handled by tabs...)???
 
 const TabRouter = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["screens"]);
 
   return (
     <Tabs.Navigator
@@ -26,17 +26,17 @@ const TabRouter = (): ReactElement => {
     >
       <Tabs.Screen
         component={HomeScreen}
-        name={t("screens.home.title")}
+        name={t("screens:home.title")}
         options={{ tabBarIcon: "home" }}
       />
       <Tabs.Screen
         component={EventsListScreen}
-        name={t("screens.events.title")}
+        name={t("screens:events.title")}
         options={{ tabBarIcon: "calendar" }}
       />
       <Tabs.Screen
         component={PeopleListScreen}
-        name={t("screens.people.title")}
+        name={t("screens:people.title")}
         options={{ tabBarIcon: "account-multiple" }}
       />
       {/* <Tabs.Screen

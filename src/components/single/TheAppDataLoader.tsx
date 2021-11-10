@@ -61,9 +61,7 @@ const AppDataLoader = (
   }, []);
 
   /**
-   * Hide the splash screen once all data has loaded
-   *
-   * NOTE: This is currently just Redux Persist!
+   * Redux Persistor callback
    *
    * @param {function} unsubscribe - Persistor watch unsubscribe function
    */
@@ -71,7 +69,11 @@ const AppDataLoader = (
     const { bootstrapped } = persistor.getState();
     if (!bootstrapped) return;
 
-    setIsReduxReady(true);
+    // NOTE: Brief delay is necessary to fully update app state immediately after
+    //         rehydration (language, etc), BEFORE letting app render!
+    setTimeout(() => {
+      setIsReduxReady(true);
+    }, 10);
 
     unsubscribe && unsubscribe();
   };

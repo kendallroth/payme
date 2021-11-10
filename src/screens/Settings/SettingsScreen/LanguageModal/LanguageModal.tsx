@@ -24,7 +24,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
   (props: LanguageModalProps, ref): ReactElement => {
     const { language: currentLanguage, onSelect } = props;
 
-    const { t } = useTranslation();
+    const { t } = useTranslation(["screens"]);
 
     const languages = Object.values(LANGUAGES);
 
@@ -32,7 +32,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
       <BottomSheet
         ref={ref}
         inset={false}
-        title={t("screens.settingsLanguage.title")}
+        title={t("screens:settingsLanguage.title")}
       >
         {languages.map(
           (language): ReactElement => (
@@ -54,7 +54,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
                 />
               )}
               // TODO: https://brainsandbeards.com/blog/i18n-in-react-native-apps#overrides
-              title={t(language.title)}
+              title={language.title}
               selected={currentLanguage === language.code}
               onPress={(): void => onSelect(language.code)}
             />

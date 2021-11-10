@@ -12,25 +12,32 @@ import { AppBar, Page } from "@components/layout";
 // Utilities
 import config from "@config";
 import { colors } from "@theme";
+import { MaterialCommunityIcons } from "@typings";
+
+interface IDeveloperActions {
+  icon: keyof MaterialCommunityIcons;
+  name: string;
+  url: string;
+}
 
 const AboutScreen = (): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["screens"]);
 
   const { links } = config;
-  const developerActions = [
+  const developerActions: IDeveloperActions[] = [
     {
       icon: "account",
-      name: t("screens.settingsAbout.chipPortfolio"),
+      name: t("screens:settingsAbout.chipPortfolio"),
       url: links.developerUrl,
     },
     {
       icon: "gitlab",
-      name: t("screens.settingsAbout.chipRepository"),
+      name: t("screens:settingsAbout.chipRepository"),
       url: links.gitlabUrl,
     },
     {
       icon: "email",
-      name: t("screens.settingsAbout.chipContact"),
+      name: t("screens:settingsAbout.chipContact"),
       url: `mailto:${links.developerEmail}`,
     },
   ];
@@ -42,14 +49,14 @@ const AboutScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title={t("screens.settingsAbout.title")} />
+      <AppBar title={t("screens:settingsAbout.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
         <Text style={styles.aboutDescription}>
-          {t("screens.settingsAbout.appDescription")}
+          {t("screens:settingsAbout.appDescription")}
         </Text>
         <View style={styles.aboutDeveloper}>
           <Text style={styles.aboutDeveloperText}>
-            {t("screens.settingsAbout.appDeveloped", {
+            {t("screens:settingsAbout.appDeveloped", {
               date: dayjs().format("YYYY"),
             })}
           </Text>

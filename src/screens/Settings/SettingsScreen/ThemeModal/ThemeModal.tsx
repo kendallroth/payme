@@ -25,7 +25,7 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
   (props: ThemeModalProps, ref): ReactElement => {
     const { theme: currentTheme, onSelect } = props;
 
-    const { t } = useTranslation();
+    const { t } = useTranslation(["screens"]);
 
     const themes = Object.values(THEMES);
 
@@ -33,7 +33,7 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
       <BottomSheet
         ref={ref}
         inset={false}
-        title={t("screens.settingsTheme.title")}
+        title={t("screens:settingsTheme.title")}
       >
         {themes.map(
           (theme): ReactElement => (
@@ -44,7 +44,7 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
                 <List.Icon {...leftProps} icon={theme.icon} />
               )}
               selected={currentTheme === theme.code}
-              title={t(theme.title)}
+              title={t(theme.title as any)}
               onPress={(): void => onSelect(theme.code)}
             />
           ),

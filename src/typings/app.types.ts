@@ -37,3 +37,7 @@ export interface IAppThemeConfig {
   /** Theme name */
   title: string;
 }
+
+/** Material community icons */
+export type MaterialCommunityIcons =
+  typeof import("react-native-vector-icons/glyphmaps/MaterialCommunityIcons.json");

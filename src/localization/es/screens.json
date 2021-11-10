@@ -1,0 +1,38 @@
+{
+  "_comment": "src/localization/es/screens.json",
+  "events": {
+    "title": "Eventos"
+  },
+  "home": {
+    "title": "Hogar",
+    "welcomeText": "Bienvenidos!"
+  },
+  "people": {
+    "title": "Gente"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "listItemBug": "Reportar un error",
+    "listItemAppearance": "Apariencia",
+    "listItemLanguage": "Idioma",
+    "listSectionCustomize": "Personalizar",
+    "listSectionHelp": "Ayudar"
+  },
+  "settingsAbout": {
+    "title": "Sobre",
+    "appDescription": "“PayMe” es una aplicación móvil simple para rastrear quién pagó por un evento.",
+    "appDeveloped": "Desarrollado por Kendall Roth © {{date}}",
+    "chipContact": "Contacto",
+    "chipPortfolio": "Portafolio",
+    "chipRepository": "Repositorio"
+  },
+  "settingsLanguage": {
+    "title": "Seleccione el idioma"
+  },
+  "settingsTheme": {
+    "title": "Seleccione el tema",
+    "itemAuto": "Automático",
+    "itemDark": "Oscuro",
+    "itemLight": "Claro"
+  }
+}
