@@ -1,3 +1,5 @@
+import { releaseChannel } from "expo-updates";
+
 // Utilities
 import { version } from "../../package.json";
 
@@ -13,6 +15,8 @@ interface IAppConfigLinks {
 
 /** App configuration */
 interface IAppConfig {
+  /** Deployment environment (release channel) */
+  environment: string;
   /** App links */
   links: IAppConfigLinks;
   /** App version */
@@ -20,6 +24,7 @@ interface IAppConfig {
 }
 
 const config: IAppConfig = {
+  environment: releaseChannel ?? "default",
   links: {
     developerEmail: "kendall@kendallroth.ca",
     developerUrl: "https://www.kendallroth.ca",

@@ -21,6 +21,26 @@ npm run start
 npm run start -- --clear
 ```
 
+## Releases
+
+Releases can be deployed through Expo Go (for testing) or the Expo managed build system (for release). The app version is taken from the `package.json`, which should be updated before every major deployment. App environment configuration is possible with the `expo-updates` package, which exposes the value of the `releaseChannel` used when building the app.
+
+> **NOTE:** Remember to update the `version` in `package.json` before each deployment!
+
+> **NOTE:** Remember to properly set the **release channel** for each deployment!
+
+### Testing Releases
+
+Testing releases are released through Expo Go, which allows
+
+```sh
+expo publish --release-channel <ENVIRONMENT>
+```
+
+### Production Releases
+
+_Coming Soon_
+
 ## UI
 
 ### Components
@@ -39,6 +59,7 @@ Icons were generated with the [Build Icon](https://buildicon.netlify.app/?color=
 
 ### Resources
 
+- [Environment Configuration](https://docs.expo.dev/distribution/release-channels/#using-release-channels-for-environment-variable-configuration)
 - [i18n Localization](https://brainsandbeards.com/blog/i18n-in-react-native-apps)
 - [React Navigation TypeScript](https://reactnavigation.org/docs/typescript)
 
@@ -57,4 +78,3 @@ The `country-flag-icons` package currently does not include TypeScript definitio
 ## TODOs
 
 - Explore localized date formatting with ([`i18n Formatting`](https://www.i18next.com/translation-function/formatting)) (alternative at [Brains and Beards](https://brainsandbeards.com/blog/i18n-in-react-native-apps#formatting))
-- Change Redux Persist key depending on app environment (to use different store with published Expo/Google apps, etc)

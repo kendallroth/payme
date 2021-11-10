@@ -21,6 +21,7 @@ import {
   setAppLanguage,
   setAppTheme,
 } from "@store/slices/settings";
+import { colors } from "@theme";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
@@ -36,6 +37,8 @@ const SettingsScreen = (): ReactElement => {
 
   const languageConfig = useAppSelector(selectLanguageConfig);
   const themeConfig = useAppSelector(selectThemeConfig);
+
+  const releaseString = config.environment && ` @ ${config.environment}`;
 
   /**
    * Open the language selector
@@ -121,6 +124,9 @@ const SettingsScreen = (): ReactElement => {
       />
       <View style={styles.settingsFooter}>
         <Text style={styles.settingsFooterVersion}>v{config.version}</Text>
+        {Boolean(releaseString) && (
+          <Text style={styles.settingsFooterEnvironment}>{releaseString}</Text>
+        )}
       </View>
       <LanguageModal
         ref={languageRef}
@@ -138,11 +144,16 @@ const SettingsScreen = (): ReactElement => {
 
 const styles = StyleSheet.create({
   settingsFooter: {
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: "auto",
     paddingVertical: 16,
   },
+  settingsFooterEnvironment: {
+    fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
+    color: colors.grey.base,
+  },
   settingsFooterVersion: {
-    textAlign: "center",
     fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
   },
   settingsLanguageIcon: {

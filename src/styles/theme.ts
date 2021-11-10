@@ -9,6 +9,7 @@ const colors = {
   // Color literals
   transparent: "transparent",
   grey: {
+    base: "#999999",
     light: "#cdcdcd",
     lightest: "#dedede",
   },
