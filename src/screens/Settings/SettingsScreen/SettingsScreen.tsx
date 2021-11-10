@@ -117,7 +117,6 @@ const SettingsScreen = (): ReactElement => {
       <SettingsListItem
         implemented={false}
         icon="bug"
-        route="SettingsBug"
         title={t("screens:settings.listItemBug")}
       />
       <View style={styles.settingsFooter}>

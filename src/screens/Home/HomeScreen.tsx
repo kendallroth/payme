@@ -7,11 +7,11 @@ import { Text } from "react-native-paper";
 // Components
 import { AppBar, Page } from "@components/layout";
 
-// Utilities
-// import { colors } from "@theme";
+// Types
+import { RootRouterNavigation } from "src/AppRouter";
 
 const HomeScreen = (): ReactElement | null => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootRouterNavigation>();
 
   const { t } = useTranslation(["screens"]);
 

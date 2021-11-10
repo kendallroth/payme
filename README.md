@@ -40,6 +40,7 @@ Icons were generated with the [Build Icon](https://buildicon.netlify.app/?color=
 ### Resources
 
 - [i18n Localization](https://brainsandbeards.com/blog/i18n-in-react-native-apps)
+- [React Navigation TypeScript](https://reactnavigation.org/docs/typescript)
 
 #### Linting
 

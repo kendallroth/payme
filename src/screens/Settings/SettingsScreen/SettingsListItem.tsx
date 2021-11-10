@@ -6,6 +6,12 @@ import { List } from "react-native-paper";
 // Utilities
 import { useSnackbar } from "@hooks";
 
+// Types
+import {
+  SettingsRouterNavigation,
+  SettingsRouterParams,
+} from "@screens/Settings/SettingsRouter";
+
 export type Props = {
   /** Whether list item is disabled */
   disabled?: boolean;
@@ -16,7 +22,7 @@ export type Props = {
   /** List item right slot (defaults to arrow icon) */
   right?: (props: any) => ReactElement;
   /** List item navigation route */
-  route?: string;
+  route?: keyof SettingsRouterParams;
   /** List item title */
   title: string;
   /** Press handler (if not route) */
@@ -34,10 +40,13 @@ const SettingsListItem = (props: Props): ReactElement => {
     onPress,
   } = props;
 
-  const navigator = useNavigation();
+  const navigator = useNavigation<SettingsRouterNavigation>();
   const { notifyError } = useSnackbar();
   const { t } = useTranslation(["common"]);
 
+  /**
+   * List item press handler
+   */
   const onItemPress = useCallback(() => {
     if (!implemented) {
       notifyError(t("common:errors.notImplemented"));

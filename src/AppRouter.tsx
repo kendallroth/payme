@@ -1,6 +1,9 @@
 import React, { ReactElement } from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack";
 
 // Components
 import MainTabRouter from "./TabRouter";
@@ -9,8 +12,14 @@ import { SettingsRouter } from "@screens/Settings";
 // Utilities
 import { colors } from "@styles/theme";
 
-// const Stack = createStackNavigator();
-const Stack = createNativeStackNavigator();
+export type RootRouterParams = {
+  MainRouter: undefined;
+  SettingsRouter: undefined;
+};
+
+export type RootRouterNavigation = NativeStackNavigationProp<RootRouterParams>;
+
+const Stack = createNativeStackNavigator<RootRouterParams>();
 
 const navigationTheme = {
   ...DefaultTheme,
@@ -24,7 +33,10 @@ const navigationTheme = {
 const AppRouter = (): ReactElement => {
   return (
     <NavigationContainer theme={navigationTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName="MainRouter"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen component={MainTabRouter} name="MainRouter" />
         <Stack.Screen component={SettingsRouter} name="SettingsRouter" />
       </Stack.Navigator>

@@ -1,11 +1,22 @@
 import React, { ReactElement } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack";
 
 // Components
 import { AboutScreen } from "./AboutScreen";
 import { SettingsScreen } from "./SettingsScreen";
 
-const Stack = createNativeStackNavigator();
+export type SettingsRouterParams = {
+  About: undefined;
+  Settings: undefined;
+};
+
+export type SettingsRouterNavigation =
+  NativeStackNavigationProp<SettingsRouterParams>;
+
+const Stack = createNativeStackNavigator<SettingsRouterParams>();
 
 const SettingsStack = (): ReactElement => {
   return (

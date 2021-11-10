@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Components
 import { HomeScreen } from "@screens/Home";
@@ -10,7 +11,16 @@ import { PeopleListScreen } from "@screens/People";
 // Utilities
 import { colors } from "@styles/theme";
 
-const Tabs = createMaterialBottomTabNavigator();
+export type BottomRouterParams = {
+  Home: undefined;
+  Events: undefined;
+  People: undefined;
+};
+
+export type BottomRouterNavigation =
+  NativeStackNavigationProp<BottomRouterParams>;
+
+const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
 
 // TODO: Figure out why event/people tabs only render once!
 // Maybe because I navigate to the router instead of the route (but it is handled by tabs...)???
@@ -26,18 +36,27 @@ const TabRouter = (): ReactElement => {
     >
       <Tabs.Screen
         component={HomeScreen}
-        name={t("screens:home.title")}
-        options={{ tabBarIcon: "home" }}
+        name="Home"
+        options={{
+          tabBarIcon: "home",
+          tabBarLabel: t("screens:home.title"),
+        }}
       />
       <Tabs.Screen
         component={EventsListScreen}
-        name={t("screens:events.title")}
-        options={{ tabBarIcon: "calendar" }}
+        name="Events"
+        options={{
+          tabBarIcon: "calendar",
+          tabBarLabel: t("screens:events.title"),
+        }}
       />
       <Tabs.Screen
         component={PeopleListScreen}
-        name={t("screens:people.title")}
-        options={{ tabBarIcon: "account-multiple" }}
+        name="People"
+        options={{
+          tabBarIcon: "account-multiple",
+          tabBarLabel: t("screens:people.title"),
+        }}
       />
       {/* <Tabs.Screen
         component={EventsRouter}
