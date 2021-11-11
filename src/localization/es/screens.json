@@ -5,7 +5,7 @@
   },
   "home": {
     "title": "Hogar",
-    "welcomeText": "Bienvenidos!"
+    "welcomeText": "¡Bienvenido!"
   },
   "people": {
     "title": "Gente"
@@ -28,15 +28,25 @@
   },
   "settingsDeveloper": {
     "title": "Depurar",
-    "listItemDeviceType": "Tipo",
+    "buttonExitDeveloper": "Salir del Modo de Desarrollador",
     "listItemDeviceModel": "Modelo",
     "listItemDeviceOS": "OS",
+    "listItemDeviceType": "Typo",
+    "listItemDeviceTypeEmulator": "Emulador",
+    "listItemDeviceTypePhone": "Celular",
     "listItemExpo": "Expo",
     "listItemEnvironment": "Entorno",
     "listItemPlatform": "Plataforma",
+    "listItemResetTitle": "Restablecer Aplicación",
+    "listItemResetDescription": "Mantenga presionado para restablecer los datos de la aplicación",
     "listItemVersion": "Versión",
+    "listSectionActions": "Acciones del Desarrollador",
     "listSectionApp": "Aplicación",
-    "listSectionDevice": "Dispositivo"
+    "listSectionDevice": "Dispositivo",
+    "resetDataDescription": "¡Esto restablecerá el estado de la aplicación y es irreversible!",
+    "resetDataLoading": "Restableciendo la aplicación ...",
+    "resetDataSuccess": "Se restablecieron los datos de la aplicación",
+    "resetDataTitle": "Restablecer Datos de la Aplicación"
   },
   "settingsLanguage": {
     "title": "Seleccione el idioma"

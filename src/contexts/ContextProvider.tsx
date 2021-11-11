@@ -7,6 +7,7 @@
 import React, { ReactElement } from "react";
 
 // Utilities
+import { AppLoaderProvider } from "./AppLoaderContext";
 import { SnackbarProvider } from "./SnackbarContext";
 
 type ProviderComposerProps = {
@@ -49,7 +50,12 @@ const ContextProvider = (props: ContextProviderProps): ReactElement => {
   const { children } = props;
 
   return (
-    <ProviderComposer providers={[<SnackbarProvider key="snackbar" />]}>
+    <ProviderComposer
+      providers={[
+        <AppLoaderProvider key="loader" />,
+        <SnackbarProvider key="snackbar" />,
+      ]}
+    >
       {children}
     </ProviderComposer>
   );

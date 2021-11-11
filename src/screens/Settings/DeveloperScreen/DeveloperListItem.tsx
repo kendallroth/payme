@@ -14,14 +14,19 @@ const DeveloperListItem = (props: DeveloperListItemProps): ReactElement => {
 
   return (
     <List.Item
-      title={title}
       right={(rightProps: any): ReactElement => (
         <Text {...rightProps}>{value}</Text>
       )}
+      style={styles.listItem}
+      title={title}
     />
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  listItem: {
+    paddingVertical: 4,
+  },
+});
 
 export default DeveloperListItem;

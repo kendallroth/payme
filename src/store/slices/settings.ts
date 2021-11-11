@@ -1,6 +1,8 @@
+import i18n from "i18next";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Utilities
+import { SettingsService } from "@services";
 import { LANGUAGES, THEMES } from "@utilities/constants";
 import { addDebugDataAction, resetStoreAction } from "../actions";
 
@@ -25,8 +27,8 @@ interface SettingsState {
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
   developer: false,
-  language: AppLanguage.ENGLISH,
-  theme: AppTheme.LIGHT,
+  language: SettingsService.getDeviceLanguage(),
+  theme: SettingsService.getDeviceTheme(),
 };
 
 const settingsSlice = createSlice({
@@ -47,7 +49,12 @@ const settingsSlice = createSlice({
       state.theme = action.payload;
     },
   },
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(resetStoreAction, (state) => {
+      state.language = initialState.language;
+      state.theme = initialState.theme;
+    });
+  },
 });
 
 // Add debug data to the store
@@ -58,8 +65,6 @@ const addDebugData = createAsyncThunk(
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     await dispatch(addDebugDataAction());
-
-    return true;
   },
 );
 
@@ -70,11 +75,10 @@ const resetApp = createAsyncThunk(
     // NOTE: Delay the action to make it feel that something is happening
     await new Promise((resolve) => setTimeout(resolve, 500));
 
+    // Change language in localization context
+    i18n.changeLanguage(initialState.language);
+
     await dispatch(resetStoreAction());
-
-    // TODO: Reset language to device default/locale
-
-    return true;
   },
 );
 

@@ -28,15 +28,25 @@
   },
   "settingsDeveloper": {
     "title": "Debug",
-    "listItemDeviceType": "Type",
+    "buttonExitDeveloper": "Exit Developer Mode",
     "listItemDeviceModel": "Model",
     "listItemDeviceOS": "OS",
+    "listItemDeviceType": "Type",
+    "listItemDeviceTypeEmulator": "Emulator",
+    "listItemDeviceTypePhone": "Phone",
     "listItemExpo": "Expo",
     "listItemEnvironment": "Release",
     "listItemPlatform": "Platform",
+    "listItemResetTitle": "Reset App",
+    "listItemResetDescription": "Press and hold to reset app data",
     "listItemVersion": "Version",
+    "listSectionActions": "Developer Actions",
     "listSectionApp": "App",
-    "listSectionDevice": "Device"
+    "listSectionDevice": "Device",
+    "resetDataDescription": "This will reset the app state and is irreversible!",
+    "resetDataLoading": "Resetting app...",
+    "resetDataSuccess": "App data has been reset",
+    "resetDataTitle": "Reset App Data"
   },
   "settingsLanguage": {
     "title": "Select Language"

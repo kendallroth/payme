@@ -1,8 +1,7 @@
-import { locale } from "expo-localization";
 import { LanguageDetectorModule } from "i18next";
 
-// Types
-import { AppLanguage } from "@typings";
+// Utilities
+import { SettingsService } from "@services";
 
 const languageDetector: LanguageDetectorModule = {
   type: "languageDetector",
@@ -20,7 +19,7 @@ const languageDetector: LanguageDetectorModule = {
    */
   detect: (): string => {
     // Device locale is used UNTIL stored language is loaded (currently from Redux)
-    return locale?.split("-")[0] ?? AppLanguage.ENGLISH;
+    return SettingsService.getDeviceLanguage();
   },
   /**
    * Cache the user language
