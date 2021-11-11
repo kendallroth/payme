@@ -36,4 +36,4 @@ const useSnackbar = (options?: ISnackbarHookOptions): ISnackbarContext => {
   return snackbar;
 };
 
-export default useSnackbar;
+export { useSnackbar };

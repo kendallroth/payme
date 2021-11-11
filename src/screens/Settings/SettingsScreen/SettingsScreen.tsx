@@ -14,7 +14,7 @@ import { LanguageIcon } from "@components/icons";
 
 // Utilities
 import config from "@config";
-import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import { useAppDispatch, useAppSelector } from "@hooks";
 import {
   selectDeveloperMode,
   selectLanguageConfig,
@@ -23,7 +23,7 @@ import {
   setAppLanguage,
   setAppTheme,
 } from "@store/slices/settings";
-import { colors } from "@theme";
+import { sharedColors } from "@theme";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
@@ -37,7 +37,6 @@ const SettingsScreen = (): ReactElement => {
   const [debugCounter, setDebugCounter] = useState(0);
 
   const dispatch = useAppDispatch();
-  const { notifyError } = useSnackbar();
   const { i18n, t } = useTranslation(["common", "screens"]);
 
   const languageConfig = useAppSelector(selectLanguageConfig);
@@ -81,12 +80,7 @@ const SettingsScreen = (): ReactElement => {
    * @param value - App theme
    */
   const onSelectTheme = (value: AppTheme): void => {
-    // TODO: Support dark theme
-    if (value !== AppTheme.LIGHT) {
-      notifyError(t("common:errors.notImplemented"));
-    } else {
-      dispatch(setAppTheme(value));
-    }
+    dispatch(setAppTheme(value));
 
     themeRef.current?.close();
   };
@@ -192,7 +186,7 @@ const styles = StyleSheet.create({
   },
   settingsFooterEnvironment: {
     fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
-    color: colors.grey.base,
+    color: sharedColors.grey.base,
   },
   settingsFooterVersion: {
     fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",

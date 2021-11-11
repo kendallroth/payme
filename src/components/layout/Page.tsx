@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 export type Props = {
   /** Page content */
@@ -10,7 +11,13 @@ export type Props = {
 const Page = (props: Props): ReactElement => {
   const { children } = props;
 
-  return <View style={styles.page}>{children}</View>;
+  const { colors } = useTheme();
+
+  const pageStyles = {
+    backgroundColor: colors.background,
+  };
+
+  return <View style={[styles.page, pageStyles]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

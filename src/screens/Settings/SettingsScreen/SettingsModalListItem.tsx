@@ -1,9 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyleSheet } from "react-native";
-import { List } from "react-native-paper";
-
-// Utilities
-import { colors } from "@styles/theme";
+import { List, useTheme } from "react-native-paper";
 
 type SettingsModalListItemProps = {
   /** Whether item is disabled */
@@ -22,6 +19,8 @@ const SettingsModalListItem = (
   props: SettingsModalListItemProps,
 ): ReactElement => {
   const { disabled = false, selected = false, title, onPress, ...rest } = props;
+
+  const { colors } = useTheme();
 
   return (
     <List.Item

@@ -2,14 +2,12 @@ import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useTheme } from "react-native-paper";
 
 // Components
 import { HomeScreen } from "@screens/Home";
 import { EventsListScreen } from "@screens/Events";
 import { PeopleListScreen } from "@screens/People";
-
-// Utilities
-import { colors } from "@styles/theme";
 
 export type BottomRouterParams = {
   Home: undefined;
@@ -28,10 +26,12 @@ const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
 const TabRouter = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
 
+  const { colors, dark } = useTheme();
+
   return (
     <Tabs.Navigator
       backBehavior="firstRoute"
-      barStyle={{ backgroundColor: colors.primary }}
+      barStyle={{ backgroundColor: dark ? colors.background : colors.primary }}
       shifting={true}
     >
       <Tabs.Screen

@@ -1,9 +1,7 @@
 import React, { ReactElement } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { SvgXml } from "react-native-svg";
-
-// Utilities
-import { colors } from "@styles/theme";
+import { useTheme } from "react-native-paper";
 
 type LanguageIconProps = {
   /** Flag XML string */
@@ -19,15 +17,27 @@ type LanguageIconProps = {
 const LanguageIcon = (props: LanguageIconProps): ReactElement => {
   const { flag, selected = false, size, style } = props;
 
+  const { colors } = useTheme();
+
   // Flags are a constant 3x2 ratio
   const heightRatio = 2 / 3;
   const height = size * heightRatio;
+
+  const themeStyles = {
+    languageIcon: {
+      borderColor: colors.grey.light,
+    },
+    languageIconSelected: {
+      borderColor: colors.primary,
+    },
+  };
 
   return (
     <View
       style={[
         styles.languageIcon,
-        selected ? styles.languageIconSelected : undefined,
+        themeStyles.languageIcon,
+        selected ? themeStyles.languageIconSelected : undefined,
         style,
       ]}
     >
@@ -46,10 +56,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     overflow: "hidden",
     borderWidth: 2,
-    borderColor: colors.grey.light,
-  },
-  languageIconSelected: {
-    borderColor: colors.primary,
   },
   // SVG has slight borders around to be hidden
   languageIconSvg: {

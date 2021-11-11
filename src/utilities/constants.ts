@@ -35,7 +35,6 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
 export const THEMES: Record<AppTheme, IAppThemeConfig> = {
   [AppTheme.AUTO]: {
     code: AppTheme.AUTO,
-    disabled: true,
     icon: "brightness-auto",
     title: "screens:settingsTheme.itemAuto",
   },

@@ -78,3 +78,4 @@ The `country-flag-icons` package currently does not include TypeScript definitio
 ## TODOs
 
 - Explore localized date formatting with ([`i18n Formatting`](https://www.i18next.com/translation-function/formatting)) (alternative at [Brains and Beards](https://brainsandbeards.com/blog/i18n-in-react-native-apps#formatting))
+- Improve theme colors (especially dark theme)

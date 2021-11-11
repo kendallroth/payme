@@ -40,9 +40,8 @@ class SettingsService {
     // NOTE: Apparently colour scheme can be 'null' (indicating no selection)
     const colorScheme = Appearance.getColorScheme();
 
-    if (colorScheme === "dark") return AppTheme.DARK;
-    else if (colorScheme === "light") return AppTheme.LIGHT;
-    else return AppTheme.AUTO;
+    // No device theme will default to using light theme
+    return colorScheme === "dark" ? AppTheme.DARK : AppTheme.LIGHT;
   }
 }
 

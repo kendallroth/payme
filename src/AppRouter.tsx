@@ -4,13 +4,11 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
+import { useTheme } from "react-native-paper";
 
 // Components
 import MainTabRouter from "./TabRouter";
 import { SettingsRouter } from "@screens/Settings";
-
-// Utilities
-import { colors } from "@styles/theme";
 
 export type RootRouterParams = {
   MainRouter: undefined;
@@ -21,16 +19,18 @@ export type RootRouterNavigation = NativeStackNavigationProp<RootRouterParams>;
 
 const Stack = createNativeStackNavigator<RootRouterParams>();
 
-const navigationTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: colors.background,
-    text: colors.primary,
-  },
-};
-
 const AppRouter = (): ReactElement => {
+  const { colors } = useTheme();
+
+  const navigationTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colors.background,
+      text: colors.primary,
+    },
+  };
+
   return (
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator

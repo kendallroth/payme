@@ -13,4 +13,4 @@ import {
  */
 const useAppLoader = (): IAppLoaderContext => useContext(AppLoaderContext);
 
-export default useAppLoader;
+export { useAppLoader };

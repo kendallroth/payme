@@ -4,7 +4,7 @@ import * as Device from "expo-device";
 import { useTranslation } from "react-i18next";
 import { Alert, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Button, List } from "react-native-paper";
+import { Button, List, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
@@ -14,7 +14,6 @@ import DeveloperListItem from "./DeveloperListItem";
 import config from "@config";
 import { useAppDispatch, useAppLoader, useSnackbar } from "@hooks";
 import { resetApp, setAppDeveloper } from "@store/slices/settings";
-import { colors } from "@theme";
 
 // Types
 import { SettingsRouterNavigation } from "@screens/Settings/SettingsRouter";
@@ -25,6 +24,7 @@ const DeveloperScreen = (): ReactElement => {
   const loader = useAppLoader();
   const navigator = useNavigation<SettingsRouterNavigation>();
   const { notify } = useSnackbar();
+  const { colors } = useTheme();
 
   /**
    * Reset the app state

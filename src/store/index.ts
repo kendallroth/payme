@@ -16,6 +16,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import config from "@config";
 import reducers from "./reducers";
 
+// Types
+import { Persistor } from "redux-persist/es/types";
+
+interface IStoreExport {
+  persistor: Persistor;
+  store: typeof store;
+}
+
 const persistConfig = {
   // Enable separately persisted Redux stores per release channel
   key: `store_${config.environment}`,
@@ -40,7 +48,7 @@ const store = configureStore({
  *
  * @returns Redux store and persistance
  */
-const setupStore = (): any => {
+const setupStore = (): IStoreExport => {
   const persistor = persistStore(store, null, () => {
     // NOTE: Language is loaded when store is rehydrated from async storage
     const language = store.getState().settings.language;

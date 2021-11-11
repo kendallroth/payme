@@ -4,7 +4,7 @@ import { ActivityIndicator, Portal } from "react-native-paper";
 import Spinner from "react-native-loading-spinner-overlay";
 
 // Utilities
-import { colors } from "@theme";
+import { sharedColors } from "@theme";
 
 interface IAppLoaderState {
   text: string | null;
@@ -88,7 +88,7 @@ const AppLoaderProvider = (props: AppLoaderProviderProps): ReactElement => {
         <Spinner
           animation="fade"
           customIndicator={
-            <ActivityIndicator color={colors.white} size="large" />
+            <ActivityIndicator color={sharedColors.white} size="large" />
           }
           overlayColor="rgba(0, 0, 0, 0.5)"
           textContent={loading.text ?? ""}
@@ -103,7 +103,7 @@ const AppLoaderProvider = (props: AppLoaderProviderProps): ReactElement => {
 const styles = StyleSheet.create({
   text: {
     width: "100%",
-    color: colors.white,
+    color: sharedColors.white,
     textAlign: "center",
   },
 });

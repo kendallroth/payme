@@ -2,10 +2,7 @@ import React, { ReactElement } from "react";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
-
-// Utilities
-import { colors } from "@theme";
+import { Text, useTheme } from "react-native-paper";
 
 export type ComingSoonProps = {
   /** Explanation of timing, etc */
@@ -15,6 +12,7 @@ export type ComingSoonProps = {
 const ComingSoon = (props: ComingSoonProps): ReactElement => {
   const { description } = props;
 
+  const { colors } = useTheme();
   const { t } = useTranslation(["common"]);
 
   return (

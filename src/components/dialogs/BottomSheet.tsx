@@ -12,10 +12,7 @@ import {
   ViewStyle,
 } from "react-native";
 import Modal from "react-native-modal";
-import { Text } from "react-native-paper";
-
-// Utilities
-import { colors } from "@theme";
+import { Text, useTheme } from "react-native-paper";
 
 export type BottomSheetProps = {
   /** Modal contents */
@@ -48,6 +45,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
     const { children, inset = true, style = {}, title, onClose = null } = props;
 
     const [isOpen, setIsOpen] = useState(false);
+    const { colors, dark } = useTheme();
 
     useImperativeHandle(ref, (): BottomSheetRef => {
       return {
@@ -55,6 +53,10 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         open,
       };
     });
+
+    const contentStyles = {
+      backgroundColor: colors.background,
+    };
 
     /**
      * Close the modal (from external source)
@@ -77,7 +79,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
 
     return (
       <Modal
-        backdropColor={colors.background}
+        backdropColor={dark ? colors.backdrop : colors.background}
         backdropOpacity={0.8}
         // NOTE: Necessary to fix backdrop flicker bug when closing. If flickering
         //         persists try 'hideModalContentWhileAnimating' as well.
@@ -90,6 +92,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         <View
           style={[
             styles.sheetContent,
+            contentStyles,
             inset ? styles.sheetInset : undefined,
             style,
           ]}
@@ -114,7 +117,6 @@ const styles = StyleSheet.create({
     paddingVertical: sheetPadding,
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
-    backgroundColor: colors.white,
     width: "100%",
   },
   // Optional inset applied to content/title

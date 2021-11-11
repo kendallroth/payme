@@ -4,14 +4,14 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Chip, Text } from "react-native-paper";
+import { Chip, Text, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
 
 // Utilities
 import config from "@config";
-import { colors } from "@theme";
+import { sharedColors } from "@theme";
 import { MaterialCommunityIcons } from "@typings";
 
 interface IDeveloperActions {
@@ -22,6 +22,8 @@ interface IDeveloperActions {
 
 const AboutScreen = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
+
+  const { colors } = useTheme();
 
   const { links } = config;
   const developerActions: IDeveloperActions[] = [
@@ -42,6 +44,15 @@ const AboutScreen = (): ReactElement => {
     },
   ];
 
+  const themeStyles = {
+    aboutDescription: {
+      borderLeftColor: colors.primary,
+    },
+    developerChips: {
+      backgroundColor: `${colors.primary}aa`,
+    },
+  };
+
   /** Open an external link */
   const onLink = (link: string): void => {
     Linking.openURL(link);
@@ -51,7 +62,7 @@ const AboutScreen = (): ReactElement => {
     <Page>
       <AppBar title={t("screens:settingsAbout.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
-        <Text style={styles.aboutDescription}>
+        <Text style={[styles.aboutDescription, themeStyles.aboutDescription]}>
           {t("screens:settingsAbout.appDescription")}
         </Text>
         <View style={styles.aboutDeveloper}>
@@ -67,12 +78,15 @@ const AboutScreen = (): ReactElement => {
                 icon={(iconProps): ReactElement => (
                   <Icon
                     {...iconProps}
-                    color={`${colors.white}aa`}
+                    color={`${sharedColors.white}aa`}
                     name={action.icon}
                     size={20}
                   />
                 )}
-                style={styles.aboutDeveloperActionsChip}
+                style={[
+                  styles.aboutDeveloperActionsChip,
+                  themeStyles.developerChips,
+                ]}
                 textStyle={styles.aboutDeveloperActionsText}
                 onPress={(): void => onLink(action.url)}
               >
@@ -95,7 +109,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 24,
     borderLeftWidth: 4,
-    borderLeftColor: `${colors.primary}aa`,
     borderRadius: 4,
   },
   aboutDeveloper: {
@@ -109,14 +122,12 @@ const styles = StyleSheet.create({
   aboutDeveloperActionsChip: {
     marginBottom: 8,
     marginRight: 8,
-    backgroundColor: `${colors.primary}aa`,
   },
   aboutDeveloperActionsText: {
-    color: colors.white,
+    color: sharedColors.white,
     fontSize: 15,
   },
   aboutDeveloperText: {
-    color: colors.primary,
     textAlign: "center",
   },
   pageContent: {

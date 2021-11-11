@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react";
 import { StatusBar, StyleSheet } from "react-native";
-import { Appbar as BaseAppBar } from "react-native-paper";
+import { Appbar as BaseAppBar, useTheme } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 // Utilities
-import { colors } from "@styles/theme";
+import { sharedColors } from "@styles/theme";
 
 export type Props = {
   children?: any;
@@ -20,10 +20,11 @@ const AppBar = (props: Props): ReactElement => {
   const { back = true, children, subtitle, title } = props;
 
   const navigation = useNavigation();
+  const { dark } = useTheme();
 
   return (
     <BaseAppBar.Header
-      dark={false}
+      dark={dark}
       statusBarHeight={StatusBar.currentHeight}
       style={styles.header}
     >
@@ -36,7 +37,7 @@ const AppBar = (props: Props): ReactElement => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: colors.transparent,
+    backgroundColor: sharedColors.transparent,
     elevation: 0,
     shadowOpacity: 0,
   },

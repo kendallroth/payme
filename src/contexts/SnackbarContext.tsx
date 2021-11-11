@@ -1,8 +1,5 @@
 import React, { ReactElement, useReducer } from "react";
-import { Snackbar } from "react-native-paper";
-
-// Utilities
-import theme from "@theme";
+import { Snackbar, useTheme } from "react-native-paper";
 
 // Delay snackbar slightly to allow previous snackbars to close (animate) properly
 const SNACKBAR_DELAY = 200;
@@ -80,12 +77,13 @@ const SnackbarProvider = (props: SnackbarProviderProps): ReactElement => {
   const { children } = props;
   const [snackbar, snackbarDispatch] = useReducer(reducer, initialState);
 
+  const { colors } = useTheme();
+
   let snackbarStyle = {};
   switch (snackbar.type) {
     case "error":
       snackbarStyle = {
-        backgroundColor: theme.colors.error,
-        color: theme.colors.white,
+        backgroundColor: colors.error,
       };
       break;
     case "info":
