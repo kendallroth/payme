@@ -1,4 +1,4 @@
-import { releaseChannel } from "expo-updates";
+import Constants from "expo-constants";
 
 // Utilities
 import { version } from "../../package.json";
@@ -24,7 +24,8 @@ interface IAppConfig {
 }
 
 const config: IAppConfig = {
-  environment: releaseChannel ?? "default",
+  // NOTE: Release channel is not present in development builds!
+  environment: Constants.manifest?.releaseChannel ?? "default",
   links: {
     developerEmail: "kendall@kendallroth.ca",
     developerUrl: "https://www.kendallroth.ca",

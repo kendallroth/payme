@@ -26,6 +26,18 @@
     "chipPortfolio": "Portfolio",
     "chipRepository": "Repository"
   },
+  "settingsDeveloper": {
+    "title": "Debug",
+    "listItemDeviceType": "Type",
+    "listItemDeviceModel": "Model",
+    "listItemDeviceOS": "OS",
+    "listItemExpo": "Expo",
+    "listItemEnvironment": "Release",
+    "listItemPlatform": "Platform",
+    "listItemVersion": "Version",
+    "listSectionApp": "App",
+    "listSectionDevice": "Device"
+  },
   "settingsLanguage": {
     "title": "Select Language"
   },

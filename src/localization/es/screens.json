@@ -26,6 +26,18 @@
     "chipPortfolio": "Portafolio",
     "chipRepository": "Repositorio"
   },
+  "settingsDeveloper": {
+    "title": "Depurar",
+    "listItemDeviceType": "Tipo",
+    "listItemDeviceModel": "Modelo",
+    "listItemDeviceOS": "OS",
+    "listItemExpo": "Expo",
+    "listItemEnvironment": "Entorno",
+    "listItemPlatform": "Plataforma",
+    "listItemVersion": "Versión",
+    "listSectionApp": "Aplicación",
+    "listSectionDevice": "Dispositivo"
+  },
   "settingsLanguage": {
     "title": "Seleccione el idioma"
   },

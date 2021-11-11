@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 export type Props = {
   /** Page content */
-  children: ReactElement | ReactElement[];
+  children: ReactElement | (ReactElement | false | null)[];
 };
 
 /** Common page component (currently just page styles) */

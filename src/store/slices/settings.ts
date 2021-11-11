@@ -14,6 +14,8 @@ import {
 import { RootState } from "../index";
 
 interface SettingsState {
+  /** Whether app is in development mode */
+  developer: boolean;
   /** App language (for internationalization) */
   language: AppLanguage;
   /** App theme */
@@ -22,6 +24,7 @@ interface SettingsState {
 
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
+  developer: false,
   language: AppLanguage.ENGLISH,
   theme: AppTheme.LIGHT,
 };
@@ -30,6 +33,9 @@ const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
+    setAppDeveloper: (state, action: PayloadAction<boolean>) => {
+      state.developer = action.payload;
+    },
     setAppLanguage: (state, action: PayloadAction<AppLanguage>) => {
       if (!action.payload) return;
 
@@ -66,10 +72,14 @@ const resetApp = createAsyncThunk(
 
     await dispatch(resetStoreAction());
 
+    // TODO: Reset language to device default/locale
+
     return true;
   },
 );
 
+export const selectDeveloperMode = (state: RootState): boolean =>
+  state.settings.developer;
 export const selectLanguage = (state: RootState): AppLanguage =>
   state.settings.language;
 export const selectLanguageConfig = (state: RootState): IAppLanguageConfig =>
@@ -78,6 +88,7 @@ export const selectThemeConfig = (state: RootState): IAppThemeConfig =>
   THEMES[state.settings.theme];
 
 export { addDebugData, resetApp };
-export const { setAppLanguage, setAppTheme } = settingsSlice.actions;
+export const { setAppDeveloper, setAppLanguage, setAppTheme } =
+  settingsSlice.actions;
 
 export default settingsSlice.reducer;

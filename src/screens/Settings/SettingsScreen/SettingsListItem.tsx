@@ -11,6 +11,7 @@ import {
   SettingsRouterNavigation,
   SettingsRouterParams,
 } from "@screens/Settings/SettingsRouter";
+import { MaterialCommunityIcons } from "@typings";
 
 export type Props = {
   /** Whether list item is disabled */
@@ -18,7 +19,7 @@ export type Props = {
   /** Whether list item is implemented */
   implemented?: boolean;
   /** List item icon */
-  icon: string;
+  icon: keyof MaterialCommunityIcons;
   /** List item right slot (defaults to arrow icon) */
   right?: (props: any) => ReactElement;
   /** List item navigation route */

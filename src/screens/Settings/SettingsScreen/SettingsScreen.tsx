@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
@@ -16,8 +16,10 @@ import { LanguageIcon } from "@components/icons";
 import config from "@config";
 import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
 import {
+  selectDeveloperMode,
   selectLanguageConfig,
   selectThemeConfig,
+  setAppDeveloper,
   setAppLanguage,
   setAppTheme,
 } from "@store/slices/settings";
@@ -27,9 +29,12 @@ import { colors } from "@theme";
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 import { AppLanguage, AppTheme } from "@typings";
 
+const DEVELOPER_MODE_TAPS = 10;
+
 const SettingsScreen = (): ReactElement => {
   const languageRef = useRef<BottomSheetRef>(null);
   const themeRef = useRef<BottomSheetRef>(null);
+  const [debugCounter, setDebugCounter] = useState(0);
 
   const dispatch = useAppDispatch();
   const { notifyError } = useSnackbar();
@@ -37,8 +42,10 @@ const SettingsScreen = (): ReactElement => {
 
   const languageConfig = useAppSelector(selectLanguageConfig);
   const themeConfig = useAppSelector(selectThemeConfig);
+  const developerMode = useAppSelector(selectDeveloperMode);
 
   const releaseString = config.environment && ` @ ${config.environment}`;
+  const showEnvironment = developerMode && Boolean(releaseString);
 
   /**
    * Open the language selector
@@ -84,6 +91,23 @@ const SettingsScreen = (): ReactElement => {
     themeRef.current?.close();
   };
 
+  /**
+   * Increase developer tap counter
+   */
+  const onTapVersion = (): void => {
+    if (developerMode) return;
+
+    const newCount = debugCounter + 1;
+
+    // Enable developer mode once enough taps have accumulated
+    if (newCount >= DEVELOPER_MODE_TAPS) {
+      setDebugCounter(0);
+      dispatch(setAppDeveloper(true));
+    } else {
+      setDebugCounter(newCount);
+    }
+  };
+
   return (
     <Page>
       <AppBar title={t("screens:settings.title")} />
@@ -122,11 +146,24 @@ const SettingsScreen = (): ReactElement => {
         icon="bug"
         title={t("screens:settings.listItemBug")}
       />
+      {developerMode && (
+        <SettingsListItem
+          icon="cellphone-information"
+          route="Developer"
+          title={t("screens:settingsDeveloper.title")}
+        />
+      )}
       <View style={styles.settingsFooter}>
-        <Text style={styles.settingsFooterVersion}>v{config.version}</Text>
-        {Boolean(releaseString) && (
-          <Text style={styles.settingsFooterEnvironment}>{releaseString}</Text>
-        )}
+        <View style={styles.settingsFooterDebug}>
+          <Text style={styles.settingsFooterVersion} onPress={onTapVersion}>
+            v{config.version}
+          </Text>
+          {showEnvironment && (
+            <Text style={styles.settingsFooterEnvironment}>
+              {releaseString}
+            </Text>
+          )}
+        </View>
       </View>
       <LanguageModal
         ref={languageRef}
@@ -144,10 +181,14 @@ const SettingsScreen = (): ReactElement => {
 
 const styles = StyleSheet.create({
   settingsFooter: {
+    marginTop: "auto",
+    alignItems: "center",
+    paddingVertical: 16,
+  },
+  settingsFooterDebug: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: "auto",
-    paddingVertical: 16,
+    padding: 8,
   },
   settingsFooterEnvironment: {
     fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
