@@ -68,13 +68,14 @@ const DeveloperScreen = (): ReactElement => {
           title={t("screens:settingsDeveloper.listItemEnvironment")}
           value={config.environment}
         />
+        {/* NOTE: Apparently 'Constants.nativeAppVersion' shows Expo version??? */}
         <DeveloperListItem
           title={t("screens:settingsDeveloper.listItemVersion")}
-          value={Constants.nativeAppVersion ?? "N/A"}
+          value={Constants.manifest?.version ?? config.version ?? "N/A"}
         />
         <DeveloperListItem
           title={t("screens:settingsDeveloper.listItemExpo")}
-          value={Constants.expoRuntimeVersion ?? "N/A"}
+          value={Constants.expoVersion ?? "N/A"}
         />
         <List.Subheader style={styles.listSubheader}>
           {t("screens:settingsDeveloper.listSectionDevice")}

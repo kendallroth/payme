@@ -79,7 +79,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
 
     return (
       <Modal
-        backdropColor={dark ? colors.backdrop : colors.background}
+        backdropColor={dark ? "#444444aa" : colors.background}
         backdropOpacity={0.8}
         // NOTE: Necessary to fix backdrop flicker bug when closing. If flickering
         //         persists try 'hideModalContentWhileAnimating' as well.
