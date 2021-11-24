@@ -1,0 +1,16 @@
+{
+  "_comment": "src/localization/es/translation.json",
+  "app": {},
+  "confirmations": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "no": "No",
+    "yes": "Sí"
+  },
+  "errors": {
+    "notImplemented": "Aun no implementado"
+  },
+  "phrases": {
+    "comingSoon": "Próximamente!"
+  }
+}

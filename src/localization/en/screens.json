@@ -1,0 +1,60 @@
+{
+  "_comment": "src/localization/en/translation.json",
+  "events": {
+    "title": "Events"
+  },
+  "home": {
+    "title": "Home",
+    "welcomeText": "Welcome!"
+  },
+  "people": {
+    "title": "People"
+  },
+  "settings": {
+    "title": "Settings",
+    "listItemBug": "Report a bug",
+    "listItemAppearance": "Appearance",
+    "listItemLanguage": "Language",
+    "listSectionCustomize": "Customize",
+    "listSectionHelp": "Help"
+  },
+  "settingsAbout": {
+    "title": "About",
+    "appDescription": "“PayMe” is a simple mobile app to track who has paid for an event.",
+    "appDeveloped": "Developed by Kendall Roth © {{date}}",
+    "chipContact": "Contact",
+    "chipPortfolio": "Portfolio",
+    "chipRepository": "Repository"
+  },
+  "settingsDeveloper": {
+    "title": "Debug",
+    "buttonExitDeveloper": "Exit Developer Mode",
+    "listItemDeviceModel": "Model",
+    "listItemDeviceOS": "OS",
+    "listItemDeviceType": "Type",
+    "listItemDeviceTypeEmulator": "Emulator",
+    "listItemDeviceTypePhone": "Phone",
+    "listItemExpo": "Expo",
+    "listItemEnvironment": "Release",
+    "listItemPlatform": "Platform",
+    "listItemResetTitle": "Reset App",
+    "listItemResetDescription": "Press and hold to reset app data",
+    "listItemVersion": "Version",
+    "listSectionActions": "Developer Actions",
+    "listSectionApp": "App",
+    "listSectionDevice": "Device",
+    "resetDataDescription": "This will reset the app state and is irreversible!",
+    "resetDataLoading": "Resetting app...",
+    "resetDataSuccess": "App data has been reset",
+    "resetDataTitle": "Reset App Data"
+  },
+  "settingsLanguage": {
+    "title": "Select Language"
+  },
+  "settingsTheme": {
+    "title": "Select Theme",
+    "itemAuto": "Auto",
+    "itemDark": "Dark",
+    "itemLight": "Light"
+  }
+}

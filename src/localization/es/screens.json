@@ -1,0 +1,60 @@
+{
+  "_comment": "src/localization/es/screens.json",
+  "events": {
+    "title": "Eventos"
+  },
+  "home": {
+    "title": "Hogar",
+    "welcomeText": "¡Bienvenido!"
+  },
+  "people": {
+    "title": "Gente"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "listItemBug": "Reportar un error",
+    "listItemAppearance": "Apariencia",
+    "listItemLanguage": "Idioma",
+    "listSectionCustomize": "Personalizar",
+    "listSectionHelp": "Ayudar"
+  },
+  "settingsAbout": {
+    "title": "Sobre",
+    "appDescription": "“PayMe” es una aplicación móvil simple para rastrear quién pagó por un evento.",
+    "appDeveloped": "Desarrollado por Kendall Roth © {{date}}",
+    "chipContact": "Contacto",
+    "chipPortfolio": "Portafolio",
+    "chipRepository": "Repositorio"
+  },
+  "settingsDeveloper": {
+    "title": "Depurar",
+    "buttonExitDeveloper": "Salir del Modo de Desarrollador",
+    "listItemDeviceModel": "Modelo",
+    "listItemDeviceOS": "OS",
+    "listItemDeviceType": "Typo",
+    "listItemDeviceTypeEmulator": "Emulador",
+    "listItemDeviceTypePhone": "Celular",
+    "listItemExpo": "Expo",
+    "listItemEnvironment": "Entorno",
+    "listItemPlatform": "Plataforma",
+    "listItemResetTitle": "Restablecer Aplicación",
+    "listItemResetDescription": "Mantenga presionado para restablecer los datos de la aplicación",
+    "listItemVersion": "Versión",
+    "listSectionActions": "Acciones del Desarrollador",
+    "listSectionApp": "Aplicación",
+    "listSectionDevice": "Dispositivo",
+    "resetDataDescription": "¡Esto restablecerá el estado de la aplicación y es irreversible!",
+    "resetDataLoading": "Restableciendo la aplicación ...",
+    "resetDataSuccess": "Se restablecieron los datos de la aplicación",
+    "resetDataTitle": "Restablecer Datos de la Aplicación"
+  },
+  "settingsLanguage": {
+    "title": "Seleccione el idioma"
+  },
+  "settingsTheme": {
+    "title": "Seleccione el tema",
+    "itemAuto": "Automático",
+    "itemDark": "Oscuro",
+    "itemLight": "Claro"
+  }
+}
