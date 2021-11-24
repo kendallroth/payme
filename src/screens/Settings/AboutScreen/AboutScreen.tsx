@@ -33,9 +33,9 @@ const AboutScreen = (): ReactElement => {
       url: links.developerUrl,
     },
     {
-      icon: "gitlab",
+      icon: "github",
       name: t("screens:settingsAbout.chipRepository"),
-      url: links.gitlabUrl,
+      url: links.repositoryUrl,
     },
     {
       icon: "email",
