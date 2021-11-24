@@ -9,8 +9,8 @@ interface IAppConfigLinks {
   developerEmail: string;
   /** App developer URL */
   developerUrl: string;
-  /** GitLab project URL */
-  gitlabUrl: string;
+  /** Repository URL */
+  repositoryUrl: string;
 }
 
 /** App configuration */
@@ -29,7 +29,7 @@ const config: IAppConfig = {
   links: {
     developerEmail: "kendall@kendallroth.ca",
     developerUrl: "https://www.kendallroth.ca",
-    gitlabUrl: "https://gitlab.com/kendallroth/payme",
+    repositoryUrl: "https://github.com/kendallroth/payme",
   },
   version,
 };

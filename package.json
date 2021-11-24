@@ -2,14 +2,14 @@
   "main": "node_modules/expo/AppEntry.js",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gitlab.com/kendallroth/payme",
+  "homepage": "https://github.com/kendallroth/payme",
   "author": {
     "email": "kendall@kendallroth.ca",
     "name": "Kendall Roth",
     "url": "https://www.kendallroth.ca"
   },
   "repository": {
-    "url": "https://gitlab.com/kendallroth/payme"
+    "url": "https://github.com/kendallroth/payme"
   },
   "scripts": {
     "build": "tsc",
