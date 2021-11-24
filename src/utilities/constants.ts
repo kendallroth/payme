@@ -1,5 +1,3 @@
-// TODO: Fix once maintainer updates with type definitions
-// @ts-ignore
 import { ES, FR, US } from "country-flag-icons/string/3x2";
 
 // Types
