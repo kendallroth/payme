@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import * as Linking from "expo-linking";
+import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
@@ -20,7 +20,7 @@ const ReportBugScreen = (): ReactElement => {
 
   /** Open GitHub issues */
   const onOpenGitHub = (): void => {
-    Linking.openURL(`${links.repositoryUrl}/issues`);
+    openURL(`${links.repositoryUrl}/issues`);
   };
 
   return (
