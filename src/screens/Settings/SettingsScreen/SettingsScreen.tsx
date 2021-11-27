@@ -136,9 +136,14 @@ const SettingsScreen = (): ReactElement => {
       />
       <List.Subheader>{t("screens:settings.listSectionHelp")}</List.Subheader>
       <SettingsListItem
-        implemented={false}
         icon="bug"
+        route="ReportBug"
         title={t("screens:settings.listItemBug")}
+      />
+      <SettingsListItem
+        icon="lightbulb-on"
+        implemented={false}
+        title={t("screens:settings.listItemSuggestion")}
       />
       {developerMode && (
         <SettingsListItem

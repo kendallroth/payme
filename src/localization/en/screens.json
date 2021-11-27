@@ -15,6 +15,7 @@
     "listItemBug": "Report a bug",
     "listItemAppearance": "Appearance",
     "listItemLanguage": "Language",
+    "listItemSuggestion": "Suggest an improvement",
     "listSectionCustomize": "Customize",
     "listSectionHelp": "Help"
   },
@@ -50,6 +51,12 @@
   },
   "settingsLanguage": {
     "title": "Select Language"
+  },
+  "settingsReportBug": {
+    "title": "Report a Bug",
+    "reportTitle": "Oh no!",
+    "reportDescription": "We are sorry to hear that something went wrong! Please provide a detailed report of the steps leading up to the issue, and the expected vs actual result.\n\nBug reports must currently be created in the GitHub repository. Please be sure to check for similar reports, to avoid creating duplicates!\n\nRemember, the more detail and steps provided, the easier it will be resolve the issue!",
+    "actionGitHub": "GitHub Issues"
   },
   "settingsTheme": {
     "title": "Select Theme",

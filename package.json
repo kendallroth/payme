@@ -1,8 +1,11 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "payme",
+  "description": "Simple mobile app to track who has paid for an event.",
   "version": "0.1.0",
+  "keywords": ["app", "react-native"],
   "private": true,
   "homepage": "https://github.com/kendallroth/payme",
+  "bugs": "https://github.com/kendallroth/payme/issues",
   "author": {
     "email": "kendall@kendallroth.ca",
     "name": "Kendall Roth",
@@ -11,6 +14,7 @@
   "repository": {
     "url": "https://github.com/kendallroth/payme"
   },
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"**/*.{ts,tsx,json}\"",
