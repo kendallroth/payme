@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import * as Linking from "expo-linking";
+import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Chip, Text, useTheme } from "react-native-paper";
@@ -55,7 +55,7 @@ const AboutScreen = (): ReactElement => {
 
   /** Open an external link */
   const onLink = (link: string): void => {
-    Linking.openURL(link);
+    openURL(link);
   };
 
   return (

@@ -3,3 +3,10 @@ builds/
 
 # Dependencies
 node_modules/
+
+# Miscellaneous
+.expo/
+.expo-shared/
+.husky
+assets/
+docs/

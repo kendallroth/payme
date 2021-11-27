@@ -54,7 +54,8 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
       };
     });
 
-    const contentStyles = {
+    const themeStyles = {
+      backdropColor: dark ? "#444444aa" : "#44444466",
       backgroundColor: colors.background,
     };
 
@@ -79,7 +80,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
 
     return (
       <Modal
-        backdropColor={dark ? "#444444aa" : colors.background}
+        backdropColor={themeStyles.backdropColor}
         backdropOpacity={0.8}
         // NOTE: Necessary to fix backdrop flicker bug when closing. If flickering
         //         persists try 'hideModalContentWhileAnimating' as well.
@@ -92,7 +93,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         <View
           style={[
             styles.sheetContent,
-            contentStyles,
+            themeStyles,
             inset ? styles.sheetInset : undefined,
             style,
           ]}

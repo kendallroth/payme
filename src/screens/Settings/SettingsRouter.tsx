@@ -8,10 +8,12 @@ import {
 import { AboutScreen } from "./AboutScreen";
 import { DeveloperScreen } from "./DeveloperScreen";
 import { SettingsScreen } from "./SettingsScreen";
+import { ReportBugScreen } from "./ReportBug";
 
 export type SettingsRouterParams = {
   About: undefined;
   Developer: undefined;
+  ReportBug: undefined;
   Settings: undefined;
 };
 
@@ -26,6 +28,7 @@ const SettingsStack = (): ReactElement => {
       <Stack.Screen component={SettingsScreen} name="Settings" />
       <Stack.Screen component={DeveloperScreen} name="Developer" />
       <Stack.Screen component={AboutScreen} name="About" />
+      <Stack.Screen component={ReportBugScreen} name="ReportBug" />
     </Stack.Navigator>
   );
 };

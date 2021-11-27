@@ -1,16 +1,15 @@
 import React, { ReactElement, useRef, useState } from "react";
+import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
 
 // Components
+import { LanguageIcon } from "@components/icons";
 import { AppBar, Page } from "@components/layout";
 import { LanguageModal } from "./LanguageModal";
 import { ThemeModal } from "./ThemeModal";
 import SettingsListItem from "./SettingsListItem";
-
-// Components
-import { LanguageIcon } from "@components/icons";
 
 // Utilities
 import config from "@config";
@@ -86,6 +85,13 @@ const SettingsScreen = (): ReactElement => {
   };
 
   /**
+   * Allow users to suggest an improvement (via email)
+   */
+  const onSuggestImprovement = (): void => {
+    openURL(`mailto:${config.links.developerEmail}?subject=PayMe Suggestion`);
+  };
+
+  /**
    * Increase developer tap counter
    */
   const onTapVersion = (): void => {
@@ -136,9 +142,15 @@ const SettingsScreen = (): ReactElement => {
       />
       <List.Subheader>{t("screens:settings.listSectionHelp")}</List.Subheader>
       <SettingsListItem
-        implemented={false}
         icon="bug"
+        route="ReportBug"
         title={t("screens:settings.listItemBug")}
+      />
+      <SettingsListItem
+        // icon="lightbulb-on"
+        icon="email"
+        title={t("screens:settings.listItemSuggestion")}
+        onPress={onSuggestImprovement}
       />
       {developerMode && (
         <SettingsListItem
