@@ -29,6 +29,12 @@
     "chipPortfolio": "Portfolio",
     "chipRepository": "Repository"
   },
+  "settingsAppReset": {
+    "title": "Reset App",
+    "actionSubmit": "Reset Selected",
+    "listItemEvents": "Events",
+    "listItemSettings": "Settings"
+  },
   "settingsDeveloper": {
     "title": "Debug",
     "buttonExitDeveloper": "Exit Developer Mode",
@@ -46,7 +52,7 @@
     "listSectionActions": "Developer Actions",
     "listSectionApp": "App",
     "listSectionDevice": "Device",
-    "resetDataDescription": "This will reset the app state and is irreversible!",
+    "resetDataDescription": "This will reset the selected app state and is irreversible!",
     "resetDataLoading": "Resetting app...",
     "resetDataSuccess": "App data has been reset",
     "resetDataTitle": "Reset App Data"

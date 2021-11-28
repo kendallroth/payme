@@ -31,6 +31,8 @@ export type BottomSheetProps = {
   title?: string;
   /** Close callback */
   onClose?: () => void;
+  /** Open callback */
+  onOpen?: () => void;
 };
 
 export type BottomSheetRef = {
@@ -42,7 +44,14 @@ export type BottomSheetRef = {
 
 const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
   (props: BottomSheetProps, ref) => {
-    const { children, inset = true, style = {}, title, onClose = null } = props;
+    const {
+      children,
+      inset = true,
+      style = {},
+      title,
+      onClose,
+      onOpen,
+    } = props;
 
     const [isOpen, setIsOpen] = useState(false);
     const { colors, dark } = useTheme();
@@ -76,6 +85,9 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
     const open = (): void => {
       if (isOpen) return;
       setIsOpen(true);
+
+      // Notify parent component that modal has opened (only for internal closures)!
+      onOpen && onOpen();
     };
 
     return (

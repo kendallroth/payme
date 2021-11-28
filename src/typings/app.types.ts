@@ -27,7 +27,7 @@ export enum AppTheme {
 }
 
 /** App reset portions */
-export interface IAppResetPortions {
+export interface IAppResetOptions {
   /** Whether to reset events */
   events: boolean;
   /** Whether to reset settings */

@@ -1,20 +1,27 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Alert, Platform, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
 
 // Components
 import { LanguageIcon } from "@components/icons";
 import { AppBar, Page } from "@components/layout";
+import { AppResetModal } from "./AppResetModal";
 import { LanguageModal } from "./LanguageModal";
 import { ThemeModal } from "./ThemeModal";
 import SettingsListItem from "./SettingsListItem";
 
 // Utilities
 import config from "@config";
-import { useAppDispatch, useAppSelector } from "@hooks";
 import {
+  useAppDispatch,
+  useAppLoader,
+  useAppSelector,
+  useSnackbar,
+} from "@hooks";
+import {
+  resetApp,
   selectDeveloperMode,
   selectLanguageConfig,
   selectThemeConfig,
@@ -26,16 +33,19 @@ import { sharedColors } from "@theme";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import { AppLanguage, AppTheme } from "@typings";
+import { AppLanguage, AppTheme, IAppResetOptions } from "@typings";
 
 const DEVELOPER_MODE_TAPS = 10;
 
 const SettingsScreen = (): ReactElement => {
+  const appResetRef = useRef<BottomSheetRef>(null);
   const languageRef = useRef<BottomSheetRef>(null);
   const themeRef = useRef<BottomSheetRef>(null);
   const [debugCounter, setDebugCounter] = useState(0);
 
+  const loader = useAppLoader();
   const dispatch = useAppDispatch();
+  const { notify } = useSnackbar();
   const { i18n, t } = useTranslation(["common", "screens"]);
 
   const languageConfig = useAppSelector(selectLanguageConfig);
@@ -57,6 +67,38 @@ const SettingsScreen = (): ReactElement => {
    */
   const onOpenTheme = (): void => {
     themeRef.current?.open();
+  };
+
+  /**
+   * Open the app reset selector
+   */
+  const onOpenAppReset = (): void => {
+    appResetRef.current?.open();
+  };
+
+  /**
+   * Reset the app state
+   *
+   * @param resetOptions - App reset options
+   */
+  const onAppReset = (resetOptions: IAppResetOptions): void => {
+    Alert.alert(
+      t("screens:settingsDeveloper.resetDataTitle"),
+      t("screens:settingsDeveloper.resetDataDescription"),
+      [
+        { text: t("common:confirmations.cancel"), style: "cancel" },
+        {
+          text: t("common:confirmations.confirm"),
+          onPress: async (): Promise<void> => {
+            appResetRef.current?.close();
+            loader.show(t("screens:settingsDeveloper.resetDataLoading"));
+            await dispatch(resetApp(resetOptions));
+            loader.hide();
+            notify(t("screens:settingsDeveloper.resetDataSuccess"));
+          },
+        },
+      ],
+    );
   };
 
   /**
@@ -152,6 +194,15 @@ const SettingsScreen = (): ReactElement => {
         title={t("screens:settings.listItemSuggestion")}
         onPress={onSuggestImprovement}
       />
+      <List.Item
+        description={t("screens:settingsDeveloper.listItemResetDescription")}
+        left={(leftProps): ReactElement => (
+          <List.Icon {...leftProps} icon="lock-reset" />
+        )}
+        title={t("screens:settingsDeveloper.listItemResetTitle")}
+        onLongPress={onOpenAppReset}
+        onPress={(): void => {}}
+      />
       {developerMode && (
         <SettingsListItem
           icon="cellphone-information"
@@ -171,6 +222,7 @@ const SettingsScreen = (): ReactElement => {
           )}
         </View>
       </View>
+      <AppResetModal ref={appResetRef} onReset={onAppReset} />
       <LanguageModal
         ref={languageRef}
         language={languageConfig.code}
