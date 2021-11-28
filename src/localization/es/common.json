@@ -8,7 +8,8 @@
     "yes": "Sí"
   },
   "errors": {
-    "notImplemented": "Aun no implementado"
+    "notImplemented": "Aun no implementado",
+    "noMatchingEvents": "No hay eventos coincidentes"
   },
   "phrases": {
     "comingSoon": "Próximamente!"

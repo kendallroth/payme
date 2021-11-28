@@ -6,7 +6,7 @@ import { useTheme } from "react-native-paper";
 
 // Components
 import { HomeScreen } from "@screens/Home";
-import { EventsListScreen } from "@screens/Events";
+import { EventListScreen } from "@screens/Events";
 import { PeopleListScreen } from "@screens/People";
 
 export type BottomRouterParams = {
@@ -43,7 +43,7 @@ const TabRouter = (): ReactElement => {
         }}
       />
       <Tabs.Screen
-        component={EventsListScreen}
+        component={EventListScreen}
         name="Events"
         options={{
           tabBarIcon: "calendar",

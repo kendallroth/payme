@@ -1,3 +1,5 @@
+// Polyfill for 'getRandomValues': https://github.com/uuidjs/uuid#getrandomvalues-not-supported
+import "react-native-get-random-values";
 import { registerRootComponent } from "expo";
 import { StatusBar } from "expo-status-bar";
 import React, { ReactElement } from "react";

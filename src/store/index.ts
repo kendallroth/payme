@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistReducer,
   persistStore,
@@ -28,18 +28,19 @@ const persistConfig = {
   // Enable separately persisted Redux stores per release channel
   key: `store_${config.environment}`,
   storage: AsyncStorage,
-  whitelist: ["settings"],
+  whitelist: ["events", "settings"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      // Ignore serialization issues caused by redux-persist actions
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore serialization issues caused by redux-persist actions
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
   reducer: persistedReducer,
 });
 
@@ -56,7 +57,8 @@ const setupStore = (): IStoreExport => {
   });
 
   // @ts-ignore
-  if (process.env.NODE_ENV === "development" && module.hot) {
+  if (process.env.NODE_ENV !== "production" && module.hot) {
+    // Source: https://github.com/rt2zz/redux-persist/blob/master/docs/hot-module-replacement.md
     // @ts-ignore
     module.hot.accept("./reducers", () => {
       const nextReducer = require("./reducers").default;

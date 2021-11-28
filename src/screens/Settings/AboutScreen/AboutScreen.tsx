@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { openURL } from "expo-linking";
@@ -44,14 +44,17 @@ const AboutScreen = (): ReactElement => {
     },
   ];
 
-  const themeStyles = {
-    aboutDescription: {
-      borderLeftColor: colors.primary,
-    },
-    developerChips: {
-      backgroundColor: `${colors.primary}aa`,
-    },
-  };
+  const themeStyles = useMemo(
+    () => ({
+      aboutDescription: {
+        borderLeftColor: colors.primary,
+      },
+      developerChips: {
+        backgroundColor: `${colors.primary}aa`,
+      },
+    }),
+    [colors],
+  );
 
   /** Open an external link */
   const onLink = (link: string): void => {

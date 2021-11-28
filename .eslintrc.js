@@ -6,6 +6,10 @@ module.exports = {
       jsx: true,
     },
   },
+  env: {
+    jasmine: true,
+    jest: true,
+  },
   extends: [
     // NOTE: Due to problem with package dependencies, each package dependency had to be
     //         manually saved to this project's dependencies.

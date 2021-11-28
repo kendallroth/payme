@@ -4,13 +4,14 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Utilities
 import { SettingsService } from "@services";
 import { LANGUAGES, THEMES } from "@utilities/constants";
-import { addDebugDataAction, resetStoreAction } from "../actions";
+import { addDebugDataAction, resetAppAction } from "../actions";
 
 // Types
 import {
   AppLanguage,
   AppTheme,
   IAppLanguageConfig,
+  IAppResetOptions,
   IAppThemeConfig,
 } from "@typings";
 import { RootState } from "../index";
@@ -50,7 +51,9 @@ const settingsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(resetStoreAction, (state) => {
+    builder.addCase(resetAppAction, (state, action) => {
+      if (!action.payload.settings) return;
+
       state.language = initialState.language;
       state.theme = initialState.theme;
     });
@@ -71,14 +74,16 @@ const addDebugData = createAsyncThunk(
 // Reset the store state
 const resetApp = createAsyncThunk(
   "settings/resetApp",
-  async (arg, { dispatch }) => {
+  async (options: IAppResetOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Change language in localization context
-    i18n.changeLanguage(initialState.language);
+    if (options.settings) {
+      // Change language in localization context
+      i18n.changeLanguage(initialState.language);
+    }
 
-    await dispatch(resetStoreAction());
+    await dispatch(resetAppAction(options));
   },
 );
 
