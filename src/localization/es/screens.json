@@ -1,7 +1,9 @@
 {
   "_comment": "src/localization/es/screens.json",
-  "events": {
-    "title": "Eventos"
+  "eventList": {
+    "title": "Eventos",
+    "listFuture": "Próximos Eventos",
+    "listPast": "Eventos Pasados"
   },
   "home": {
     "title": "Hogar",
@@ -15,6 +17,7 @@
     "listItemBug": "Reportar un error",
     "listItemAppearance": "Apariencia",
     "listItemLanguage": "Idioma",
+    "listItemSuggestion": "Sugerir una mejora",
     "listSectionCustomize": "Personalizar",
     "listSectionHelp": "Ayudar"
   },
@@ -25,6 +28,12 @@
     "chipContact": "Contacto",
     "chipPortfolio": "Portafolio",
     "chipRepository": "Repositorio"
+  },
+  "settingsAppReset": {
+    "title": "Restablecer la Aplicación",
+    "actionSubmit": "Restablecer Seleccionado",
+    "listItemEvents": "Eventos",
+    "listItemSettings": "Ajustes"
   },
   "settingsDeveloper": {
     "title": "Depurar",
@@ -50,6 +59,12 @@
   },
   "settingsLanguage": {
     "title": "Seleccione el idioma"
+  },
+  "settingsReportBug": {
+    "title": "Reportar un Error",
+    "reportTitle": "¡Oh, no!",
+    "reportDescription": "Lamentamos saber que algo salió mal. Proporcione un informe detallado de los pasos que condujeron al problema y el resultado esperado frente al real.\n\nLos informes de errores se deben crear actualmente en el repositorio de GitHub. ¡Asegúrese de verificar informes similares para evitar crear duplicados!\n\nRecuerde, cuantos más detalles y pasos proporcione, más fácil será resolver el problema.",
+    "actionGitHub": "GitHub Issues"
   },
   "settingsTheme": {
     "title": "Seleccione el tema",

@@ -22,11 +22,6 @@ const initialOptions: IAppResetOptions = {
   settings: false,
 };
 
-const resetOptionsMap: Record<AppResetOptionKeys, string> = {
-  events: "Events",
-  settings: "Settings",
-};
-
 const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
   (props: AppResetModalProps, ref): ReactElement => {
     const { onReset } = props;
@@ -37,8 +32,12 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
     const { t } = useTranslation(["screens"]);
     const { colors } = useTheme();
 
-    const resetOptionList = Object.keys(resetOptionsMap) as AppResetOptionKeys[]; // prettier-ignore
+    const resetOptionsMap: Record<AppResetOptionKeys, string> = {
+      events: t("screens:settingsAppReset.listItemEvents"),
+      settings: t("screens:settingsAppReset.listItemSettings"),
+    };
 
+    const resetOptionList = Object.keys(resetOptionsMap) as AppResetOptionKeys[]; // prettier-ignore
     const hasSelection = Object.values(resetOptions).some((o) => o === true);
 
     /**
