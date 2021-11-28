@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 // Utilites
+import { resetAppAction } from "../actions";
 import { RootState } from "../index";
 
 // Types
@@ -18,16 +19,18 @@ export const eventsAdapter = createEntityAdapter<IEvent>({
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
 
-export const eventsSelectors = eventsAdapter.getSelectors<RootState>(
-  (state) => state.events,
-);
+////////////////////////////////////////////////////////////////////////////////
+// Slice
+////////////////////////////////////////////////////////////////////////////////
+
+const initialState = eventsAdapter.getInitialState<IEventsState>({
+  // NOTE: Sample only intended to provide example
+  sample: "key",
+});
 
 const eventsSlice = createSlice({
   name: "events",
-  initialState: eventsAdapter.getInitialState<IEventsState>({
-    // NOTE: Sample only intended to provide example
-    sample: "key",
-  }),
+  initialState,
   reducers: {
     addEvent(state, action: PayloadAction<IEvent>): void {
       const newEvent: IEvent = {
@@ -42,7 +45,22 @@ const eventsSlice = createSlice({
       eventsAdapter.removeOne(state, action.payload);
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(resetAppAction, (state, action) => {
+      if (!action.payload.events) return;
+
+      eventsAdapter.removeAll(state);
+    });
+  },
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// Selectors
+////////////////////////////////////////////////////////////////////////////////
+
+export const eventsSelectors = eventsAdapter.getSelectors<RootState>(
+  (state) => state.events,
+);
 
 /**
  * Select a specific event

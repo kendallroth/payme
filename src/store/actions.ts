@@ -1,8 +1,12 @@
 import { createAction } from "@reduxjs/toolkit";
 
+// Types
+import { IAppResetPortions } from "@typings";
+
 /** DEBUG: Action to add dummy data */
 const addDebugDataAction = createAction("addDebugData");
-/** DEBUG: Action to reset store */
-const resetStoreAction = createAction("resetStore");
 
-export { addDebugDataAction, resetStoreAction };
+/** Reset parts of the app data */
+const resetAppAction = createAction<IAppResetPortions>("resetStore");
+
+export { addDebugDataAction, resetAppAction };

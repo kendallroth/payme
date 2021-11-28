@@ -67,7 +67,7 @@ const EventListScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title={t("screens:events.title")} />
+      <AppBar title={t("screens:eventList.title")} />
       <ScrollView
         contentContainerStyle={styles.pageContent}
         style={styles.pageScroll}
@@ -75,13 +75,13 @@ const EventListScreen = (): ReactElement => {
         <EventList
           events={futureEvents}
           style={styles.eventList}
-          title="Upcoming Events"
+          title={t("screens:eventList.listFuture")}
           onRemove={onEventRemove}
         />
         <EventList
           events={pastEvents}
           style={styles.eventList}
-          title="Past Events"
+          title={t("screens:eventList.listPast")}
           onRemove={onEventRemove}
         />
       </ScrollView>

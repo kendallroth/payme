@@ -1,4 +1,5 @@
 import React, { ReactElement, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Badge, Card, Text, useTheme } from "react-native-paper";
 
@@ -22,6 +23,7 @@ type EventProps = {
 const EventList = (props: EventProps): ReactElement => {
   const { events, style, title, onRemove } = props;
 
+  const { t } = useTranslation(["common"]);
   const { colors } = useTheme();
 
   const hasEvents = events.length > 0;
@@ -60,7 +62,7 @@ const EventList = (props: EventProps): ReactElement => {
         ))}
       {!hasEvents && (
         <Text style={[styles.listEmpty, themeStyles.listEmpty]}>
-          No matching events
+          {t("common:errors.noMatchingEvents")}
         </Text>
       )}
     </Card>

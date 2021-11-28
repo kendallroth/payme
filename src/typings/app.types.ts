@@ -26,6 +26,14 @@ export enum AppTheme {
   LIGHT = "light",
 }
 
+/** App reset portions */
+export interface IAppResetPortions {
+  /** Whether to reset events */
+  events: boolean;
+  /** Whether to reset settings */
+  settings: boolean;
+}
+
 /** App theme configuration */
 export interface IAppThemeConfig {
   /** Theme code/key */

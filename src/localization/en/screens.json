@@ -1,7 +1,9 @@
 {
   "_comment": "src/localization/en/translation.json",
-  "events": {
-    "title": "Events"
+  "eventList": {
+    "title": "Events",
+    "listFuture": "Upcoming Events",
+    "listPast": "Past Events"
   },
   "home": {
     "title": "Home",
