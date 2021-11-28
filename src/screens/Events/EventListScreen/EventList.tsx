@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Badge, Card, Text, useTheme } from "react-native-paper";
 
@@ -24,17 +24,25 @@ const EventList = (props: EventProps): ReactElement => {
 
   const { colors } = useTheme();
 
-  const themeStyles = {
-    listTitle: {
-      backgroundColor: colors.primary,
-    },
-    listTitleBadge: {
-      backgroundColor: colors.white,
-    },
-    listTitleText: {
-      color: colors.white,
-    },
-  };
+  const hasEvents = events.length > 0;
+
+  const themeStyles = useMemo(
+    () => ({
+      listEmpty: {
+        color: colors.grey.base,
+      },
+      listTitle: {
+        backgroundColor: colors.primary,
+      },
+      listTitleBadge: {
+        backgroundColor: colors.white,
+      },
+      listTitleText: {
+        color: colors.white,
+      },
+    }),
+    [colors],
+  );
 
   return (
     <Card elevation={2} style={[styles.list, style]}>
@@ -42,13 +50,19 @@ const EventList = (props: EventProps): ReactElement => {
         <Text style={[styles.listTitleText, themeStyles.listTitleText]}>
           {title}
         </Text>
-        {Boolean(events.length) && (
+        {hasEvents && (
           <Badge style={themeStyles.listTitleBadge}>{events.length}</Badge>
         )}
       </View>
-      {events.map((event) => (
-        <EventListItem key={event.id} event={event} onRemove={onRemove} />
-      ))}
+      {hasEvents &&
+        events.map((event) => (
+          <EventListItem key={event.id} event={event} onRemove={onRemove} />
+        ))}
+      {!hasEvents && (
+        <Text style={[styles.listEmpty, themeStyles.listEmpty]}>
+          No matching events
+        </Text>
+      )}
     </Card>
   );
 };
@@ -57,6 +71,10 @@ const styles = StyleSheet.create({
   list: {
     borderRadius: 16,
     overflow: "hidden",
+  },
+  listEmpty: {
+    paddingHorizontal: 16,
+    paddingVertical: 24,
   },
   listTitle: {
     flexDirection: "row",

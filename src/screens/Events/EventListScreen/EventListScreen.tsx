@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
@@ -30,11 +30,14 @@ const EventListScreen = (): ReactElement => {
   const { futureEvents, pastEvents } =
     EventsService.separateEventsByTime(events);
 
-  const themeStyles = {
-    eventFAB: {
-      backgroundColor: colors.accent,
-    },
-  };
+  const themeStyles = useMemo(
+    () => ({
+      eventFAB: {
+        backgroundColor: colors.accent,
+      },
+    }),
+    [colors],
+  );
 
   /**
    * Add an event
