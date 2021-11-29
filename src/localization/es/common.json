@@ -13,6 +13,7 @@
     "noMatchingPeople": "No hay gente coincidentes"
   },
   "phrases": {
-    "comingSoon": "Próximamente!"
+    "comingSoon": "Próximamente!",
+    "search": "Buscar"
   }
 }

@@ -22,7 +22,7 @@ import { IPerson } from "@typings/people.types";
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
 
-  const { t } = useTranslation(["screens"]);
+  const { t } = useTranslation(["common", "screens"]);
   const dispatch = useDispatch();
   const people = useSelector(selectPeople);
   const { notifyError } = useSnackbar();
@@ -59,7 +59,7 @@ const PeopleListScreen = (): ReactElement => {
     <Page>
       <AppBar title={t("screens:peopleList.title")} />
       <Searchbar
-        placeholder="Search"
+        placeholder={t("common:phrases.search")}
         style={styles.peopleSearch}
         value={searchText}
         onChangeText={setSearchText}
