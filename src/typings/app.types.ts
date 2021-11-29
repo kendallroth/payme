@@ -30,6 +30,8 @@ export enum AppTheme {
 export interface IAppResetOptions {
   /** Whether to reset events */
   events: boolean;
+  /** Whether to reset people */
+  people: boolean;
   /** Whether to reset settings */
   settings: boolean;
 }

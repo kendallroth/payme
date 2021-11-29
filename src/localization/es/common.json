@@ -9,7 +9,8 @@
   },
   "errors": {
     "notImplemented": "Aun no implementado",
-    "noMatchingEvents": "No hay eventos coincidentes"
+    "noMatchingEvents": "No hay eventos coincidentes",
+    "noMatchingPeople": "No hay gente coincidentes"
   },
   "phrases": {
     "comingSoon": "Próximamente!"

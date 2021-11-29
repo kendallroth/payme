@@ -1,8 +1,8 @@
-import React, { ReactElement, useMemo } from "react";
+import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
-import { FAB, useTheme } from "react-native-paper";
+import { FAB } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { company as fakeCompany, date as fakeDate } from "faker";
@@ -22,7 +22,6 @@ import { IEvent } from "@typings/event.types";
 const EventListScreen = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
 
-  const { colors } = useTheme();
   const dispatch = useDispatch();
   const events = useSelector(selectEvents);
   const { notifyError } = useSnackbar();
@@ -30,20 +29,12 @@ const EventListScreen = (): ReactElement => {
   const { futureEvents, pastEvents } =
     EventsService.separateEventsByTime(events);
 
-  const themeStyles = useMemo(
-    () => ({
-      eventFAB: {
-        backgroundColor: colors.accent,
-      },
-    }),
-    [colors],
-  );
-
   /**
    * Add an event
    */
   const onEventAdd = (): void => {
     const dummyEvent: IEvent = {
+      createdAt: dayjs().toISOString(),
       date: dayjs(
         Math.random() > 0.5 ? fakeDate.future() : fakeDate.recent(),
       ).toISOString(),
@@ -87,7 +78,7 @@ const EventListScreen = (): ReactElement => {
       </ScrollView>
       <FAB
         icon="plus"
-        style={[styles.eventFAB, themeStyles.eventFAB]}
+        style={styles.eventFAB}
         onPress={(): void => notifyError("Not implemented yet")}
         onLongPress={onEventAdd}
       />

@@ -9,7 +9,7 @@
     "title": "Home",
     "welcomeText": "Welcome!"
   },
-  "people": {
+  "peopleList": {
     "title": "People"
   },
   "settings": {
@@ -33,6 +33,7 @@
     "title": "Reset App",
     "actionSubmit": "Reset Selected",
     "listItemEvents": "Events",
+    "listItemPeople": "People",
     "listItemSettings": "Settings"
   },
   "settingsDeveloper": {

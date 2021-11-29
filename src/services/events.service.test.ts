@@ -8,11 +8,13 @@ describe("'separateEventsByTime'", () => {
   it("separates events by time (past/future)", () => {
     const futureEvent: IEvent = {
       id: "1",
+      createdAt: "fake",
       date: "2021-11-29T05:03:59.744Z",
       title: "Future",
     };
     const pastEvent: IEvent = {
       id: "2",
+      createdAt: "fake",
       date: "2021-11-27T05:03:59.744Z",
       title: "Past",
     };

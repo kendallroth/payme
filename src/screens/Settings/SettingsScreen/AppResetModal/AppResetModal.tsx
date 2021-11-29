@@ -19,6 +19,7 @@ type AppResetOptionKeys = keyof IAppResetOptions;
 
 const initialOptions: IAppResetOptions = {
   events: false,
+  people: false,
   settings: false,
 };
 
@@ -34,6 +35,7 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
 
     const resetOptionsMap: Record<AppResetOptionKeys, string> = {
       events: t("screens:settingsAppReset.listItemEvents"),
+      people: t("screens:settingsAppReset.listItemPeople"),
       settings: t("screens:settingsAppReset.listItemSettings"),
     };
 

@@ -9,7 +9,8 @@
   },
   "errors": {
     "notImplemented": "Not implemented yet",
-    "noMatchingEvents": "No matching events"
+    "noMatchingEvents": "No matching events",
+    "noMatchingPeople": "No matching people"
   },
   "phrases": {
     "comingSoon": "Coming Soon!"

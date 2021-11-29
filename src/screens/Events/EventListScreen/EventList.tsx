@@ -13,7 +13,7 @@ type EventProps = {
   /** List of events */
   events: IEvent[];
   /** List container style */
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
   /** Event list title */
   title: string;
   /** Event removal handler */

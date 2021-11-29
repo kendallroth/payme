@@ -9,7 +9,7 @@
     "title": "Hogar",
     "welcomeText": "¡Bienvenido!"
   },
-  "people": {
+  "peopleList": {
     "title": "Gente"
   },
   "settings": {
@@ -33,6 +33,7 @@
     "title": "Restablecer la Aplicación",
     "actionSubmit": "Restablecer Seleccionado",
     "listItemEvents": "Eventos",
+    "listItemPeople": "Gente",
     "listItemSettings": "Ajustes"
   },
   "settingsDeveloper": {
