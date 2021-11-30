@@ -15,6 +15,7 @@ import EventList from "./EventList";
 import { useSnackbar } from "@hooks";
 import { addEvent, removeEvent, selectEvents } from "@store/slices/events";
 import { EventsService } from "@services";
+import { randomBool, randomItem } from "@utilities/misc.util";
 
 // Types
 import { IEvent } from "@typings/event.types";
@@ -34,9 +35,10 @@ const EventListScreen = (): ReactElement => {
    */
   const onEventAdd = (): void => {
     const dummyEvent: IEvent = {
+      cost: randomBool() ? randomItem([5, 10, 15, 20]) : undefined,
       createdAt: dayjs().toISOString(),
       date: dayjs(
-        Math.random() > 0.5 ? fakeDate.future() : fakeDate.recent(),
+        randomBool() ? fakeDate.future() : fakeDate.recent(),
       ).toISOString(),
       id: uuidv4(),
       title: fakeCompany.companyName(),
@@ -86,7 +88,7 @@ const EventListScreen = (): ReactElement => {
   );
 };
 
-const listPadding = 24;
+const listPadding = 20;
 const styles = StyleSheet.create({
   eventFAB: {
     position: "absolute",
