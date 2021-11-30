@@ -14,6 +14,8 @@ export interface IEvent extends IEventBase {
   cost?: number;
   /** Event description */
   description?: string;
+  /** Event statistics (optional) */
+  stats?: IEventStats;
 }
 
 /** Separate events by time (future vs past) */
@@ -22,4 +24,12 @@ export interface IEventsByTime {
   futureEvents: IEvent[];
   /** Past events */
   pastEvents: IEvent[];
+}
+
+/** Event statistics */
+export interface IEventStats {
+  /** Number of attendees */
+  attending: number;
+  /** Number of unpaid attendees */
+  unpaid: number;
 }

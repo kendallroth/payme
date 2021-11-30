@@ -1,13 +1,13 @@
-import React, { ReactElement, useMemo, useRef } from "react";
+import React, { Fragment, ReactElement, useMemo, useRef } from "react";
 import dayjs from "dayjs";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { Animated, StyleSheet, View } from "react-native";
-import { List, useTheme } from "react-native-paper";
+import { Chip, List, Text, useTheme } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
 
 // Components
 import { ProgressIcon } from "@components/icons";
-import { PaymentIndicator, UnpaidIndicator } from "@components/typography";
+import { UnpaidIndicator } from "@components/typography";
 
 // Utilities
 import { formatDateString } from "@utilities/date.util";
@@ -30,9 +30,9 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const past = dayjs().isAfter(event.date);
-  let description = formatDateString(event.date);
+  let dateCost = formatDateString(event.date);
   if (event.cost) {
-    description = `${description}  •  $${event.cost}`;
+    dateCost = `${dateCost}  •  $${event.cost}`;
   }
 
   const { colors } = useTheme();
@@ -57,6 +57,42 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
     [colors, past],
   );
 
+  const renderListItemDescription = (): ReactElement => {
+    const unpaid = event.stats?.unpaid ?? 0;
+    const paid = (event.stats?.attending ?? 0) - (event.stats?.unpaid ?? 0);
+
+    return (
+      <View style={styles.listItemDescription}>
+        <Text style={[styles.listItemDate, themeStyles.listItemDate]}>
+          {dateCost}
+        </Text>
+        <View style={styles.listItemChips}>
+          <Chip icon="face" style={styles.listItemChip}>
+            {event.stats?.attending ?? "N/A"}
+          </Chip>
+          <Chip
+            icon={(iconProps): ReactElement => (
+              <Icon {...iconProps} color={colors.primary} name="check" />
+            )}
+            style={styles.listItemChip}
+          >
+            {paid}
+          </Chip>
+          {unpaid > 0 && (
+            <Chip
+              icon={(iconProps): ReactElement => (
+                <Icon {...iconProps} color={colors.error} name="alert-circle" />
+              )}
+              style={styles.listItemChip}
+            >
+              {unpaid}
+            </Chip>
+          )}
+        </View>
+      </View>
+    );
+  };
+
   /**
    * Render left icon
    *
@@ -69,13 +105,7 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
     const paid = attending - unpaid;
     const percent = paid / attending;
 
-    return (
-      <ProgressIcon
-        progress={percent}
-        style={styles.listItemLeftIcon}
-        value={unpaid}
-      />
-    );
+    return <ProgressIcon progress={percent} style={styles.listItemLeftIcon} />;
   };
 
   /**
@@ -85,15 +115,8 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
    * @returns Right actions
    */
   const renderListItemRight = (rightProps: any): ReactElement => {
+    return <Fragment />;
     // return <UnpaidIndicator {...rightProps} count={event.stats?.unpaid ?? 0} />;
-    return (
-      <PaymentIndicator
-        {...rightProps}
-        attending={event.stats?.attending}
-        style={styles.listItemPaymentIndicator}
-        unpaid={event.stats?.unpaid}
-      />
-    );
   };
 
   /**
@@ -147,14 +170,14 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
       failOffsetY={[-20, 20]}
       // Distance necessary to trigger action upon release
       leftThreshold={80}
-      containerStyle={{ opacity: fadeAnim }}
+      containerStyle={[styles.listItem, { opacity: fadeAnim }]}
       renderLeftActions={renderLeftActions}
       onSwipeableLeftOpen={(): void => onRemove(event.id)}
       onSwipeableLeftWillOpen={onLeftOpenAnimate}
     >
       <List.Item
         key={event.id}
-        description={description}
+        description={renderListItemDescription}
         left={renderListItemLeft}
         right={renderListItemRight}
         style={themeStyles.listItem}
@@ -165,19 +188,32 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
   );
 };
 
+const chipMargin = 3;
 const styles = StyleSheet.create({
-  listItemLeftIcon: {
-    marginRight: 4,
+  listItem: {
+    marginVertical: 8,
+    borderRadius: 8,
+    elevation: 2,
   },
+  listItemDescription: {},
   listItemSwipeLeft: {
     flex: 1,
     alignItems: "center",
     flexDirection: "row",
     padding: 16,
   },
-  listItemPaymentIndicator: {
-    marginLeft: 16,
+  listItemLeftIcon: {
+    marginRight: 4,
   },
+  listItemChip: {
+    margin: chipMargin,
+  },
+  listItemChips: {
+    flexDirection: "row",
+    margin: -chipMargin,
+    marginTop: 2,
+  },
+  listItemDate: {},
 });
 
 export default EventListItem;

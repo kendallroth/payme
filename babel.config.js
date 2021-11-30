@@ -22,6 +22,8 @@ module.exports = function (api) {
           },
         },
       ],
+      // Reanimated pulgin must be last item in plugins!
+      "react-native-reanimated/plugin",
     ],
     env: {
       production: {

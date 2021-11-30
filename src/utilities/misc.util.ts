@@ -1,4 +1,34 @@
 /**
+ * Lerp between two colours by a ratio
+ *
+ * Source: https://gist.github.com/rosszurowski/67f04465c424a9bc0dae
+ *
+ * @param   from  - Start colour
+ * @param   to    - End colour
+ * @param   ratio - Ratio between inputs
+ * @returns Colour between inputs
+ */
+const lerpColor = (from: string, to: string, ratio: number): string => {
+  /* eslint-disable no-bitwise */
+  const fromHex = +from.replace("#", "0x");
+  const toHex = +to.replace("#", "0x");
+
+  const fromRed = fromHex >> 16;
+  const fromGreen = (fromHex >> 8) & 0xff;
+  const fromBlue = fromHex & 0xff;
+  const toRed = toHex >> 16;
+  const toGreen = (toHex >> 8) & 0xff;
+  const toBlue = toHex & 0xff;
+  const outputRed = fromRed + ratio * (toRed - fromRed);
+  const outputGreen = fromGreen + ratio * (toGreen - fromGreen);
+  const outputBlue = fromBlue + ratio * (toBlue - fromBlue);
+
+  const outputHex = (((1 << 24) + (outputRed << 16) + (outputGreen << 8) + outputBlue) | 0).toString(16).slice(1); // prettier-ignore
+  return `#${outputHex}`;
+  /* eslint-enable no-bitwise */
+};
+
+/**
  * Get a random boolean
  *
  * @returns Random boolean
@@ -30,4 +60,4 @@ const randomNumber = (min: number, max: number, inclusive = false): number => {
   return Math.floor(Math.random() * (max - min + inclusiveFactor) + min);
 };
 
-export { randomBool, randomItem, randomNumber };
+export { lerpColor, randomBool, randomItem, randomNumber };

@@ -10,12 +10,13 @@ import { company as fakeCompany, date as fakeDate } from "faker";
 // Components
 import { AppBar, Page } from "@components/layout";
 import EventList from "./EventList";
+import EventListAlternate from "./EventListAlternate";
 
 // Utilities
 import { useSnackbar } from "@hooks";
 import { addEvent, removeEvent, selectEvents } from "@store/slices/events";
 import { EventsService } from "@services";
-import { randomBool, randomItem } from "@utilities/misc.util";
+import { randomBool, randomItem, randomNumber } from "@utilities/misc.util";
 
 // Types
 import { IEvent } from "@typings/event.types";
@@ -34,6 +35,9 @@ const EventListScreen = (): ReactElement => {
    * Add an event
    */
   const onEventAdd = (): void => {
+    const fakeAttending = randomNumber(1, 20, true);
+    const fakeUnpaid = randomNumber(0, fakeAttending, true);
+
     const dummyEvent: IEvent = {
       cost: randomBool() ? randomItem([5, 10, 15, 20]) : undefined,
       createdAt: dayjs().toISOString(),
@@ -42,6 +46,10 @@ const EventListScreen = (): ReactElement => {
       ).toISOString(),
       id: uuidv4(),
       title: fakeCompany.companyName(),
+      stats: {
+        attending: fakeAttending,
+        unpaid: fakeUnpaid,
+      },
     };
 
     dispatch(addEvent(dummyEvent));

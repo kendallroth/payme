@@ -22,7 +22,7 @@ const UnpaidIndicator = (props: UnpaidIndicatorProps): ReactElement | null => {
       <Text style={styles.indicatorText}>{count}</Text>
       <Icon
         color={colors.error}
-        name="information"
+        name="alert-circle"
         size={20}
         style={styles.indicatorIcon}
       />
