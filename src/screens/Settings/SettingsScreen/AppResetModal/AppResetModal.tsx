@@ -8,7 +8,7 @@ import { BottomSheet } from "@components/dialogs";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import { IAppResetOptions } from "@typings";
+import { IAppResetOptions } from "@typings/settings.types";
 
 type AppResetModalProps = {
   /** App reset handler */

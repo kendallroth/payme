@@ -23,7 +23,7 @@ import { darkTheme, lightTheme } from "@styles/theme";
 import "./localization/config";
 
 // Types
-import { AppTheme } from "@typings";
+import { AppTheme } from "@typings/settings.types";
 
 // NOTE: Optimize React Navigation memory usage/performance?
 // Taken from: https://reactnavigation.org/docs/react-native-screens/

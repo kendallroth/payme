@@ -12,7 +12,7 @@ import { AppBar, Page } from "@components/layout";
 // Utilities
 import config from "@config";
 import { sharedColors } from "@theme";
-import { MaterialCommunityIcons } from "@typings";
+import { MaterialCommunityIcons } from "@typings/app.types";
 
 interface IDeveloperActions {
   icon: keyof MaterialCommunityIcons;

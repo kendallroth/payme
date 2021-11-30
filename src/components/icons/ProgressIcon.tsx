@@ -8,7 +8,7 @@ import Svg, { Circle } from "react-native-svg";
 import { lerpColor } from "@utilities/misc.util";
 
 // Types
-import { MaterialCommunityIcons } from "@typings";
+import { MaterialCommunityIcons } from "@typings/app.types";
 
 const EPSILON = 0.999999;
 

@@ -11,9 +11,10 @@ import {
   AppLanguage,
   AppTheme,
   IAppLanguageConfig,
+  IAppPopulateOptions,
   IAppResetOptions,
   IAppThemeConfig,
-} from "@typings";
+} from "@typings/settings.types";
 import { RootState } from "../index";
 
 interface SettingsState {
@@ -63,11 +64,11 @@ const settingsSlice = createSlice({
 // Add debug data to the store
 const addDebugData = createAsyncThunk(
   "settings/addDebugData",
-  async (arg, { dispatch }) => {
+  async (options: IAppPopulateOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    await dispatch(addDebugDataAction());
+    await dispatch(addDebugDataAction(options));
   },
 );
 

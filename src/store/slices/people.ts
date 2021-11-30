@@ -5,7 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 
 // Utilites
-import { resetAppAction } from "../actions";
+import { fakePeople } from "../data/people";
+import { addDebugDataAction, resetAppAction } from "../actions";
 import { RootState } from "../index";
 
 // Types
@@ -40,6 +41,17 @@ const peopleSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(addDebugDataAction, (state, action) => {
+      if (!action.payload.people) return;
+
+      // Only add debug people if not already populated in store
+      const existingPeople = Object.values(state.entities);
+      fakePeople.forEach((person) => {
+        if (existingPeople.find((e) => e?.name === person.name)) return;
+
+        peopleAdapter.addOne(state, person);
+      });
+    });
     builder.addCase(resetAppAction, (state, action) => {
       if (!action.payload.people) return;
 

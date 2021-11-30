@@ -5,7 +5,7 @@ import { useTheme } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
 
 // Types
-import { MaterialCommunityIcons } from "@typings";
+import { MaterialCommunityIcons } from "@typings/app.types";
 
 type SwipeableListItemProps = {
   /** Actual list item */

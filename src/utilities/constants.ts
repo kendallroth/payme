@@ -6,7 +6,7 @@ import {
   AppTheme,
   IAppLanguageConfig,
   IAppThemeConfig,
-} from "@typings";
+} from "@typings/settings.types";
 
 /** Sample ISO date string */
 export const SAMPLE_ISO_DATE = "2021-11-28T05:03:59.744Z";

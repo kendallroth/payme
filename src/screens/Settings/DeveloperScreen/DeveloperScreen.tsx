@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet } from "react-native";
+import { Alert, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button, List, useTheme } from "react-native-paper";
 
@@ -12,17 +12,47 @@ import DeveloperListItem from "./DeveloperListItem";
 
 // Utilities
 import config from "@config";
-import { useAppDispatch } from "@hooks";
-import { setAppDeveloper } from "@store/slices/settings";
+import { useAppDispatch, useAppLoader, useSnackbar } from "@hooks";
+import { addDebugData, setAppDeveloper } from "@store/slices/settings";
 
 // Types
 import { SettingsRouterNavigation } from "@screens/Settings/SettingsRouter";
+import { IAppPopulateOptions } from "@typings/settings.types";
 
 const DeveloperScreen = (): ReactElement => {
-  const { t } = useTranslation(["common", "screens"]);
+  const loader = useAppLoader();
   const dispatch = useAppDispatch();
   const navigator = useNavigation<SettingsRouterNavigation>();
+  const { notify } = useSnackbar();
+  const { t } = useTranslation(["common", "screens"]);
   const { colors } = useTheme();
+
+  /**
+   * Populate the app state
+   */
+  const onAppPopulate = (): void => {
+    const populateOptions: IAppPopulateOptions = {
+      events: true,
+      people: true,
+    };
+
+    Alert.alert(
+      t("screens:settingsDeveloper.populateDataTitle"),
+      t("screens:settingsDeveloper.populateDataDescription"),
+      [
+        { text: t("common:confirmations.cancel"), style: "cancel" },
+        {
+          text: t("common:confirmations.confirm"),
+          onPress: async (): Promise<void> => {
+            loader.show(t("screens:settingsDeveloper.populateDataLoading"));
+            await dispatch(addDebugData(populateOptions));
+            loader.hide();
+            notify(t("screens:settingsDeveloper.populateDataSuccess"));
+          },
+        },
+      ],
+    );
+  };
 
   /**
    * Exit developer mode
@@ -71,6 +101,20 @@ const DeveloperScreen = (): ReactElement => {
               ? t("screens:settingsDeveloper.listItemDeviceTypePhone")
               : t("screens:settingsDeveloper.listItemDeviceTypeEmulator")
           }
+        />
+        <List.Subheader style={styles.listSubheader}>
+          {t("screens:settingsDeveloper.listSectionActions")}
+        </List.Subheader>
+        <List.Item
+          description={t(
+            "screens:settingsDeveloper.listItemPopulateDescription",
+          )}
+          left={(leftProps): ReactElement => (
+            <List.Icon {...leftProps} icon="database-plus" />
+          )}
+          title={t("screens:settingsDeveloper.listItemPopulateTitle")}
+          onLongPress={onAppPopulate}
+          onPress={(): void => {}}
         />
         <Button
           color={colors.error}
