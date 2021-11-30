@@ -5,7 +5,7 @@ import { Appearance } from "react-native";
 import { validateEnum } from "@utilities/enum.util";
 
 // Types
-import { AppLanguage, AppTheme } from "@typings";
+import { AppLanguage, AppTheme } from "@typings/settings.types";
 
 class SettingsService {
   /** Language defaults to English */

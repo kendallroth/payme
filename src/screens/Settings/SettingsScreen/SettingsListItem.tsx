@@ -11,7 +11,7 @@ import {
   SettingsRouterNavigation,
   SettingsRouterParams,
 } from "@screens/Settings/SettingsRouter";
-import { MaterialCommunityIcons } from "@typings";
+import { MaterialCommunityIcons } from "@typings/app.types";
 
 export type Props = {
   /** Whether list item is disabled */

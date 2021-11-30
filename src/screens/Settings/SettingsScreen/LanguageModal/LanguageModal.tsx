@@ -10,7 +10,7 @@ import SettingsModalListItem from "../SettingsModalListItem";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import { AppLanguage } from "@typings";
+import { AppLanguage } from "@typings/settings.types";
 import { LANGUAGES } from "@utilities/constants";
 
 type LanguageModalProps = {

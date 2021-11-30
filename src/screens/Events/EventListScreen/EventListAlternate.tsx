@@ -1,10 +1,10 @@
 import React, { ReactElement, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import { Badge, Card, Text, useTheme } from "react-native-paper";
+import { Badge, Text, useTheme } from "react-native-paper";
 
 // Components
-import EventListItem from "./EventListItem";
+import EventListItem from "./EventListItemAlternate";
 
 // Types
 import { IEvent } from "@typings/event.types";
@@ -47,7 +47,7 @@ const EventList = (props: EventProps): ReactElement => {
   );
 
   return (
-    <Card elevation={2} style={[styles.list, style]}>
+    <View style={[styles.list, style]}>
       <View style={[styles.listTitle, themeStyles.listTitle]}>
         <Text style={[styles.listTitleText, themeStyles.listTitleText]}>
           {title}
@@ -65,15 +65,12 @@ const EventList = (props: EventProps): ReactElement => {
           {t("common:errors.noMatchingEvents")}
         </Text>
       )}
-    </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  list: {
-    overflow: "hidden",
-    borderRadius: 16,
-  },
+  list: {},
   listEmpty: {
     paddingHorizontal: 16,
     paddingVertical: 24,
@@ -82,7 +79,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: 8,
     padding: 16,
+    elevation: 4,
+    borderRadius: 16,
   },
   listTitleText: {
     fontSize: 16,

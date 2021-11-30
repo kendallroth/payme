@@ -28,7 +28,7 @@ const persistConfig = {
   // Enable separately persisted Redux stores per release channel
   key: `store_${config.environment}`,
   storage: AsyncStorage,
-  whitelist: ["events", "settings"],
+  whitelist: ["events", "people", "settings"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

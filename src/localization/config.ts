@@ -10,7 +10,7 @@ import esScreens from "./es/screens.json";
 import languageDetector from "./language-detector";
 
 // Types
-import { AppLanguage } from "@typings";
+import { AppLanguage } from "@typings/settings.types";
 
 export const defaultNamespace = "common";
 export const resources = {

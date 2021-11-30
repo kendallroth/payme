@@ -1,5 +1,11 @@
 import { DarkTheme, DefaultTheme as LightTheme } from "react-native-paper";
 
+/*
+ * Backdrop   - Backdrops of modals
+ * Background - Appears behind scrollable content (pages, lists)
+ * Surface    - Surfaces of components (cards, sheets, menus)
+ */
+
 // Extend 'react-native-paper' ThemeColors type
 declare global {
   namespace ReactNativePaper {

@@ -47,7 +47,7 @@ const TabRouter = (): ReactElement => {
         name="Events"
         options={{
           tabBarIcon: "calendar",
-          tabBarLabel: t("screens:events.title"),
+          tabBarLabel: t("screens:eventList.title"),
         }}
       />
       <Tabs.Screen
@@ -55,7 +55,7 @@ const TabRouter = (): ReactElement => {
         name="People"
         options={{
           tabBarIcon: "account-multiple",
-          tabBarLabel: t("screens:people.title"),
+          tabBarLabel: t("screens:peopleList.title"),
         }}
       />
       {/* <Tabs.Screen

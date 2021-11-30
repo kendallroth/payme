@@ -5,7 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 
 // Utilites
-import { resetAppAction } from "../actions";
+import { addDebugDataAction, resetAppAction } from "../actions";
+import { fakeEvents } from "../data/events";
 import { RootState } from "../index";
 
 // Types
@@ -35,6 +36,7 @@ const eventsSlice = createSlice({
     addEvent(state, action: PayloadAction<IEvent>): void {
       const newEvent: IEvent = {
         ...action.payload,
+        title: action.payload.title.trim(),
         // TODO: Add any additional fields?
       };
 
@@ -46,6 +48,17 @@ const eventsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(addDebugDataAction, (state, action) => {
+      if (!action.payload.events) return;
+
+      // Only add debug events if not already populated in store
+      const existingEvents = Object.values(state.entities);
+      fakeEvents.forEach((event) => {
+        if (existingEvents.find((e) => e?.title === event.title)) return;
+
+        eventsAdapter.addOne(state, event);
+      });
+    });
     builder.addCase(resetAppAction, (state, action) => {
       if (!action.payload.events) return;
 

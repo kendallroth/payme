@@ -33,7 +33,11 @@ import { sharedColors } from "@theme";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import { AppLanguage, AppTheme, IAppResetOptions } from "@typings";
+import {
+  AppLanguage,
+  AppTheme,
+  IAppResetOptions,
+} from "@typings/settings.types";
 
 const DEVELOPER_MODE_TAPS = 10;
 
@@ -43,8 +47,8 @@ const SettingsScreen = (): ReactElement => {
   const themeRef = useRef<BottomSheetRef>(null);
   const [debugCounter, setDebugCounter] = useState(0);
 
-  const loader = useAppLoader();
   const dispatch = useAppDispatch();
+  const loader = useAppLoader();
   const { notify } = useSnackbar();
   const { i18n, t } = useTranslation(["common", "screens"]);
 

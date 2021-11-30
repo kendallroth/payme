@@ -12,7 +12,7 @@ import { THEMES } from "@utilities/constants";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import { AppTheme } from "@typings";
+import { AppTheme } from "@typings/settings.types";
 
 type ThemeModalProps = {
   /** Current theme */

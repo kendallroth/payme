@@ -1,0 +1,30 @@
+diff --git a/node_modules/react-native-gesture-handler/lib/typescript/components/Swipeable.d.ts b/node_modules/react-native-gesture-handler/lib/typescript/components/Swipeable.d.ts
+index 60237c7..3186c20 100644
+--- a/node_modules/react-native-gesture-handler/lib/typescript/components/Swipeable.d.ts
++++ b/node_modules/react-native-gesture-handler/lib/typescript/components/Swipeable.d.ts
+@@ -43,8 +43,8 @@ interface SwipeableProps extends Pick<PanGestureHandlerProps, SwipeableExcludes>
+     renderRightActions?: (progressAnimatedValue: Animated.AnimatedInterpolation, dragAnimatedValue: Animated.AnimatedInterpolation) => React.ReactNode;
+     useNativeAnimations?: boolean;
+     animationOptions?: Record<string, unknown>;
+-    containerStyle?: StyleProp<ViewStyle>;
+-    childrenContainerStyle?: StyleProp<ViewStyle>;
++    containerStyle?: Animated.WithAnimatedObject<ViewStyle> | Animated.WithAnimatedArray<ViewStyle>;
++    childrenContainerStyle?: Animated.WithAnimatedObject<ViewStyle> | Animated.WithAnimatedArray<ViewStyle>;
+ }
+ declare type SwipeableState = {
+     dragX: Animated.Value;
+diff --git a/node_modules/react-native-gesture-handler/src/components/Swipeable.tsx b/node_modules/react-native-gesture-handler/src/components/Swipeable.tsx
+index 77c6084..c989b98 100644
+--- a/node_modules/react-native-gesture-handler/src/components/Swipeable.tsx
++++ b/node_modules/react-native-gesture-handler/src/components/Swipeable.tsx
+@@ -79,8 +79,8 @@ interface SwipeableProps
+   ) => React.ReactNode;
+   useNativeAnimations?: boolean;
+   animationOptions?: Record<string, unknown>;
+-  containerStyle?: StyleProp<ViewStyle>;
+-  childrenContainerStyle?: StyleProp<ViewStyle>;
++  containerStyle?: Animated.WithAnimatedObject<ViewStyle> | Animated.WithAnimatedArray<ViewStyle>;
++  childrenContainerStyle?: Animated.WithAnimatedObject<ViewStyle> | Animated.WithAnimatedArray<ViewStyle>;
+ }
+ 
+ type SwipeableState = {
