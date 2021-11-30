@@ -1,12 +1,11 @@
-import React, { ReactElement, useMemo, useRef } from "react";
+import React, { ReactElement, useMemo } from "react";
 import dayjs from "dayjs";
-import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import { Animated, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { List, useTheme } from "react-native-paper";
-import { Swipeable } from "react-native-gesture-handler";
 
 // Components
 import { ProgressIcon } from "@components/icons";
+import { SwipeableListItem } from "@components/list";
 import { PaymentIndicator, UnpaidIndicator } from "@components/typography";
 
 // Utilities
@@ -22,12 +21,8 @@ type EventListItemProps = {
   onRemove: (eventId: string) => void;
 };
 
-const AnimatedIcon = Animated.createAnimatedComponent(Icon);
-
 const EventListItem = (props: EventListItemProps): ReactElement => {
   const { event, onRemove } = props;
-
-  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const past = dayjs().isAfter(event.date);
   let description = formatDateString(event.date);
@@ -91,89 +86,35 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
         {...rightProps}
         attending={event.stats?.attending}
         style={styles.listItemPaymentIndicator}
-        unpaid={event.stats?.unpaid}
+        // unpaid={event.stats?.unpaid}
       />
     );
-  };
-
-  /**
-   * Render left swipe action
-   *
-   * @param   progress - Progress animated interpolation
-   * @param   dragX    - Drag animated interpolation
-   * @returns Left swipe action
-   */
-  const renderLeftActions = (
-    progress: Animated.AnimatedInterpolation,
-    dragX: Animated.AnimatedInterpolation,
-  ): ReactElement | null => {
-    const scale = dragX.interpolate({
-      inputRange: [0, 80],
-      outputRange: [0.5, 1],
-      extrapolate: "clamp",
-    });
-    return (
-      <View style={[styles.listItemSwipeLeft, themeStyles.listItemSwipeLeft]}>
-        <AnimatedIcon
-          color={colors.white}
-          name="delete"
-          size={24}
-          style={{ transform: [{ scale }] }}
-        />
-      </View>
-    );
-  };
-
-  /**
-   * Perform animation when left action is triggered
-   *
-   * NOTE: There is a brief delay after action before Swipeable animation
-   *         completes, which can be disguised by fading the element out.
-   */
-  const onLeftOpenAnimate = (): void => {
-    Animated.timing(fadeAnim, {
-      duration: 1000,
-      toValue: 0,
-      useNativeDriver: false,
-    }).start();
   };
 
   return (
-    <Swipeable
-      // Minimum horizontal distance before activation
-      activeOffsetX={[-30, 30]}
-      friction={2}
-      // Prevent animation if straying vertically before activation
-      failOffsetY={[-20, 20]}
-      // Distance necessary to trigger action upon release
-      leftThreshold={80}
-      containerStyle={{ opacity: fadeAnim }}
-      renderLeftActions={renderLeftActions}
-      onSwipeableLeftOpen={(): void => onRemove(event.id)}
-      onSwipeableLeftWillOpen={onLeftOpenAnimate}
+    <SwipeableListItem
+      leftColor={colors.error}
+      leftIcon="delete"
+      onLeftOpen={(): void => onRemove(event.id)}
     >
-      <List.Item
-        key={event.id}
-        description={description}
-        left={renderListItemLeft}
-        right={renderListItemRight}
-        style={themeStyles.listItem}
-        title={event.title}
-        titleStyle={themeStyles.listItemTitle}
-      />
-    </Swipeable>
+      {(swipeProps): ReactElement => (
+        <List.Item
+          {...swipeProps}
+          description={description}
+          left={renderListItemLeft}
+          right={renderListItemRight}
+          style={themeStyles.listItem}
+          title={event.title}
+          titleStyle={themeStyles.listItemTitle}
+        />
+      )}
+    </SwipeableListItem>
   );
 };
 
 const styles = StyleSheet.create({
   listItemLeftIcon: {
     marginRight: 4,
-  },
-  listItemSwipeLeft: {
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 16,
   },
   listItemPaymentIndicator: {
     marginLeft: 16,

@@ -75,9 +75,7 @@ const ProgressIcon = (props: ProgressIconProps): ReactElement => {
 
   // NOTE: 'size' here refers to size within SVG viewport!
   const lineWidth = 3;
-  // const radius = size / 2 - lineWidth * 2;
   const radius = size / 2 - lineWidth / 2;
-  // const radius = size / 2;
   const circumference = radius * 2 * Math.PI;
 
   if (progress > EPSILON) {
