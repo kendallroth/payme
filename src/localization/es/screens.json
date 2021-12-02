@@ -11,9 +11,10 @@
   },
   "peopleList": {
     "title": "Gente",
-    "archivePersonConfirmTitle": "Persona de Archivo",
-    "archivePersonConfirmDescription": "¿Estás seguro de que deseas archivar a esta persona?",
-    "archivePersonSuccess": "Archivado {{name}}"
+    "deletePersonConfirmTitle": "Eliminar Persona",
+    "deletePersonConfirmDescription": "¿Estás seguro de que quieres eliminar a esta persona?",
+    "deletePersonConfirmWarning": "¡Eliminar a una persona también la eliminará de toda la asistencia!",
+    "deletePersonSuccess": "Eliminado {{name}}"
   },
   "settings": {
     "title": "Ajustes",

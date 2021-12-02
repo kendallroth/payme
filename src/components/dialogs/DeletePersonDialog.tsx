@@ -4,13 +4,14 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
 // Components
+import { Alert } from "@components/typography";
 import ConfirmDialog from "./ConfirmDialog";
 
 // Types
 import { IPerson } from "@typings/people.types";
 
-export type ArchivePersonDialogProps = {
-  /** Person being archived */
+export type DeletePersonDialogProps = {
+  /** Person being deleted */
   person: IPerson | null;
   /** Whether modal is visible */
   visible: boolean;
@@ -20,8 +21,8 @@ export type ArchivePersonDialogProps = {
   onConfirm: () => void;
 };
 
-const ArchivePersonDialog = (
-  props: ArchivePersonDialogProps,
+const DeletePersonDialog = (
+  props: DeletePersonDialogProps,
 ): ReactElement | null => {
   const { person, visible, onCancel, onConfirm } = props;
 
@@ -29,27 +30,30 @@ const ArchivePersonDialog = (
 
   if (!person) return null;
 
-  // TODO: Support unarchiving
-  // const archiving = !person.archivedAt;
-
   return (
     <ConfirmDialog
-      title={t("screens:peopleList.archivePersonConfirmTitle")}
+      title={t("screens:peopleList.deletePersonConfirmTitle")}
       visible={visible}
       onCancel={onCancel}
       onConfirm={onConfirm}
     >
-      <Text>{t("screens:peopleList.archivePersonConfirmDescription")}</Text>
-      <Text style={styles.archiveDialogPerson}>{person.name}</Text>
+      <Text>{t("screens:peopleList.deletePersonConfirmDescription")}</Text>
+      <Text style={styles.deleteDialogPerson}>{person.name}</Text>
+      <Alert style={styles.deleteDialogAlert}>
+        {t("screens:peopleList.deletePersonConfirmWarning")}
+      </Alert>
     </ConfirmDialog>
   );
 };
 
 const styles = StyleSheet.create({
-  archiveDialogPerson: {
+  deleteDialogAlert: {
     marginTop: 16,
+  },
+  deleteDialogPerson: {
+    marginTop: 8,
     fontWeight: "bold",
   },
 });
 
-export default ArchivePersonDialog;
+export default DeletePersonDialog;

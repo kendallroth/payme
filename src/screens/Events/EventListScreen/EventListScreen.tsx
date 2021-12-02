@@ -39,6 +39,7 @@ const EventListScreen = (): ReactElement => {
     const fakeUnpaid = randomNumber(0, fakeAttending, true);
 
     const dummyEvent: IEvent = {
+      archivedAt: null,
       cost: randomBool() ? randomItem([5, 10, 15, 20]) : undefined,
       createdAt: dayjs().toISOString(),
       date: dayjs(

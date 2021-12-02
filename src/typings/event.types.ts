@@ -8,6 +8,8 @@ export interface IEventBase {
 }
 
 export interface IEvent extends IEventBase {
+  /** When event was archived */
+  archivedAt: string | null;
   /** When event was created */
   createdAt: string;
   /** Event cost */

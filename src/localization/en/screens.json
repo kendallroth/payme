@@ -11,9 +11,10 @@
   },
   "peopleList": {
     "title": "People",
-    "archivePersonConfirmTitle": "Archive Person",
-    "archivePersonConfirmDescription": "Are you sure you want to archive this person?",
-    "archivePersonSuccess": "Archived {{name}}"
+    "deletePersonConfirmTitle": "Remove Person",
+    "deletePersonConfirmDescription": "Are you sure you want to remove this person?",
+    "deletePersonConfirmWarning": "Removing a person will also remove them from all attendance!",
+    "deletePersonSuccess": "Removed {{name}}"
   },
   "settings": {
     "title": "Settings",

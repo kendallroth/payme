@@ -26,14 +26,13 @@ describe("'compareNames'", () => {
 
 describe("'compareAllNames'", () => {
   const basePeople: IPerson[] = [
-    { id: "1", archivedAt: null, createdAt: "fake", name: "Benjamin Malley" },
-    { id: "2", archivedAt: null, createdAt: "fake", name: "Jacob Petersheim" },
+    { id: "1", createdAt: "fake", name: "Benjamin Malley" },
+    { id: "2", createdAt: "fake", name: "Jacob Petersheim" },
   ];
 
   it("detects potentially identical names", () => {
     const existingPerson = {
       id: "2",
-      archivedAt: null,
       createdAt: "fake",
       name: "Ben O'Malley",
     };

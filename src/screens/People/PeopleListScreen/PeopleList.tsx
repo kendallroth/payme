@@ -48,7 +48,7 @@ const PeopleList = (props: PeopleProps): ReactElement => {
   ): ReactElement => (
     <IconButton
       {...rightProps}
-      icon="package-down"
+      icon="delete"
       onPress={(): void => onRemove(item)}
     />
   );

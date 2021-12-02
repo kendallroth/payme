@@ -18,6 +18,7 @@ declare global {
         lightest: string;
       };
       transparent: string;
+      warning: string;
       white: string;
     }
 
@@ -39,6 +40,7 @@ const sharedColors = {
     light: "#cdcdcd",
     lightest: "#dedede",
   },
+  warning: "#ffa23a",
   transparent: "transparent",
   white: "#ffffff",
 };

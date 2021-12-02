@@ -29,7 +29,6 @@ const peopleSlice = createSlice({
     addPerson(state, action: PayloadAction<IPerson>): void {
       const newPerson: IPerson = {
         ...action.payload,
-        archivedAt: null,
         name: action.payload.name.trim(),
         // TODO: Add any additional fields?
       };

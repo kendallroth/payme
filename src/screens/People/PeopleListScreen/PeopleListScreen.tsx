@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
-import { ArchivePersonDialog } from "@components/dialogs";
+import { DeletePersonDialog } from "@components/dialogs";
 import { AppBar, Page } from "@components/layout";
 import PeopleList from "./PeopleList";
 
@@ -22,7 +22,7 @@ import { IPerson } from "@typings/people.types";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
-  const [archivedPerson, setArchivedPerson] = useState<IPerson | null>(null);
+  const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
 
   const dispatch = useDispatch();
   const { t } = useTranslation(["common", "screens"]);
@@ -38,7 +38,6 @@ const PeopleListScreen = (): ReactElement => {
    */
   const onPersonAdd = (): void => {
     const dummyPerson: IPerson = {
-      archivedAt: null,
       createdAt: dayjs().toISOString(),
       id: uuidv4(),
       name: `${fakeName.firstName()} ${fakeName.lastName()}`,
@@ -48,33 +47,33 @@ const PeopleListScreen = (): ReactElement => {
   };
 
   /**
-   * Prompt for confirmation before archiving a person
+   * Prompt for confirmation before deleting a person
    *
-   * @param person - Archived person
+   * @param person - Deleted person
    */
-  const onPersonArchive = (person: IPerson): void => {
-    setArchivedPerson(person);
+  const onPersonDelete = (person: IPerson): void => {
+    setDeletedPerson(person);
   };
 
   /**
-   * Cancel archiving a person
+   * Cancel deleting a person
    */
-  const onPersonArchiveCancel = (): void => {
-    setArchivedPerson(null);
+  const onPersonDeleteCancel = (): void => {
+    setDeletedPerson(null);
   };
 
   /**
-   * Archive a person after confirmation
+   * Delete a person after confirmation
    */
-  const onPersonArchiveConfirm = (): void => {
-    if (!archivedPerson) return;
+  const onPersonDeleteConfirm = (): void => {
+    if (!deletedPerson) return;
 
-    setArchivedPerson(null);
-    dispatch(removePerson(archivedPerson.id));
+    setDeletedPerson(null);
+    dispatch(removePerson(deletedPerson.id));
 
     notify(
-      t("screens:peopleList.archivePersonSuccess", {
-        name: archivedPerson.name,
+      t("screens:peopleList.deletePersonSuccess", {
+        name: deletedPerson.name,
       }),
     );
   };
@@ -91,7 +90,7 @@ const PeopleListScreen = (): ReactElement => {
       <PeopleList
         people={filteredPeople}
         style={styles.peopleList}
-        onRemove={onPersonArchive}
+        onRemove={onPersonDelete}
       />
       <FAB
         icon="plus"
@@ -99,11 +98,11 @@ const PeopleListScreen = (): ReactElement => {
         onPress={(): void => notifyError("Not implemented yet")}
         onLongPress={onPersonAdd}
       />
-      <ArchivePersonDialog
-        person={archivedPerson}
-        visible={Boolean(archivedPerson)}
-        onCancel={onPersonArchiveCancel}
-        onConfirm={onPersonArchiveConfirm}
+      <DeletePersonDialog
+        person={deletedPerson}
+        visible={Boolean(deletedPerson)}
+        onCancel={onPersonDeleteCancel}
+        onConfirm={onPersonDeleteConfirm}
       />
     </Page>
   );

@@ -11,6 +11,10 @@ Simple app that tracks who has paid for an event.
 - Events (_list of events for payment_)
 - People (_lists of common groups of payees_)
 
+## TODOs
+
+- Handle removing deleted person from event attendance
+
 ## Development
 
 ```sh
