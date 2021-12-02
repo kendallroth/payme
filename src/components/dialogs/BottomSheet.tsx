@@ -4,13 +4,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import {
-  // Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Modal from "react-native-modal";
 import { Text, useTheme } from "react-native-paper";
 

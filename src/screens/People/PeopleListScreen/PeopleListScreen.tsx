@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
+import { ArchivePersonDialog } from "@components/dialogs";
 import { AppBar, Page } from "@components/layout";
 import PeopleList from "./PeopleList";
 
@@ -21,11 +22,12 @@ import { IPerson } from "@typings/people.types";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
+  const [archivedPerson, setArchivedPerson] = useState<IPerson | null>(null);
 
-  const { t } = useTranslation(["common", "screens"]);
   const dispatch = useDispatch();
+  const { t } = useTranslation(["common", "screens"]);
   const people = useSelector(selectPeople);
-  const { notifyError } = useSnackbar();
+  const { notify, notifyError } = useSnackbar();
 
   const filteredPeople = searchText.trim()
     ? people.filter((person) => includesSafeString(person.name, searchText))
@@ -36,6 +38,7 @@ const PeopleListScreen = (): ReactElement => {
    */
   const onPersonAdd = (): void => {
     const dummyPerson: IPerson = {
+      archivedAt: null,
       createdAt: dayjs().toISOString(),
       id: uuidv4(),
       name: `${fakeName.firstName()} ${fakeName.lastName()}`,
@@ -45,14 +48,35 @@ const PeopleListScreen = (): ReactElement => {
   };
 
   /**
-   * Remove a person
+   * Prompt for confirmation before archiving a person
    *
-   * TODO: Overhaul with new "removal" workflow (this flow is dangerous)!
-   *
-   * @param personId - Removed person ID
+   * @param person - Archived person
    */
-  const onPersonRemove = (personId: string): void => {
-    dispatch(removePerson(personId));
+  const onPersonArchive = (person: IPerson): void => {
+    setArchivedPerson(person);
+  };
+
+  /**
+   * Cancel archiving a person
+   */
+  const onPersonArchiveCancel = (): void => {
+    setArchivedPerson(null);
+  };
+
+  /**
+   * Archive a person after confirmation
+   */
+  const onPersonArchiveConfirm = (): void => {
+    if (!archivedPerson) return;
+
+    setArchivedPerson(null);
+    dispatch(removePerson(archivedPerson.id));
+
+    notify(
+      t("screens:peopleList.archivePersonSuccess", {
+        name: archivedPerson.name,
+      }),
+    );
   };
 
   return (
@@ -67,13 +91,19 @@ const PeopleListScreen = (): ReactElement => {
       <PeopleList
         people={filteredPeople}
         style={styles.peopleList}
-        onRemove={onPersonRemove}
+        onRemove={onPersonArchive}
       />
       <FAB
         icon="plus"
         style={styles.peopleFAB}
         onPress={(): void => notifyError("Not implemented yet")}
         onLongPress={onPersonAdd}
+      />
+      <ArchivePersonDialog
+        person={archivedPerson}
+        visible={Boolean(archivedPerson)}
+        onCancel={onPersonArchiveCancel}
+        onConfirm={onPersonArchiveConfirm}
       />
     </Page>
   );

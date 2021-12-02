@@ -15,6 +15,7 @@ type FakePersonNew = Pick<IPerson, "name">;
 const createFakePerson = (person?: FakePersonNew): IPerson => {
   return {
     id: uuidv4(),
+    archivedAt: null,
     createdAt: fakeDate.past(1).toISOString(),
     name: `${fakeName.firstName()} ${fakeName.lastName()}`,
     ...(person ?? {}),

@@ -10,7 +10,10 @@
     "welcomeText": "Welcome!"
   },
   "peopleList": {
-    "title": "People"
+    "title": "People",
+    "archivePersonConfirmTitle": "Archive Person",
+    "archivePersonConfirmDescription": "Are you sure you want to archive this person?",
+    "archivePersonSuccess": "Archived {{name}}"
   },
   "settings": {
     "title": "Settings",

@@ -21,7 +21,7 @@ type PeopleProps = {
   /** List container style */
   style?: StyleProp<ViewStyle>;
   /** Person removal handler */
-  onRemove: (personId: string) => void;
+  onRemove: (person: IPerson) => void;
 };
 
 const PeopleList = (props: PeopleProps): ReactElement => {
@@ -48,8 +48,8 @@ const PeopleList = (props: PeopleProps): ReactElement => {
   ): ReactElement => (
     <IconButton
       {...rightProps}
-      icon="delete"
-      onPress={(): void => onRemove(item.id)}
+      icon="package-down"
+      onPress={(): void => onRemove(item)}
     />
   );
 

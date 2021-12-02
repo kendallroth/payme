@@ -10,7 +10,10 @@
     "welcomeText": "¡Bienvenido!"
   },
   "peopleList": {
-    "title": "Gente"
+    "title": "Gente",
+    "archivePersonConfirmTitle": "Persona de Archivo",
+    "archivePersonConfirmDescription": "¿Estás seguro de que deseas archivar a esta persona?",
+    "archivePersonSuccess": "Archivado {{name}}"
   },
   "settings": {
     "title": "Ajustes",
