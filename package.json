@@ -33,6 +33,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.4",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-masked-view/masked-view": "0.2.5",
     "@react-navigation/material-bottom-tabs": "^6.0.5",
@@ -55,6 +56,7 @@
     "patch-package": "^6.4.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-form": "^7.20.5",
     "react-i18next": "^11.13.0",
     "react-native": "0.64.3",
     "react-native-gesture-handler": "~1.10.2",
@@ -70,7 +72,8 @@
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Keyboard, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Modal from "react-native-modal";
 import { Text, useTheme } from "react-native-paper";
 
@@ -12,17 +12,19 @@ export type BottomSheetProps = {
   /** Modal contents */
   children: ReactElement | ReactElement[];
   /**
-   * Whether modal can be closed
-   *
-   * NOTE: Not implemented yet
+   * Whether modal can be dismissed by backdrop
    */
-  closable?: boolean;
+  dismissable?: boolean;
   /** Whether content should be inset horizontally (20px) */
   inset?: boolean;
   /** Modal content style */
   style?: StyleProp<ViewStyle>;
   /** Modal title */
   title?: string;
+  /** Slot for content to title's right */
+  titleRight?: ReactElement | null;
+  /** Title style */
+  titleStyle?: StyleProp<ViewStyle>;
   /** Close callback */
   onClose?: () => void;
   /** Open callback */
@@ -40,9 +42,12 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
   (props: BottomSheetProps, ref) => {
     const {
       children,
+      dismissable = false,
       inset = true,
       style = {},
       title,
+      titleRight,
+      titleStyle = {},
       onClose,
       onOpen,
     } = props;
@@ -69,6 +74,10 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
       if (!isOpen) return;
       setIsOpen(false);
 
+      // NOTE: Manually hiding keyboard ensures a smoother transition than
+      //         the automatic closure when inputs unmount (where needed)!
+      Keyboard.dismiss();
+
       // Notify parent component that modal has closed (only for internal closures)!
       onClose && onClose();
     };
@@ -93,7 +102,8 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
         backdropTransitionOutTiming={0}
         isVisible={isOpen}
         style={[styles.sheetModal]}
-        onBackdropPress={close}
+        onBackdropPress={dismissable ? close : undefined}
+        // TODO: Determine if this should always close modal (maybe allow confirming?)
         onBackButtonPress={close}
       >
         <View
@@ -105,11 +115,12 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
           ]}
         >
           {Boolean(title) && (
-            <Text
+            <View
               style={[styles.sheetTitle, inset ? undefined : styles.sheetInset]}
             >
-              {title}
-            </Text>
+              <Text style={[styles.sheetTitleText, titleStyle]}>{title}</Text>
+              {titleRight}
+            </View>
           )}
           {children}
         </View>
@@ -118,7 +129,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
   },
 );
 
-const sheetPadding = 20;
+const sheetPadding = 24;
 const styles = StyleSheet.create({
   sheetContent: {
     paddingVertical: sheetPadding,
@@ -135,7 +146,12 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   sheetTitle: {
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: sheetPadding,
+  },
+  sheetTitleText: {
+    marginRight: "auto",
     fontSize: 18,
     fontWeight: "700",
   },

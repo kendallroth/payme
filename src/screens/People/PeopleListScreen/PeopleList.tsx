@@ -7,7 +7,10 @@ import {
   StyleSheet,
   ViewStyle,
 } from "react-native";
-import { IconButton, List, Text, useTheme } from "react-native-paper";
+import { IconButton, List } from "react-native-paper";
+
+// Components
+import { Alert } from "@components/typography";
 
 // Utilities
 import { flatListIdExtractor } from "@utilities/list.util";
@@ -28,7 +31,6 @@ const PeopleList = (props: PeopleProps): ReactElement => {
   const { people, style, onRemove } = props;
 
   const { t } = useTranslation(["common"]);
-  const { colors } = useTheme();
 
   const renderPersonItem = ({
     item,
@@ -53,14 +55,16 @@ const PeopleList = (props: PeopleProps): ReactElement => {
     />
   );
 
+  // TODO: Render something else (big image) when no people have been added!
+
   return (
     <FlatList
       data={people}
       keyExtractor={flatListIdExtractor}
       ListEmptyComponent={(): ReactElement => (
-        <Text style={styles.listEmpty}>
+        <Alert style={styles.listEmpty}>
           {t("common:errors.noMatchingPeople")}
-        </Text>
+        </Alert>
       )}
       renderItem={renderPersonItem}
       style={[styles.list, style]}

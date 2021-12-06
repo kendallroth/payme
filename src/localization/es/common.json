@@ -1,5 +1,12 @@
 {
   "_comment": "src/localization/es/translation.json",
+  "actions": {
+    "add": "Agregar",
+    "back": "Regresa",
+    "delete": "Borrar",
+    "remove": "Eliminar",
+    "save": "Ahorrar"
+  },
   "app": {},
   "confirmations": {
     "cancel": "Cancelar",

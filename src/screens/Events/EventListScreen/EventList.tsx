@@ -4,6 +4,7 @@ import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Badge, Card, Text, useTheme } from "react-native-paper";
 
 // Components
+import { Alert } from "@components/typography";
 import EventListItem from "./EventListItem";
 
 // Types
@@ -30,9 +31,6 @@ const EventList = (props: EventProps): ReactElement => {
 
   const themeStyles = useMemo(
     () => ({
-      listEmpty: {
-        color: colors.grey.base,
-      },
       listTitle: {
         backgroundColor: colors.primary,
       },
@@ -61,9 +59,9 @@ const EventList = (props: EventProps): ReactElement => {
           <EventListItem key={event.id} event={event} onRemove={onRemove} />
         ))}
       {!hasEvents && (
-        <Text style={[styles.listEmpty, themeStyles.listEmpty]}>
+        <Alert style={styles.listEmpty}>
           {t("common:errors.noMatchingEvents")}
-        </Text>
+        </Alert>
       )}
     </Card>
   );

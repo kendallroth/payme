@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   deleteDialogPerson: {
-    marginTop: 8,
+    marginTop: 12,
     fontWeight: "bold",
   },
 });

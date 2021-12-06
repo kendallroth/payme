@@ -1,6 +1,4 @@
-import React, { ReactElement, useState } from "react";
-import dayjs from "dayjs";
-import { name as fakeName } from "faker";
+import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { FAB, Searchbar } from "react-native-paper";
@@ -14,36 +12,36 @@ import PeopleList from "./PeopleList";
 
 // Utilities
 import { useSnackbar } from "@hooks";
-import { addPerson, removePerson, selectPeople } from "@store/slices/people";
-import { includesSafeString } from "@utilities/string";
+import { addPeople, removePerson, selectPeople } from "@store/slices/people";
+import { compareSafeStrings, includesSafeString } from "@utilities/string";
 
 // Types
-import { IPerson } from "@typings/people.types";
+import { IPerson, IPersonBase } from "@typings/people.types";
+import { BottomSheetRef } from "@components/dialogs/BottomSheet";
+import ManagePersonSheet from "@components/dialogs/ManagePersonSheet";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
   const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
+  const managePersonRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useDispatch();
   const { t } = useTranslation(["common", "screens"]);
   const people = useSelector(selectPeople);
-  const { notify, notifyError } = useSnackbar();
+  const { notify } = useSnackbar();
 
   const filteredPeople = searchText.trim()
     ? people.filter((person) => includesSafeString(person.name, searchText))
     : people;
 
   /**
-   * Add a person
+   * Check if a name is already used (Redux)
+   *
+   * @param   name - New person's name
+   * @returns - Whether name is already used
    */
-  const onPersonAdd = (): void => {
-    const dummyPerson: IPerson = {
-      createdAt: dayjs().toISOString(),
-      id: uuidv4(),
-      name: `${fakeName.firstName()} ${fakeName.lastName()}`,
-    };
-
-    dispatch(addPerson(dummyPerson));
+  const checkIfNameUsed = (name: string): boolean => {
+    return people.some((p) => compareSafeStrings(p.name, name));
   };
 
   /**
@@ -78,6 +76,30 @@ const PeopleListScreen = (): ReactElement => {
     );
   };
 
+  /**
+   * Cancel adding people
+   */
+  const onPeopleCancel = (): void => {
+    managePersonRef.current?.close();
+  };
+
+  /**
+   * Add a person/people
+   *
+   * @param names - List of added names
+   */
+  const onPeopleSave = (names: string[]): void => {
+    const newPeople: IPersonBase[] = names.map((name) => ({
+      id: uuidv4(),
+      name,
+    }));
+
+    dispatch(addPeople(newPeople));
+
+    managePersonRef.current?.close();
+    notify(t("screens:peopleAdd.peopleAddSuccess", { count: names.length }));
+  };
+
   return (
     <Page>
       <AppBar title={t("screens:peopleList.title")} />
@@ -95,8 +117,13 @@ const PeopleListScreen = (): ReactElement => {
       <FAB
         icon="plus"
         style={styles.peopleFAB}
-        onPress={(): void => notifyError("Not implemented yet")}
-        onLongPress={onPersonAdd}
+        onPress={managePersonRef.current?.open}
+      />
+      <ManagePersonSheet
+        ref={managePersonRef}
+        checkName={checkIfNameUsed}
+        onCancel={onPeopleCancel}
+        onSave={onPeopleSave}
       />
       <DeletePersonDialog
         person={deletedPerson}

@@ -9,6 +9,17 @@
     "title": "Hogar",
     "welcomeText": "¡Bienvenido!"
   },
+  "peopleAdd": {
+    "title": "Añadir Personas",
+    "cancelAddConfirmDescription": "Are you sure you want to cancel adding {{count}} people?",
+    "cancelAddConfirmTitle": "¿Cancelar Agregando Personas?",
+    "peopleAddSuccess": "Añadida {{count}} persona",
+    "peopleAddSuccess_other": "Añadidas {{count}} personas",
+    "peopleCount": "+{{count}} otro",
+    "peopleCount_other": "+{{count}} otros",
+    "personNameLabel": "Nombre",
+    "personNameUsedError": "Nombre ya agregado"
+  },
   "peopleList": {
     "title": "Gente",
     "deletePersonConfirmTitle": "Eliminar Persona",

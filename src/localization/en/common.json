@@ -1,5 +1,12 @@
 {
   "_comment": "src/localization/en/translation.json",
+  "actions": {
+    "add": "Add",
+    "back": "Back",
+    "delete": "Delete",
+    "remove": "Remove",
+    "save": "Save"
+  },
   "app": {},
   "confirmations": {
     "cancel": "Cancel",

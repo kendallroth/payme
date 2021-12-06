@@ -46,6 +46,12 @@ const Alert = (props: AlertProps): ReactElement | null => {
     warning: colors.warning,
   };
 
+  const themeStyles = {
+    alertText: {
+      color: colors.grey.dark,
+    },
+  };
+
   return (
     <View style={[styles.alert, style]}>
       <Icon
@@ -55,7 +61,9 @@ const Alert = (props: AlertProps): ReactElement | null => {
         style={styles.alertIcon}
       />
       {childIsString ? (
-        <Text style={[styles.alertText, textStyle]}>{children}</Text>
+        <Text style={[styles.alertText, themeStyles.alertText, textStyle]}>
+          {children}
+        </Text>
       ) : (
         children
       )}
