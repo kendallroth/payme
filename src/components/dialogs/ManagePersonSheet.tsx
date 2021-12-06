@@ -7,12 +7,12 @@ import { Button, Dialog, Text, useTheme } from "react-native-paper";
 import * as yup from "yup";
 
 // Components
-import { BottomSheet } from "@components/dialogs";
 import { TextInput } from "@components/form";
+import BottomSheet from "./BottomSheet";
 
 // Types
-import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 import { compareSafeStrings } from "@utilities/string";
+import { BottomSheetRef } from "./BottomSheet";
 
 interface IFormData {
   /** Number of people added (used for disabling "required" validation) */

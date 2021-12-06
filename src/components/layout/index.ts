@@ -1,4 +1,5 @@
 export { default as AppBar } from "./AppBar";
 export { default as ComingSoon } from "./ComingSoon";
 export { default as Page } from "./Page";
+export { default as PortalFAB } from "./PortalFAB";
 export { default as Spacer } from "./Spacer";

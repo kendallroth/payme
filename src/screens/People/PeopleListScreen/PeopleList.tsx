@@ -5,6 +5,7 @@ import {
   ListRenderItemInfo,
   StyleProp,
   StyleSheet,
+  View,
   ViewStyle,
 } from "react-native";
 import { IconButton, List } from "react-native-paper";
@@ -48,11 +49,14 @@ const PeopleList = (props: PeopleProps): ReactElement => {
     rightProps: any,
     item: IPerson,
   ): ReactElement => (
-    <IconButton
-      {...rightProps}
-      icon="delete"
-      onPress={(): void => onRemove(item)}
-    />
+    <View {...rightProps} style={styles.listItemActions}>
+      <IconButton {...rightProps} disabled icon="pencil" />
+      <IconButton
+        {...rightProps}
+        icon="delete"
+        onPress={(): void => onRemove(item)}
+      />
+    </View>
   );
 
   // TODO: Render something else (big image) when no people have been added!
@@ -76,6 +80,10 @@ const styles = StyleSheet.create({
   list: {},
   listEmpty: {
     marginHorizontal: 24,
+  },
+  listItemActions: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

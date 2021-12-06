@@ -1,13 +1,14 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
-import { FAB, Searchbar } from "react-native-paper";
+import { Searchbar } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
-import { DeletePersonDialog } from "@components/dialogs";
-import { AppBar, Page } from "@components/layout";
+import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
+import { AppBar, Page, PortalFAB } from "@components/layout";
 import PeopleList from "./PeopleList";
 
 // Utilities
@@ -18,7 +19,6 @@ import { compareSafeStrings, includesSafeString } from "@utilities/string";
 // Types
 import { IPerson, IPersonBase } from "@typings/people.types";
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
-import ManagePersonSheet from "@components/dialogs/ManagePersonSheet";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
@@ -30,6 +30,7 @@ const PeopleListScreen = (): ReactElement => {
   const people = useSelector(selectPeople);
   const { notify } = useSnackbar();
 
+  const isScreenFocused = useIsFocused();
   const filteredPeople = searchText.trim()
     ? people.filter((person) => includesSafeString(person.name, searchText))
     : people;
@@ -114,9 +115,9 @@ const PeopleListScreen = (): ReactElement => {
         style={styles.peopleList}
         onRemove={onPersonDelete}
       />
-      <FAB
-        icon="plus"
-        style={styles.peopleFAB}
+      {/* NOTE: Must render before other Portals for z-positioning! */}
+      <PortalFAB
+        icon="account-plus"
         onPress={(): void => managePersonRef.current?.open()}
       />
       <ManagePersonSheet
@@ -136,12 +137,6 @@ const PeopleListScreen = (): ReactElement => {
 };
 
 const styles = StyleSheet.create({
-  peopleFAB: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 16,
-  },
   peopleList: {
     flex: 1,
   },
