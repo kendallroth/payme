@@ -9,8 +9,24 @@
     "title": "Hogar",
     "welcomeText": "¡Bienvenido!"
   },
+  "peopleAdd": {
+    "title": "Añadir Personas",
+    "cancelAddConfirmDescription": "¿Estás seguro de que deseas cancelar la adición de {{count}} personas?",
+    "cancelAddConfirmDescription_other": "¿Estás seguro de que deseas cancelar la adición de {{count}} persona?",
+    "cancelAddConfirmTitle": "¿Cancelar Agregando Personas?",
+    "peopleAddSuccess": "Añadida {{count}} persona",
+    "peopleAddSuccess_other": "Añadidas {{count}} personas",
+    "peopleCount": "+{{count}} otro",
+    "peopleCount_other": "+{{count}} otros",
+    "personNameLabel": "Nombre",
+    "personNameUsedError": "Nombre ya agregado"
+  },
   "peopleList": {
-    "title": "Gente"
+    "title": "Gente",
+    "deletePersonConfirmTitle": "Eliminar Persona",
+    "deletePersonConfirmDescription": "¿Estás seguro de que quieres eliminar a esta persona?",
+    "deletePersonConfirmWarning": "¡Eliminar a una persona también la eliminará de toda la asistencia!",
+    "deletePersonSuccess": "Eliminado {{name}}"
   },
   "settings": {
     "title": "Ajustes",

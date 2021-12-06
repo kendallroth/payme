@@ -2,13 +2,12 @@ import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
-import { FAB } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { company as fakeCompany, date as fakeDate } from "faker";
 
 // Components
-import { AppBar, Page } from "@components/layout";
+import { AppBar, Page, PortalFAB } from "@components/layout";
 import EventList from "./EventList";
 import EventListAlternate from "./EventListAlternate";
 
@@ -39,6 +38,7 @@ const EventListScreen = (): ReactElement => {
     const fakeUnpaid = randomNumber(0, fakeAttending, true);
 
     const dummyEvent: IEvent = {
+      archivedAt: null,
       cost: randomBool() ? randomItem([5, 10, 15, 20]) : undefined,
       createdAt: dayjs().toISOString(),
       date: dayjs(
@@ -86,9 +86,9 @@ const EventListScreen = (): ReactElement => {
           onRemove={onEventRemove}
         />
       </ScrollView>
-      <FAB
-        icon="plus"
-        style={styles.eventFAB}
+      {/* NOTE: Must render before other Portals for z-positioning! */}
+      <PortalFAB
+        icon="calendar-plus"
         onPress={(): void => notifyError("Not implemented yet")}
         onLongPress={onEventAdd}
       />
@@ -98,12 +98,6 @@ const EventListScreen = (): ReactElement => {
 
 const listPadding = 20;
 const styles = StyleSheet.create({
-  eventFAB: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 16,
-  },
   eventList: {
     marginBottom: listPadding,
   },

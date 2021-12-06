@@ -22,6 +22,7 @@
       "@contexts/*": ["src/contexts/*"],
       "@config": ["src/utilities/config.ts"],
       "@hooks": ["src/hooks"],
+      "@localization/*": ["src/localization/*"],
       "@screens/*": ["src/screens/*"],
       "@services": ["src/services"],
       "@services/*": ["src/services/*"],

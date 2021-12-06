@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
 import {
   createEntityAdapter,
   createSlice,
   PayloadAction,
+  Update,
 } from "@reduxjs/toolkit";
 
 // Utilites
@@ -37,10 +39,19 @@ const eventsSlice = createSlice({
       const newEvent: IEvent = {
         ...action.payload,
         title: action.payload.title.trim(),
-        // TODO: Add any additional fields?
       };
 
       eventsAdapter.addOne(state, newEvent);
+    },
+    archiveEvent(state, action: PayloadAction<IEvent>): void {
+      const update: Update<IEvent> = {
+        id: action.payload.id,
+        changes: {
+          archivedAt: dayjs().toISOString(),
+        },
+      };
+
+      eventsAdapter.updateOne(state, update);
     },
     // NOTE: Probably a temporary action (deleting has consequences!)
     removeEvent(state, action: PayloadAction<string>): void {
@@ -92,6 +103,6 @@ export const selectEvent = (state: RootState, id: string): IEvent | undefined =>
  */
 export const selectEvents = eventsSelectors.selectAll;
 
-export const { addEvent, removeEvent } = eventsSlice.actions;
+export const { addEvent, archiveEvent, removeEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;

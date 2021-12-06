@@ -9,4 +9,5 @@ node_modules/
 .expo-shared/
 .husky
 assets/
+coverage/
 docs/

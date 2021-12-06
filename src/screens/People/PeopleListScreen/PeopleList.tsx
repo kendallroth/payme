@@ -5,9 +5,13 @@ import {
   ListRenderItemInfo,
   StyleProp,
   StyleSheet,
+  View,
   ViewStyle,
 } from "react-native";
-import { IconButton, List, Text, useTheme } from "react-native-paper";
+import { IconButton, List } from "react-native-paper";
+
+// Components
+import { Alert } from "@components/typography";
 
 // Utilities
 import { flatListIdExtractor } from "@utilities/list.util";
@@ -21,14 +25,13 @@ type PeopleProps = {
   /** List container style */
   style?: StyleProp<ViewStyle>;
   /** Person removal handler */
-  onRemove: (personId: string) => void;
+  onRemove: (person: IPerson) => void;
 };
 
 const PeopleList = (props: PeopleProps): ReactElement => {
   const { people, style, onRemove } = props;
 
   const { t } = useTranslation(["common"]);
-  const { colors } = useTheme();
 
   const renderPersonItem = ({
     item,
@@ -46,21 +49,26 @@ const PeopleList = (props: PeopleProps): ReactElement => {
     rightProps: any,
     item: IPerson,
   ): ReactElement => (
-    <IconButton
-      {...rightProps}
-      icon="delete"
-      onPress={(): void => onRemove(item.id)}
-    />
+    <View {...rightProps} style={styles.listItemActions}>
+      <IconButton {...rightProps} disabled icon="pencil" />
+      <IconButton
+        {...rightProps}
+        icon="delete"
+        onPress={(): void => onRemove(item)}
+      />
+    </View>
   );
+
+  // TODO: Render something else (big image) when no people have been added!
 
   return (
     <FlatList
       data={people}
       keyExtractor={flatListIdExtractor}
       ListEmptyComponent={(): ReactElement => (
-        <Text style={styles.listEmpty}>
+        <Alert style={styles.listEmpty}>
           {t("common:errors.noMatchingPeople")}
-        </Text>
+        </Alert>
       )}
       renderItem={renderPersonItem}
       style={[styles.list, style]}
@@ -72,6 +80,10 @@ const styles = StyleSheet.create({
   list: {},
   listEmpty: {
     marginHorizontal: 24,
+  },
+  listItemActions: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

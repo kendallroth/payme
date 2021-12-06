@@ -1,5 +1,12 @@
 {
   "_comment": "src/localization/en/translation.json",
+  "actions": {
+    "add": "Add",
+    "back": "Back",
+    "delete": "Delete",
+    "remove": "Remove",
+    "save": "Save"
+  },
   "app": {},
   "confirmations": {
     "cancel": "Cancel",
@@ -15,5 +22,11 @@
   "phrases": {
     "comingSoon": "Coming Soon!",
     "search": "Search"
+  },
+  "validations": {
+    "invalid": "{{path}} is invalid",
+    "invalidType": "{{path}} ust be a {{type}}",
+    "required": "{{path}} is required",
+    "stringMin": "{{path}} must be at least {{min}} characters"
   }
 }

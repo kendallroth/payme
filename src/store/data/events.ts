@@ -16,6 +16,7 @@ type FakeEventNew = Pick<IEvent, "title" | "cost" | "date" | "stats">;
 const createFakeEvent = (event: FakeEventNew): IEvent => {
   return {
     id: uuidv4(),
+    archivedAt: null,
     createdAt: fakeDate.past(1).toISOString(),
     ...event,
   };

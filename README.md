@@ -11,6 +11,10 @@ Simple app that tracks who has paid for an event.
 - Events (_list of events for payment_)
 - People (_lists of common groups of payees_)
 
+## TODOs
+
+- Handle removing deleted person from event attendance
+
 ## Development
 
 ```sh
@@ -73,5 +77,6 @@ Version `4.10.0` of `react-native-paper` has issues with TypeScript for any comp
 
 ## TODOs
 
+- Fix validation bug when trying to "save" multiple added people with an empty text field (since validation still runs)!
 - Explore localized date formatting with ([`i18n Formatting`](https://www.i18next.com/translation-function/formatting)) (alternative at [Brains and Beards](https://brainsandbeards.com/blog/i18n-in-react-native-apps#formatting))
 - Improve theme colors (especially dark theme)

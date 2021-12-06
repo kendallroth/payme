@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   createEntityAdapter,
   createSlice,
@@ -10,7 +11,7 @@ import { addDebugDataAction, resetAppAction } from "../actions";
 import { RootState } from "../index";
 
 // Types
-import { IPerson } from "@typings/people.types";
+import { IPerson, IPersonBase } from "@typings/people.types";
 
 export const peopleAdapter = createEntityAdapter<IPerson>({
   sortComparer: (a, b) => a.name.localeCompare(b.name),
@@ -26,11 +27,20 @@ const peopleSlice = createSlice({
   name: "people",
   initialState,
   reducers: {
-    addPerson(state, action: PayloadAction<IPerson>): void {
+    addPeople(state, action: PayloadAction<IPersonBase[]>): void {
+      const newPeople: IPerson[] = action.payload.map((person) => ({
+        ...person,
+        createdAt: dayjs().toISOString(),
+        name: person.name.trim(),
+      }));
+
+      peopleAdapter.addMany(state, newPeople);
+    },
+    addPerson(state, action: PayloadAction<IPersonBase>): void {
       const newPerson: IPerson = {
         ...action.payload,
+        createdAt: dayjs().toISOString(),
         name: action.payload.name.trim(),
-        // TODO: Add any additional fields?
       };
 
       peopleAdapter.addOne(state, newPerson);
@@ -87,6 +97,6 @@ export const selectPerson = (
  */
 export const selectPeople = peopleSelectors.selectAll;
 
-export const { addPerson, removePerson } = peopleSlice.actions;
+export const { addPeople, addPerson, removePerson } = peopleSlice.actions;
 
 export default peopleSlice.reducer;

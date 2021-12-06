@@ -12,11 +12,13 @@ declare global {
     interface ThemeColors {
       black: string;
       grey: {
+        dark: string;
         base: string;
         light: string;
         lightest: string;
       };
       transparent: string;
+      warning: string;
       white: string;
     }
 
@@ -33,10 +35,12 @@ const sharedColors = {
   black: "#000000",
   // TODO: Figure out how to handle grey colors per theme!
   grey: {
+    dark: "#666666",
     base: "#999999",
     light: "#cdcdcd",
     lightest: "#dedede",
   },
+  warning: "#ffa23a",
   transparent: "transparent",
   white: "#ffffff",
 };
