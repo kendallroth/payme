@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactElement, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import { TFunction, useTranslation } from "react-i18next";
 import { Alert, StyleSheet, TextInput as RNTextInput } from "react-native";
 import { Button, Dialog, Text, useTheme } from "react-native-paper";
 import * as yup from "yup";
@@ -27,14 +27,15 @@ type ManagePersonSheetProps = {
   onSave: (names: string[]) => void;
 };
 
-// TODO: Localize schema!
-// https://github.com/react-hook-form/react-hook-form/discussions/3808#discussioncomment-261851
-const schema = yup.object({
-  name: yup
-    .string()
-    .required("Name is required")
-    .min(2, "Name must be at least ${min} characters"),
-});
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
+  yup.object({
+    name: yup
+      .string()
+      .label(t("screens:peopleAdd.personNameLabel"))
+      .required()
+      .min(2),
+  });
 
 const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
   (props: ManagePersonSheetProps, ref): ReactElement => {
@@ -43,17 +44,16 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
     const nameRef = useRef<RNTextInput | null>(null);
     const [names, setNames] = useState<string[]>([]);
 
+    const { colors } = useTheme();
+    const { t } = useTranslation(["common", "screens"]);
     const { control, handleSubmit, ...form } = useForm<IFormData>({
       defaultValues: {
         name: "",
       },
-      resolver: yupResolver(schema),
+      resolver: yupResolver(getSchema(t)),
     });
 
     const hasNameError = form.formState.errors.name;
-
-    const { t } = useTranslation(["common", "screens"]);
-    const { colors } = useTheme();
 
     /**
      * Cancel adding name(s)

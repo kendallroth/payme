@@ -6,7 +6,10 @@ import React, {
 } from "react";
 import { Control, useController } from "react-hook-form";
 import { TextInput as RNTextInput } from "react-native";
-import { HelperText, TextInput as RNPTextInput } from "react-native-paper";
+import { TextInput as RNPTextInput } from "react-native-paper";
+
+// Components
+import InputError from "./InputError";
 
 type TextInputProps = {
   /** Control from 'react-hook-form' */
@@ -40,10 +43,7 @@ const TextInput = (props: TextInputProps): ReactElement => {
         onBlur={field.onBlur}
         onChangeText={field.onChange}
       />
-      <HelperText type="error" visible={errorShown}>
-        {/* NOTE: Need an extra check ('visible' flickers briefly...) */}
-        {errorShown ? error?.message : ""}
-      </HelperText>
+      <InputError error={error?.message} visible={errorShown} />
     </Fragment>
   );
 };

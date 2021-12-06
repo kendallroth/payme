@@ -11,7 +11,8 @@
   },
   "peopleAdd": {
     "title": "Añadir Personas",
-    "cancelAddConfirmDescription": "Are you sure you want to cancel adding {{count}} people?",
+    "cancelAddConfirmDescription": "¿Estás seguro de que deseas cancelar la adición de {{count}} personas?",
+    "cancelAddConfirmDescription_other": "¿Estás seguro de que deseas cancelar la adición de {{count}} persona?",
     "cancelAddConfirmTitle": "¿Cancelar Agregando Personas?",
     "peopleAddSuccess": "Añadida {{count}} persona",
     "peopleAddSuccess_other": "Añadidas {{count}} personas",

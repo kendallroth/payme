@@ -22,5 +22,11 @@
   "phrases": {
     "comingSoon": "Coming Soon!",
     "search": "Search"
+  },
+  "validations": {
+    "invalid": "{{path}} is invalid",
+    "invalidType": "{{path}} ust be a {{type}}",
+    "required": "{{path}} is required",
+    "stringMin": "{{path}} must be at least {{min}} characters"
   }
 }

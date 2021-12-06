@@ -22,5 +22,11 @@
   "phrases": {
     "comingSoon": "Próximamente!",
     "search": "Buscar"
+  },
+  "validations": {
+    "invalid": "{{path}} es inválida",
+    "invalidType": "{{path}} debe ser un {{type}}",
+    "required": "{{path}} es requerido",
+    "stringMin": "{{path}} debe tener al menos {{min}} carácter"
   }
 }

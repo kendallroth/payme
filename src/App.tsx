@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { Provider as ReduxProvider } from "react-redux";
 import { enableScreens } from "react-native-screens";
 import "react-native-gesture-handler";
+import * as yup from "yup";
 
 // Components
 import { TheAppDataLoader } from "@components/single";
@@ -21,13 +22,18 @@ import { selectThemeConfig } from "@store/slices/settings";
 import setupStore from "@store";
 import { darkTheme, lightTheme } from "@styles/theme";
 import "./localization/config";
+import { yupLocale } from "./localization/yup-locale";
 
 // Types
 import { AppTheme } from "@typings/settings.types";
 
 // NOTE: Optimize React Navigation memory usage/performance?
-// Taken from: https://reactnavigation.org/docs/react-native-screens/
+// Source: https://reactnavigation.org/docs/react-native-screens/
 enableScreens();
+
+// Support a custom locale dictionary for validation messages
+// Source: https://github.com/jquense/yup#using-a-custom-locale-dictionary
+yup.setLocale(yupLocale);
 
 const { persistor, store } = setupStore();
 

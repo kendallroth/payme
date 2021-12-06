@@ -12,6 +12,7 @@ module.exports = function (api) {
             "@contexts": "./src/contexts",
             "@config": "./src/utilities/config.ts",
             "@hooks": "./src/hooks",
+            "@localization": "./src/localization",
             "@services": "./src/services",
             "@store": "./src/store",
             "@screens": "./src/screens",

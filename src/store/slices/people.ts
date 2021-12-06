@@ -41,7 +41,6 @@ const peopleSlice = createSlice({
         ...action.payload,
         createdAt: dayjs().toISOString(),
         name: action.payload.name.trim(),
-        // TODO: Add any additional fields?
       };
 
       peopleAdapter.addOne(state, newPerson);

@@ -39,7 +39,6 @@ const eventsSlice = createSlice({
       const newEvent: IEvent = {
         ...action.payload,
         title: action.payload.title.trim(),
-        // TODO: Add any additional fields?
       };
 
       eventsAdapter.addOne(state, newEvent);
