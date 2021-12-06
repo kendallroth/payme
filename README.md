@@ -77,5 +77,6 @@ Version `4.10.0` of `react-native-paper` has issues with TypeScript for any comp
 
 ## TODOs
 
+- Fix validation bug when trying to "save" multiple added people with an empty text field (since validation still runs)!
 - Explore localized date formatting with ([`i18n Formatting`](https://www.i18next.com/translation-function/formatting)) (alternative at [Brains and Beards](https://brainsandbeards.com/blog/i18n-in-react-native-apps#formatting))
 - Improve theme colors (especially dark theme)

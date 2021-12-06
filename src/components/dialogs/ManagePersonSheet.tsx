@@ -15,6 +15,8 @@ import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 import { compareSafeStrings } from "@utilities/string";
 
 interface IFormData {
+  /** Number of people added (used for disabling "required" validation) */
+  count: number;
   name: string;
 }
 
@@ -30,6 +32,7 @@ type ManagePersonSheetProps = {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
   yup.object({
+    count: yup.number(),
     name: yup
       .string()
       .label(t("screens:peopleAdd.personNameLabel"))
@@ -46,8 +49,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
     const { colors } = useTheme();
     const { t } = useTranslation(["common", "screens"]);
-    const { control, handleSubmit, ...form } = useForm<IFormData>({
+    const form = useForm<IFormData>({
       defaultValues: {
+        count: 0,
         name: "",
       },
       resolver: yupResolver(getSchema(t)),
@@ -120,6 +124,8 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
       const newNames = [...names, newName];
       setNames(newNames);
+      // Track number of names added to conditionally disable 'required' name validation
+      form.setValue("count", newNames.length);
       form.reset();
       return [true, newNames];
     };
@@ -135,6 +141,11 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       // NOTE: Cannot use state 'names' because they do not update in time after adding!
       const [valid, newNames] = onNameAdd(data);
       if (!valid) return;
+
+      // TODO: Figure out way to detect when trying to submit after adding multiple people,
+      //         as Yup requires the name field! Validation should be required whenever
+      //         adding via the "add more" button, but not via the "Save" button IF at
+      //         least one person has been added!
 
       onSave(newNames);
     };
@@ -155,7 +166,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       >
         <TextInput
           autoCapitalize="words"
-          control={control}
+          control={form.control}
           error={false}
           innerRef={nameRef}
           name="name"
@@ -164,7 +175,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
             <TextInput.Icon
               color={hasNameError ? colors.error : colors.primary}
               name="account-plus"
-              onPress={handleSubmit(onNameAdd)}
+              onPress={form.handleSubmit(onNameAdd)}
             />
           }
         />
@@ -172,7 +183,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
           <Button color={colors.grey.dark} onPress={onCancel}>
             {t("common:confirmations.cancel")}
           </Button>
-          <Button onPress={handleSubmit(onSubmit)}>
+          <Button onPress={form.handleSubmit(onSubmit)}>
             {t("common:actions.add")}
           </Button>
         </Dialog.Actions>
