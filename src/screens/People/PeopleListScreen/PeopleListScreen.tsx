@@ -117,7 +117,7 @@ const PeopleListScreen = (): ReactElement => {
       <FAB
         icon="plus"
         style={styles.peopleFAB}
-        onPress={managePersonRef.current?.open}
+        onPress={(): void => managePersonRef.current?.open()}
       />
       <ManagePersonSheet
         ref={managePersonRef}
