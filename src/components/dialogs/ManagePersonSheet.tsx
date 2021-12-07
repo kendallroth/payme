@@ -1,4 +1,10 @@
-import React, { forwardRef, ReactElement, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
@@ -11,6 +17,7 @@ import { TextInput } from "@components/form";
 import BottomSheet from "./BottomSheet";
 
 // Types
+import { IPerson } from "@typings/people.types";
 import { compareSafeStrings } from "@utilities/string";
 import { BottomSheetRef } from "./BottomSheet";
 
@@ -23,10 +30,14 @@ interface IFormData {
 type ManagePersonSheetProps = {
   /** Determine whether a name is valid (not used) */
   checkName?: (name: string) => boolean;
+  /** Person to update */
+  person?: IPerson | null;
+  /** Add people callback */
+  onAdd: (names: string[]) => void;
   /** Cancellation callback */
   onCancel: () => void;
-  /** Save callback */
-  onSave: (names: string[]) => void;
+  /** Update person callback */
+  onEdit: (person: IPerson) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -42,7 +53,7 @@ const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
 
 const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
   (props: ManagePersonSheetProps, ref): ReactElement => {
-    const { checkName, onCancel: onCancelProp, onSave } = props;
+    const { checkName, person, onAdd, onCancel: onCancelProp, onEdit } = props;
 
     const nameRef = useRef<RNTextInput | null>(null);
     const [names, setNames] = useState<string[]>([]);
@@ -52,12 +63,21 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
     const form = useForm<IFormData>({
       defaultValues: {
         count: 0,
-        name: "",
+        name: person?.name ?? "",
       },
       resolver: yupResolver(getSchema(t)),
     });
 
+    // Clear form whenever edited person changes (when editing or adding)
+    useEffect(() => {
+      form.reset({
+        name: person?.name ?? "",
+      });
+    }, [form, person]);
+
+    const editing = Boolean(person);
     const hasNameError = form.formState.errors.name;
+    const showTitleRight = !editing && names.length > 0;
 
     /**
      * Cancel adding name(s)
@@ -91,13 +111,13 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
      * Prepare modal when opened
      */
     const onOpen = (): void => {
-      form.reset();
+      // NOTE: Form is reset by "visibility" (necessary for editing people)
       setNames([]);
 
       // NOTE: Short timeout necessary to access ref and open keyboard!
       setTimeout(() => {
         nameRef.current?.focus();
-      }, 150);
+      }, 200);
     };
 
     /**
@@ -110,23 +130,29 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       const newName = data.name.trim();
       if (!newName) return [false, names];
 
-      // Prevent entering duplicate names (checks both current additions and main store)
+      // Prevent entering duplicate names (checks both current additions and main store).
+      //   Note that while editing the user must be able to re-enter their same name,
+      //   which technically does exist in the store already!
       const localListHasName = names.some((n) =>
         compareSafeStrings(n, newName),
       );
-      const storeListHasName = checkName ? checkName(newName) : false;
+      const storeListHasName = checkName
+        ? checkName(newName) && newName !== person?.name
+        : false;
       if (localListHasName || storeListHasName) {
         form.setError("name", {
-          message: t("screens:peopleAdd.personNameUsedError"),
+          message: editing
+            ? t("screens:personEdit.personNameUsedError")
+            : t("screens:peopleAdd.personNameUsedError"),
         });
         return [false, names];
       }
 
       const newNames = [...names, newName];
       setNames(newNames);
+      form.reset();
       // Track number of names added to conditionally disable 'required' name validation
       form.setValue("count", newNames.length);
-      form.reset();
       return [true, newNames];
     };
 
@@ -147,16 +173,26 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       //         adding via the "add more" button, but not via the "Save" button IF at
       //         least one person has been added!
 
-      onSave(newNames);
+      // NOTE: Must use 'person' rather than 'editing' due to TypeScript inference
+      if (!person) {
+        onAdd(newNames);
+      } else {
+        onEdit({
+          ...person,
+          name: newNames[0],
+        });
+      }
     };
 
     return (
       <BottomSheet
         ref={ref}
         style={styles.sheetContent}
-        title={t("screens:peopleAdd.title")}
+        title={
+          editing ? t("screens:personEdit.title") : t("screens:peopleAdd.title")
+        }
         titleRight={
-          names.length ? (
+          showTitleRight ? (
             <Text style={styles.sheetTitleRight}>
               {t("screens:peopleAdd.peopleCount", { count: names.length })}
             </Text>
@@ -170,13 +206,19 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
           error={false}
           innerRef={nameRef}
           name="name"
-          label={t("screens:peopleAdd.personNameLabel")}
+          label={
+            editing
+              ? t("screens:personEdit.personNameLabel")
+              : t("screens:peopleAdd.personNameLabel")
+          }
           right={
-            <TextInput.Icon
-              color={hasNameError ? colors.error : colors.primary}
-              name="account-plus"
-              onPress={form.handleSubmit(onNameAdd)}
-            />
+            !editing && (
+              <TextInput.Icon
+                color={hasNameError ? colors.error : colors.primary}
+                name="account-plus"
+                onPress={form.handleSubmit(onNameAdd)}
+              />
+            )
           }
         />
         <Dialog.Actions>
@@ -184,7 +226,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
             {t("common:confirmations.cancel")}
           </Button>
           <Button onPress={form.handleSubmit(onSubmit)}>
-            {t("common:actions.add")}
+            {editing ? t("common:actions.save") : t("common:actions.add")}
           </Button>
         </Dialog.Actions>
       </BottomSheet>

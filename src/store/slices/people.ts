@@ -3,6 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
   PayloadAction,
+  Update,
 } from "@reduxjs/toolkit";
 
 // Utilites
@@ -45,9 +46,19 @@ const peopleSlice = createSlice({
 
       peopleAdapter.addOne(state, newPerson);
     },
-    // NOTE: Probably a temporary action (deleting has consequences!)
+    // TODO: Handle removing attendance for this person!
     removePerson(state, action: PayloadAction<string>): void {
       peopleAdapter.removeOne(state, action.payload);
+    },
+    updatePerson(state, action: PayloadAction<IPerson>): void {
+      const update: Update<IPerson> = {
+        id: action.payload.id,
+        changes: {
+          name: action.payload.name,
+        },
+      };
+
+      peopleAdapter.updateOne(state, update);
     },
   },
   extraReducers: (builder) => {
@@ -97,6 +108,7 @@ export const selectPerson = (
  */
 export const selectPeople = peopleSelectors.selectAll;
 
-export const { addPeople, addPerson, removePerson } = peopleSlice.actions;
+export const { addPeople, addPerson, removePerson, updatePerson } =
+  peopleSlice.actions;
 
 export default peopleSlice.reducer;

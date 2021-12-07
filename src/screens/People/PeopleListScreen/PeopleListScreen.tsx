@@ -13,7 +13,12 @@ import PeopleList from "./PeopleList";
 
 // Utilities
 import { useSnackbar } from "@hooks";
-import { addPeople, removePerson, selectPeople } from "@store/slices/people";
+import {
+  addPeople,
+  removePerson,
+  selectPeople,
+  updatePerson,
+} from "@store/slices/people";
 import { compareSafeStrings, includesSafeString } from "@utilities/string";
 
 // Types
@@ -22,6 +27,7 @@ import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
+  const [editedPerson, setEditedPerson] = useState<IPerson | null>(null);
   const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
   const managePersonRef = useRef<BottomSheetRef>(null);
 
@@ -50,8 +56,18 @@ const PeopleListScreen = (): ReactElement => {
    *
    * @param person - Deleted person
    */
-  const onPersonDelete = (person: IPerson): void => {
+  const onPersonDeletePress = (person: IPerson): void => {
     setDeletedPerson(person);
+  };
+
+  /**
+   * Display a person for editing
+   *
+   * @param person - Edited person
+   */
+  const onPersonEditPress = (person: IPerson): void => {
+    setEditedPerson(person);
+    managePersonRef.current?.open();
   };
 
   /**
@@ -78,18 +94,11 @@ const PeopleListScreen = (): ReactElement => {
   };
 
   /**
-   * Cancel adding people
-   */
-  const onPeopleCancel = (): void => {
-    managePersonRef.current?.close();
-  };
-
-  /**
    * Add a person/people
    *
    * @param names - List of added names
    */
-  const onPeopleSave = (names: string[]): void => {
+  const onPeopleManageAdd = (names: string[]): void => {
     const newPeople: IPersonBase[] = names.map((name) => ({
       id: uuidv4(),
       name,
@@ -99,6 +108,27 @@ const PeopleListScreen = (): ReactElement => {
 
     managePersonRef.current?.close();
     notify(t("screens:peopleAdd.peopleAddSuccess", { count: names.length }));
+  };
+
+  /**
+   * Cancel adding people
+   */
+  const onPeopleManageCancel = (): void => {
+    managePersonRef.current?.close();
+    setEditedPerson(null);
+  };
+
+  /**
+   * Save an edited person
+   *
+   * @param person - Edited person
+   */
+  const onPeopleManageEdit = (person: IPerson): void => {
+    dispatch(updatePerson(person));
+
+    setEditedPerson(null);
+    managePersonRef.current?.close();
+    notify(t("screens:personEdit.personEditSuccess", { name: person.name }));
   };
 
   return (
@@ -113,7 +143,8 @@ const PeopleListScreen = (): ReactElement => {
       <PeopleList
         people={filteredPeople}
         style={styles.peopleList}
-        onRemove={onPersonDelete}
+        onEdit={onPersonEditPress}
+        onRemove={onPersonDeletePress}
       />
       {/* NOTE: Must render before other Portals for z-positioning! */}
       <PortalFAB
@@ -123,8 +154,10 @@ const PeopleListScreen = (): ReactElement => {
       <ManagePersonSheet
         ref={managePersonRef}
         checkName={checkIfNameUsed}
-        onCancel={onPeopleCancel}
-        onSave={onPeopleSave}
+        person={editedPerson}
+        onAdd={onPeopleManageAdd}
+        onCancel={onPeopleManageCancel}
+        onEdit={onPeopleManageEdit}
       />
       <DeletePersonDialog
         person={deletedPerson}

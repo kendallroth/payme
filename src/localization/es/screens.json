@@ -21,6 +21,12 @@
     "personNameLabel": "Nombre",
     "personNameUsedError": "Nombre ya agregado"
   },
+  "personEdit": {
+    "title": "Actualizar persona",
+    "personEditSuccess": "Actualizar {{name}}",
+    "personNameLabel": "Nombre",
+    "personNameUsedError": "Nombre ya agregado"
+  },
   "peopleList": {
     "title": "Gente",
     "deletePersonConfirmTitle": "Eliminar Persona",

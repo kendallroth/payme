@@ -21,6 +21,12 @@
     "personNameLabel": "Name",
     "personNameUsedError": "Name already added"
   },
+  "personEdit": {
+    "title": "Update Person",
+    "personEditSuccess": "Updated {{name}}",
+    "personNameLabel": "Name",
+    "personNameUsedError": "Name already exists"
+  },
   "peopleList": {
     "title": "People",
     "deletePersonConfirmTitle": "Remove Person",
