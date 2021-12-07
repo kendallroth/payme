@@ -9,8 +9,9 @@
     "title": "Home",
     "welcomeText": "Welcome!"
   },
-  "peopleAdd": {
-    "title": "Add People",
+  "peopleAddEdit": {
+    "titleAdd": "Add People",
+    "titleEdit": "Update Person",
     "cancelAddConfirmDescription": "Are you sure you want to cancel adding {{count}} person?",
     "cancelAddConfirmDescription_other": "Are you sure you want to cancel adding {{count}} people?",
     "cancelAddConfirmTitle": "Cancel Adding People?",
@@ -18,14 +19,9 @@
     "peopleAddSuccess_other": "Added {{count}} people",
     "peopleCount": "+{{count}} other",
     "peopleCount_other": "+{{count}} others",
-    "personNameLabel": "Name",
-    "personNameUsedError": "Name already added"
-  },
-  "personEdit": {
-    "title": "Update Person",
     "personEditSuccess": "Updated {{name}}",
     "personNameLabel": "Name",
-    "personNameUsedError": "Name already exists"
+    "personNameUsedError": "Name already added"
   },
   "peopleList": {
     "title": "People",

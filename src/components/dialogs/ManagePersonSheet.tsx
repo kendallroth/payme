@@ -46,7 +46,7 @@ const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
     count: yup.number(),
     name: yup
       .string()
-      .label(t("screens:peopleAdd.personNameLabel"))
+      .label(t("screens:peopleAddEdit.personNameLabel"))
       .required()
       .min(2),
   });
@@ -86,15 +86,15 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
      */
     const onCancel = (): void => {
       // Enable cancelling without confirm if no names have already been entered
-      if (!names.length) {
+      if (!names.length || editing) {
         onCancelProp();
         return;
       }
 
       // Prompt user to confirm cancelling adding multiple names!
       Alert.alert(
-        t("screens:peopleAdd.cancelAddConfirmTitle"),
-        t("screens:peopleAdd.cancelAddConfirmDescription", {
+        t("screens:peopleAddEdit.cancelAddConfirmTitle"),
+        t("screens:peopleAddEdit.cancelAddConfirmDescription", {
           count: names.length,
         }),
         [
@@ -141,9 +141,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         : false;
       if (localListHasName || storeListHasName) {
         form.setError("name", {
-          message: editing
-            ? t("screens:personEdit.personNameUsedError")
-            : t("screens:peopleAdd.personNameUsedError"),
+          message: t("screens:peopleAddEdit.personNameUsedError"),
         });
         return [false, names];
       }
@@ -189,12 +187,14 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         ref={ref}
         style={styles.sheetContent}
         title={
-          editing ? t("screens:personEdit.title") : t("screens:peopleAdd.title")
+          editing
+            ? t("screens:peopleAddEdit.titleEdit")
+            : t("screens:peopleAddEdit.titleAdd")
         }
         titleRight={
           showTitleRight ? (
             <Text style={styles.sheetTitleRight}>
-              {t("screens:peopleAdd.peopleCount", { count: names.length })}
+              {t("screens:peopleAddEdit.peopleCount", { count: names.length })}
             </Text>
           ) : null
         }
@@ -206,11 +206,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
           error={false}
           innerRef={nameRef}
           name="name"
-          label={
-            editing
-              ? t("screens:personEdit.personNameLabel")
-              : t("screens:peopleAdd.personNameLabel")
-          }
+          label={t("screens:peopleAddEdit.personNameLabel")}
           right={
             !editing && (
               <TextInput.Icon
@@ -221,7 +217,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
             )
           }
         />
-        <Dialog.Actions>
+        <Dialog.Actions style={styles.sheetActions}>
           <Button color={colors.grey.dark} onPress={onCancel}>
             {t("common:confirmations.cancel")}
           </Button>
@@ -235,6 +231,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 );
 
 const styles = StyleSheet.create({
+  sheetActions: {
+    paddingBottom: 0,
+  },
   sheetContent: {},
   sheetTitleRight: {
     marginRight: 2,

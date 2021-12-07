@@ -2,7 +2,6 @@ import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,7 +35,6 @@ const PeopleListScreen = (): ReactElement => {
   const people = useSelector(selectPeople);
   const { notify } = useSnackbar();
 
-  const isScreenFocused = useIsFocused();
   const filteredPeople = searchText.trim()
     ? people.filter((person) => includesSafeString(person.name, searchText))
     : people;
@@ -107,7 +105,9 @@ const PeopleListScreen = (): ReactElement => {
     dispatch(addPeople(newPeople));
 
     managePersonRef.current?.close();
-    notify(t("screens:peopleAdd.peopleAddSuccess", { count: names.length }));
+    notify(
+      t("screens:peopleAddEdit.peopleAddSuccess", { count: names.length }),
+    );
   };
 
   /**
@@ -128,7 +128,7 @@ const PeopleListScreen = (): ReactElement => {
 
     setEditedPerson(null);
     managePersonRef.current?.close();
-    notify(t("screens:personEdit.personEditSuccess", { name: person.name }));
+    notify(t("screens:peopleAddEdit.personEditSuccess", { name: person.name }));
   };
 
   return (
