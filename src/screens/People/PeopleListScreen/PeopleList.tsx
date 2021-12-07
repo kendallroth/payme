@@ -24,12 +24,14 @@ type PeopleProps = {
   people: IPerson[];
   /** List container style */
   style?: StyleProp<ViewStyle>;
+  /** Person edit handler */
+  onEdit: (person: IPerson) => void;
   /** Person removal handler */
   onRemove: (person: IPerson) => void;
 };
 
 const PeopleList = (props: PeopleProps): ReactElement => {
-  const { people, style, onRemove } = props;
+  const { people, style, onEdit, onRemove } = props;
 
   const { t } = useTranslation(["common"]);
 
@@ -50,7 +52,11 @@ const PeopleList = (props: PeopleProps): ReactElement => {
     item: IPerson,
   ): ReactElement => (
     <View {...rightProps} style={styles.listItemActions}>
-      <IconButton {...rightProps} disabled icon="pencil" />
+      <IconButton
+        {...rightProps}
+        icon="pencil"
+        onPress={(): void => onEdit(item)}
+      />
       <IconButton
         {...rightProps}
         icon="delete"
