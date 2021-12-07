@@ -9,7 +9,6 @@ import { company as fakeCompany, date as fakeDate } from "faker";
 // Components
 import { AppBar, Page, PortalFAB } from "@components/layout";
 import EventList from "./EventList";
-import EventListAlternate from "./EventListAlternate";
 
 // Utilities
 import { useSnackbar } from "@hooks";
