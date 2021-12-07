@@ -15,7 +15,7 @@ type TextInputProps = {
   /** Control from 'react-hook-form' */
   control: Control<any>;
   /** TextInput ref */
-  innerRef: RefObject<RNTextInput>;
+  innerRef?: RefObject<RNTextInput>;
   /** Form control name */
   name: string;
 } & ComponentProps<typeof RNPTextInput>;

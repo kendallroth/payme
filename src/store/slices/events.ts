@@ -12,7 +12,7 @@ import { fakeEvents } from "../data/events";
 import { RootState } from "../index";
 
 // Types
-import { IEvent } from "@typings/event.types";
+import { IEvent, IEventBase } from "@typings/event.types";
 
 interface IEventsState {
   sample: string;
@@ -35,27 +35,31 @@ const eventsSlice = createSlice({
   name: "events",
   initialState,
   reducers: {
-    addEvent(state, action: PayloadAction<IEvent>): void {
+    addEvent(state, action: PayloadAction<IEventBase>): void {
       const newEvent: IEvent = {
         ...action.payload,
+        archivedAt: null,
+        createdAt: dayjs().toISOString(),
         title: action.payload.title.trim(),
       };
 
       eventsAdapter.addOne(state, newEvent);
     },
-    archiveEvent(state, action: PayloadAction<IEvent>): void {
+    // TODO: Handle removing attendance for this person!
+    removeEvent(state, action: PayloadAction<string>): void {
+      eventsAdapter.removeOne(state, action.payload);
+    },
+    updateEvent(state, action: PayloadAction<IEvent>): void {
       const update: Update<IEvent> = {
         id: action.payload.id,
         changes: {
-          archivedAt: dayjs().toISOString(),
+          cost: action.payload.cost,
+          date: action.payload.date,
+          title: action.payload.title,
         },
       };
 
       eventsAdapter.updateOne(state, update);
-    },
-    // NOTE: Probably a temporary action (deleting has consequences!)
-    removeEvent(state, action: PayloadAction<string>): void {
-      eventsAdapter.removeOne(state, action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -103,6 +107,6 @@ export const selectEvent = (state: RootState, id: string): IEvent | undefined =>
  */
 export const selectEvents = eventsSelectors.selectAll;
 
-export const { addEvent, archiveEvent, removeEvent } = eventsSlice.actions;
+export const { addEvent, removeEvent, updateEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;

@@ -26,6 +26,7 @@
   "validations": {
     "invalid": "{{path}} es inválida",
     "invalidType": "{{path}} debe ser un {{type}}",
+    "match": "{{path}} tiene un formato no válido",
     "required": "{{path}} es requerido",
     "stringMin": "{{path}} debe tener al menos {{min}} carácter"
   }

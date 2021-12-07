@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
 import { Alert, StyleSheet, TextInput as RNTextInput } from "react-native";
 import { Button, Dialog, Text, useTheme } from "react-native-paper";
+import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 
 // Components
@@ -17,7 +18,7 @@ import { TextInput } from "@components/form";
 import BottomSheet from "./BottomSheet";
 
 // Types
-import { IPerson } from "@typings/people.types";
+import { IPerson, IPersonBase } from "@typings/people.types";
 import { compareSafeStrings } from "@utilities/string";
 import { BottomSheetRef } from "./BottomSheet";
 
@@ -33,7 +34,7 @@ type ManagePersonSheetProps = {
   /** Person to update */
   person?: IPerson | null;
   /** Add people callback */
-  onAdd: (names: string[]) => void;
+  onAdd: (people: IPersonBase[]) => void;
   /** Cancellation callback */
   onCancel: () => void;
   /** Update person callback */
@@ -68,16 +69,16 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       resolver: yupResolver(getSchema(t)),
     });
 
+    const editing = Boolean(person);
+    const hasNameError = form.formState.errors.name;
+    const showTitleRight = !editing && names.length > 0;
+
     // Clear form whenever edited person changes (when editing or adding)
     useEffect(() => {
       form.reset({
         name: person?.name ?? "",
       });
     }, [form, person]);
-
-    const editing = Boolean(person);
-    const hasNameError = form.formState.errors.name;
-    const showTitleRight = !editing && names.length > 0;
 
     /**
      * Cancel adding name(s)
@@ -173,7 +174,12 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
       // NOTE: Must use 'person' rather than 'editing' due to TypeScript inference
       if (!person) {
-        onAdd(newNames);
+        const newPeople: IPersonBase[] = names.map((name) => ({
+          id: uuidv4(),
+          name,
+        }));
+
+        onAdd(newPeople);
       } else {
         onEdit({
           ...person,
@@ -203,10 +209,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         <TextInput
           autoCapitalize="words"
           control={form.control}
-          error={false}
           innerRef={nameRef}
-          name="name"
           label={t("screens:peopleAddEdit.personNameLabel")}
+          name="name"
           right={
             !editing && (
               <TextInput.Icon
@@ -232,7 +237,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
 const styles = StyleSheet.create({
   sheetActions: {
-    paddingBottom: 0,
+    padding: 0,
   },
   sheetContent: {},
   sheetTitleRight: {

@@ -1,9 +1,23 @@
 {
   "_comment": "src/localization/es/screens.json",
+  "eventAddEdit": {
+    "titleAdd": "Añadir evento",
+    "titleEdit": "Actualizar evento",
+    "eventCostLabel": "Costo",
+    "eventDateLabel": "Fecha",
+    "eventDateFormatError": "Formato 'YYYY-MM-DD'",
+    "eventTitleLabel": "Título",
+    "eventAddSuccess": "Evento agregado",
+    "eventEditSuccess": "Actualizar {{title}}"
+  },
   "eventList": {
     "title": "Eventos",
     "listFuture": "Próximos Eventos",
-    "listPast": "Eventos Pasados"
+    "listPast": "Eventos Pasados",
+    "deleteEventConfirmTitle": "Quitar Evento",
+    "deleteEventConfirmDescription": "¿Estás seguro de que quieres eliminar este evento?",
+    "deleteEventConfirmWarning": "¡Eliminar un evento también borrará toda su asistencia!",
+    "deleteEventSuccess": "Remoto {{title}}"
   },
   "home": {
     "title": "Hogar",

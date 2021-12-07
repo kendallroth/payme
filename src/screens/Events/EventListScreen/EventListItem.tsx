@@ -1,12 +1,11 @@
 import React, { ReactElement, useMemo } from "react";
 import dayjs from "dayjs";
-import { StyleSheet } from "react-native";
-import { List, useTheme } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { IconButton, List, useTheme } from "react-native-paper";
 
 // Components
 import { ProgressIcon } from "@components/icons";
-import { SwipeableListItem } from "@components/list";
-import { PaymentIndicator, UnpaidIndicator } from "@components/typography";
+import { PaymentIndicator } from "@components/typography";
 
 // Utilities
 import { formatDateString } from "@utilities/date.util";
@@ -18,7 +17,7 @@ type EventListItemProps = {
   /** Event */
   event: IEvent;
   /** Event removal handler */
-  onRemove: (eventId: string) => void;
+  onRemove: (event: IEvent) => void;
 };
 
 const EventListItem = (props: EventListItemProps): ReactElement => {
@@ -82,37 +81,38 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
   const renderListItemRight = (rightProps: any): ReactElement => {
     // return <UnpaidIndicator {...rightProps} count={event.stats?.unpaid ?? 0} />;
     return (
-      <PaymentIndicator
-        {...rightProps}
-        attending={event.stats?.attending}
-        style={styles.listItemPaymentIndicator}
-        // unpaid={event.stats?.unpaid}
-      />
+      <View {...rightProps} style={styles.listItemActions}>
+        <PaymentIndicator
+          attending={event.stats?.attending}
+          style={styles.listItemPaymentIndicator}
+          // unpaid={event.stats?.unpaid}
+        />
+        <IconButton
+          {...rightProps}
+          icon="delete"
+          onPress={(): void => onRemove(event)}
+        />
+      </View>
     );
   };
 
   return (
-    <SwipeableListItem
-      leftColor={colors.error}
-      leftIcon="delete"
-      onLeftOpen={(): void => onRemove(event.id)}
-    >
-      {(swipeProps): ReactElement => (
-        <List.Item
-          {...swipeProps}
-          description={description}
-          left={renderListItemLeft}
-          right={renderListItemRight}
-          style={themeStyles.listItem}
-          title={event.title}
-          titleStyle={themeStyles.listItemTitle}
-        />
-      )}
-    </SwipeableListItem>
+    <List.Item
+      description={description}
+      left={renderListItemLeft}
+      right={renderListItemRight}
+      style={themeStyles.listItem}
+      title={event.title}
+      titleStyle={themeStyles.listItemTitle}
+    />
   );
 };
 
 const styles = StyleSheet.create({
+  listItemActions: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   listItemLeftIcon: {
     marginRight: 4,
   },

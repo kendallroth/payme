@@ -1,9 +1,23 @@
 {
   "_comment": "src/localization/en/translation.json",
+  "eventAddEdit": {
+    "titleAdd": "Add Event",
+    "titleEdit": "Update Event",
+    "eventCostLabel": "Cost",
+    "eventDateLabel": "Date",
+    "eventDateFormatError": "Format 'YYYY-MM-DD'",
+    "eventTitleLabel": "Title",
+    "eventAddSuccess": "Added event",
+    "eventEditSuccess": "Updated {{title}}"
+  },
   "eventList": {
     "title": "Events",
     "listFuture": "Upcoming Events",
-    "listPast": "Past Events"
+    "listPast": "Past Events",
+    "deleteEventConfirmTitle": "Remove Event",
+    "deleteEventConfirmDescription": "Are you sure you want to remove this event?",
+    "deleteEventConfirmWarning": "Removing an event will also clear all its attendance!",
+    "deleteEventSuccess": "Removed {{title}}"
   },
   "home": {
     "title": "Home",

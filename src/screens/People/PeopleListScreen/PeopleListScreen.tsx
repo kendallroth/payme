@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 // Components
 import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
@@ -21,8 +20,8 @@ import {
 import { compareSafeStrings, includesSafeString } from "@utilities/string";
 
 // Types
-import { IPerson, IPersonBase } from "@typings/people.types";
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
+import { IPerson, IPersonBase } from "@typings/people.types";
 
 const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
@@ -31,9 +30,9 @@ const PeopleListScreen = (): ReactElement => {
   const managePersonRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useDispatch();
-  const { t } = useTranslation(["common", "screens"]);
   const people = useSelector(selectPeople);
   const { notify } = useSnackbar();
+  const { t } = useTranslation(["common", "screens"]);
 
   const filteredPeople = searchText.trim()
     ? people.filter((person) => includesSafeString(person.name, searchText))
@@ -56,16 +55,6 @@ const PeopleListScreen = (): ReactElement => {
    */
   const onPersonDeletePress = (person: IPerson): void => {
     setDeletedPerson(person);
-  };
-
-  /**
-   * Display a person for editing
-   *
-   * @param person - Edited person
-   */
-  const onPersonEditPress = (person: IPerson): void => {
-    setEditedPerson(person);
-    managePersonRef.current?.open();
   };
 
   /**
@@ -92,26 +81,31 @@ const PeopleListScreen = (): ReactElement => {
   };
 
   /**
+   * Display a person for editing
+   *
+   * @param person - Edited person
+   */
+  const onPersonEditPress = (person: IPerson): void => {
+    setEditedPerson(person);
+    managePersonRef.current?.open();
+  };
+
+  /**
    * Add a person/people
    *
-   * @param names - List of added names
+   * @param newPeople - List of added people
    */
-  const onPeopleManageAdd = (names: string[]): void => {
-    const newPeople: IPersonBase[] = names.map((name) => ({
-      id: uuidv4(),
-      name,
-    }));
-
+  const onPeopleManageAdd = (newPeople: IPersonBase[]): void => {
     dispatch(addPeople(newPeople));
 
     managePersonRef.current?.close();
     notify(
-      t("screens:peopleAddEdit.peopleAddSuccess", { count: names.length }),
+      t("screens:peopleAddEdit.peopleAddSuccess", { count: newPeople.length }),
     );
   };
 
   /**
-   * Cancel adding people
+   * Cancel adding/updating people
    */
   const onPeopleManageCancel = (): void => {
     managePersonRef.current?.close();

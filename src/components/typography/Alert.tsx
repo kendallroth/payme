@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   alertText: {
+    flexShrink: 1,
     fontSize: 16,
   },
 });
