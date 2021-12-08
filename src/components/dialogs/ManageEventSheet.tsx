@@ -31,7 +31,7 @@ type ManageEventSheetProps = {
   /** Event to update */
   event?: IEvent | null;
   /** Add event callback */
-  onAdd: (event: IEventBase) => void;
+  onAdd?: (event: IEventBase) => void;
   /** Cancellation callback */
   onCancel: () => void;
   /** Update event callback */
@@ -49,7 +49,10 @@ const getSchema = (t: TFunction<("common" | "screens")[], undefined>) => {
       .number()
       .typeError(invalidField)
       .label(t("screens:eventAddEdit.eventCostLabel"))
-      .min(0, invalidField),
+      .min(0, invalidField)
+      // Ignore empty strings and null values (optional field)
+      .nullable(true)
+      .transform((v) => (!v ? null : v)),
     date: yup
       .string()
       .label(t("screens:eventAddEdit.eventDateLabel"))
@@ -128,6 +131,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
     const onSubmit = (data: IFormData): void => {
       // NOTE: Must use 'event' rather than 'editing' due to TypeScript inference
       if (!event) {
+        if (!onAdd) return;
         onAdd({
           ...data,
           id: uuidv4(),
@@ -154,6 +158,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
         onOpen={onOpen}
       >
         <TextInput
+          autoCapitalize="words"
           // Prevent keyboard from flickering when moving to next field
           blurOnSubmit={false}
           control={form.control}
@@ -190,7 +195,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
               innerRef={costRef}
               keyboardType="number-pad"
               label={`${t("screens:eventAddEdit.eventCostLabel")}*`}
-              left={<TextInput.Affix text="$  " />}
+              left={<TextInput.Affix text="$ " />}
               maxLength={4}
               name="cost"
             />

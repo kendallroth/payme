@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo } from "react";
 import dayjs from "dayjs";
 import { StyleSheet, View } from "react-native";
-import { IconButton, List, useTheme } from "react-native-paper";
+import { List } from "react-native-paper";
 
 // Components
 import { ProgressIcon } from "@components/icons";
@@ -16,12 +16,12 @@ import { IEvent } from "@typings/event.types";
 type EventListItemProps = {
   /** Event */
   event: IEvent;
-  /** Event removal handler */
-  onRemove: (event: IEvent) => void;
+  /** Event selection handler */
+  onPress?: (event: IEvent) => void;
 };
 
 const EventListItem = (props: EventListItemProps): ReactElement => {
-  const { event, onRemove } = props;
+  const { event, onPress } = props;
 
   const past = dayjs().isAfter(event.date);
   let description = formatDateString(event.date);
@@ -29,26 +29,13 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
     description = `${description}  •  $${event.cost}`;
   }
 
-  const { colors } = useTheme();
-
   const themeStyles = useMemo(
     () => ({
-      listItem: {
-        // Necessary to "hide" swipe action colors
-        backgroundColor: colors.surface,
-        borderRadius: 4,
-      },
-      listItemSwipeLeft: {
-        backgroundColor: colors.error,
-      },
-      listItemDate: {
-        color: colors.grey.base,
-      },
       listItemTitle: {
         fontWeight: (past ? "500" : "bold") as "bold" | "500",
       },
     }),
-    [colors, past],
+    [past],
   );
 
   /**
@@ -87,11 +74,6 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
           style={styles.listItemPaymentIndicator}
           // unpaid={event.stats?.unpaid}
         />
-        <IconButton
-          {...rightProps}
-          icon="delete"
-          onPress={(): void => onRemove(event)}
-        />
       </View>
     );
   };
@@ -101,9 +83,9 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
       description={description}
       left={renderListItemLeft}
       right={renderListItemRight}
-      style={themeStyles.listItem}
       title={event.title}
       titleStyle={themeStyles.listItemTitle}
+      onPress={onPress ? (): void => onPress(event) : undefined}
     />
   );
 };

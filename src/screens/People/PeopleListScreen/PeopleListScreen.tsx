@@ -2,7 +2,6 @@ import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
@@ -10,7 +9,7 @@ import { AppBar, Page, ScreenFAB } from "@components/layout";
 import PeopleList from "./PeopleList";
 
 // Utilities
-import { useSnackbar } from "@hooks";
+import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
 import {
   addPeople,
   removePerson,
@@ -29,8 +28,8 @@ const PeopleListScreen = (): ReactElement => {
   const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
   const managePersonRef = useRef<BottomSheetRef>(null);
 
-  const dispatch = useDispatch();
-  const people = useSelector(selectPeople);
+  const dispatch = useAppDispatch();
+  const people = useAppSelector(selectPeople);
   const { notify } = useSnackbar();
   const { t } = useTranslation(["common", "screens"]);
 
@@ -140,7 +139,6 @@ const PeopleListScreen = (): ReactElement => {
         onEdit={onPersonEditPress}
         onRemove={onPersonDeletePress}
       />
-      {/* NOTE: Must render before other Portals for z-positioning! */}
       <ScreenFAB
         icon="account-plus"
         onPress={(): void => managePersonRef.current?.open()}

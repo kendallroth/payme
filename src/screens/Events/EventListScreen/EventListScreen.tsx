@@ -1,7 +1,6 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { DeleteEventDialog, ManageEventSheet } from "@components/dialogs";
@@ -9,7 +8,7 @@ import { AppBar, Page, ScreenFAB } from "@components/layout";
 import EventList from "./EventList";
 
 // Utilities
-import { useSnackbar } from "@hooks";
+import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
 import {
   addEvent,
   removeEvent,
@@ -27,8 +26,8 @@ const EventListScreen = (): ReactElement => {
   const [deletedEvent, setDeletedEvent] = useState<IEvent | null>(null);
   const manageEventRef = useRef<BottomSheetRef>(null);
 
-  const dispatch = useDispatch();
-  const events = useSelector(selectEvents);
+  const dispatch = useAppDispatch();
+  const events = useAppSelector(selectEvents);
   const { notify } = useSnackbar();
   const { t } = useTranslation(["common", "screens"]);
 
@@ -130,7 +129,6 @@ const EventListScreen = (): ReactElement => {
           onRemove={onEventDeletePress}
         />
       </ScrollView>
-      {/* NOTE: Must render before other Portals for z-positioning! */}
       <ScreenFAB
         icon="calendar-plus"
         onPress={(): void => manageEventRef.current?.open()}

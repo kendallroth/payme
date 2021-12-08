@@ -6,7 +6,7 @@ import { useTheme } from "react-native-paper";
 
 // Components
 import { HomeScreen } from "@screens/Home";
-import { EventListScreen } from "@screens/Events";
+import { EventsRouter } from "@screens/Events";
 import { PeopleListScreen } from "@screens/People";
 
 export type BottomRouterParams = {
@@ -42,14 +42,23 @@ const TabRouter = (): ReactElement => {
           tabBarLabel: t("screens:home.title"),
         }}
       />
+      {/* TODO: Figure out why this is broken on Android!!! */}
       <Tabs.Screen
-        component={EventListScreen}
+        component={EventsRouter}
         name="Events"
         options={{
           tabBarIcon: "calendar",
           tabBarLabel: t("screens:eventList.title"),
         }}
       />
+      {/*<Tabs.Screen
+        component={EventListScreen}
+        name="Events"
+        options={{
+          tabBarIcon: "calendar",
+          tabBarLabel: t("screens:eventList.title"),
+        }}
+      />*/}
       <Tabs.Screen
         component={PeopleListScreen}
         name="People"
@@ -58,16 +67,6 @@ const TabRouter = (): ReactElement => {
           tabBarLabel: t("screens:peopleList.title"),
         }}
       />
-      {/* <Tabs.Screen
-        component={EventsRouter}
-        name="Events"
-        options={{ tabBarIcon: "calendar" }}
-      />
-      <Tabs.Screen
-        component={PeopleRouter}
-        name="People"
-        options={{ tabBarIcon: "account-multiple" }}
-      /> */}
     </Tabs.Navigator>
   );
 };

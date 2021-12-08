@@ -36,6 +36,8 @@ const TextInput = (props: TextInputProps): ReactElement => {
 
   // Show errors when field has been touched or submitted (apparently does not touch fields...)
   const errorShown = Boolean(error?.message) && (isTouched || isSubmitted);
+  // Numbers must be cast to strings (type warnings)
+  const fieldValue = field.value ? `${field.value}` : field.value;
 
   return (
     <Fragment>
@@ -43,7 +45,7 @@ const TextInput = (props: TextInputProps): ReactElement => {
         {...rest}
         ref={innerRef}
         error={errorShown}
-        value={field.value}
+        value={fieldValue}
         onBlur={field.onBlur}
         onChangeText={!readonly ? field.onChange : undefined}
       />
