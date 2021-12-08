@@ -41,13 +41,8 @@ const HomeScreen = (): ReactElement | null => {
         <HomeScreenSection
           count={events.length}
           direction="left"
-          progress={eventProgress}
-          progressText={
-            // TODO: Refactor text
-            eventProgress >= 1
-              ? t("screens:home.eventsAllPaid")
-              : t("screens:home.eventsSomeUnpaid")
-          }
+          progress={1}
+          progressText={t("screens:home.eventsAllPaid")}
           progressValue={unpaidEvents}
           style={styles.pageStat}
           title={t("screens:eventList.title")}
