@@ -45,8 +45,8 @@ const HomeScreen = (): ReactElement | null => {
           progressText={
             // TODO: Refactor text
             eventProgress >= 1
-              ? "All events are paid!"
-              : "Some events are unpaid!"
+              ? t("screens:home.eventsAllPaid")
+              : t("screens:home.eventsSomeUnpaid")
           }
           progressValue={unpaidEvents}
           style={styles.pageStat}
@@ -57,7 +57,7 @@ const HomeScreen = (): ReactElement | null => {
           direction="right"
           // TODO: Refactor fake progress/text
           progress={1}
-          progressText={"All people have paid!"}
+          progressText={t("screens:home.peopleAllPaid")}
           style={styles.pageStat}
           title={t("screens:peopleList.title")}
         />

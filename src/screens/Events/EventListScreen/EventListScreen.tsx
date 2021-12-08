@@ -9,12 +9,7 @@ import EventList from "./EventList";
 
 // Utilities
 import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
-import {
-  addEvent,
-  removeEvent,
-  selectEvents,
-  updateEvent,
-} from "@store/slices/events";
+import { addEvent, removeEvent, selectEvents } from "@store/slices/events";
 import { EventsService } from "@services";
 
 // Types
@@ -22,7 +17,6 @@ import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 import { IEvent, IEventBase } from "@typings/event.types";
 
 const EventListScreen = (): ReactElement => {
-  const [editedEvent, setEditedEvent] = useState<IEvent | null>(null);
   const [deletedEvent, setDeletedEvent] = useState<IEvent | null>(null);
   const manageEventRef = useRef<BottomSheetRef>(null);
 
@@ -60,20 +54,10 @@ const EventListScreen = (): ReactElement => {
     dispatch(removeEvent(deletedEvent.id));
 
     notify(
-      t("screens:eventList.deleteEventSuccess", {
+      t("screens:eventShared.deleteEventSuccess", {
         title: deletedEvent.title,
       }),
     );
-  };
-
-  /**
-   * Display an event for editing
-   *
-   * @param event - Edited event
-   */
-  const onEventEditPress = (event: IEvent): void => {
-    setEditedEvent(event);
-    manageEventRef.current?.open();
   };
 
   /**
@@ -89,24 +73,10 @@ const EventListScreen = (): ReactElement => {
   };
 
   /**
-   * Cancel adding/updating an event
+   * Cancel adding an event
    */
   const onEventManageCancel = (): void => {
     manageEventRef.current?.close();
-    setEditedEvent(null);
-  };
-
-  /**
-   * Save an edited event
-   *
-   * @param event - Edited event
-   */
-  const onEventManageEdit = (event: IEvent): void => {
-    dispatch(updateEvent(event));
-
-    setEditedEvent(null);
-    manageEventRef.current?.close();
-    notify(t("screens:eventAddEdit.eventEditSuccess", { title: event.title }));
   };
 
   return (
@@ -135,10 +105,8 @@ const EventListScreen = (): ReactElement => {
       />
       <ManageEventSheet
         ref={manageEventRef}
-        event={editedEvent}
         onAdd={onEventManageAdd}
         onCancel={onEventManageCancel}
-        onEdit={onEventManageEdit}
       />
       <DeleteEventDialog
         event={deletedEvent}

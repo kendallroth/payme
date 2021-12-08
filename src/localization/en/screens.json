@@ -10,10 +10,15 @@
     "eventAddSuccess": "Added event",
     "eventEditSuccess": "Updated {{title}}"
   },
+  "eventDetails": {
+    "peopleSelectTitle": "Select Attendees"
+  },
   "eventList": {
     "title": "Events",
     "listFuture": "Upcoming Events",
-    "listPast": "Past Events",
+    "listPast": "Past Events"
+  },
+  "eventShared": {
     "deleteEventConfirmTitle": "Remove Event",
     "deleteEventConfirmDescription": "Are you sure you want to remove this event?",
     "deleteEventConfirmWarning": "Removing an event will also clear all its attendance!",
@@ -21,7 +26,11 @@
   },
   "home": {
     "title": "Home",
-    "welcomeText": "Welcome!"
+    "welcomeText": "Welcome!",
+    "eventsAllPaid": "All events are paid!",
+    "eventsSomeUnpaid": "Some events are unpaid!",
+    "peopleAllPaid": "All people have paid!",
+    "peopleSomeUnpaid": "Some people have not paid!"
   },
   "peopleAddEdit": {
     "titleAdd": "Add People",

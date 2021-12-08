@@ -32,16 +32,16 @@ const DeleteEventDialog = (
 
   return (
     <ConfirmDialog
-      title={t("screens:eventList.deleteEventConfirmTitle")}
+      title={t("screens:eventShared.deleteEventConfirmTitle")}
       visible={visible}
       onCancel={onCancel}
       onConfirm={onConfirm}
     >
-      <Text>{t("screens:eventList.deleteEventConfirmDescription")}</Text>
+      <Text>{t("screens:eventShared.deleteEventConfirmDescription")}</Text>
       <Text style={styles.deleteDialogEvent}>{event.title}</Text>
       {/* TODO: Include attendance count??? */}
       <Alert style={styles.deleteDialogAlert}>
-        {t("screens:eventList.deleteEventConfirmWarning")}
+        {t("screens:eventShared.deleteEventConfirmWarning")}
       </Alert>
     </ConfirmDialog>
   );

@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   sectionContentProgressText: {
+    flexShrink: 1,
     fontSize: 16,
   },
   sectionLeft: {

@@ -5,7 +5,8 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 // Components
 import { DeleteEventDialog, ManageEventSheet } from "@components/dialogs";
-import { AppBar, ComingSoon, Page } from "@components/layout";
+import { AppBar, ComingSoon, Page, ScreenFAB } from "@components/layout";
+import EventPeopleSelect from "./EventPeopleSelect";
 
 // Utilities
 import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
@@ -19,12 +20,11 @@ import { EventDetailsScreenProps } from "../EventsRouter";
 
 const EventDetailsScreen = (): ReactElement | null => {
   const [isDeleteDialogShown, setIsDeleteDialogShown] = useState(false);
+  const [isSelectAttendeesShown, setIsSelectAttendeesShown] = useState(false);
   const manageEventRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  // TODO: Update to get from params!
-  // const event = useSelector((state) => selectEvent(state, route.params.id));
   const route = useRoute<EventDetailsScreenProps>();
   const event = useAppSelector((state) =>
     selectEvent(state, route.params.eventId),
@@ -69,7 +69,7 @@ const EventDetailsScreen = (): ReactElement | null => {
     navigation.goBack();
 
     notify(
-      t("screens:eventList.deleteEventSuccess", {
+      t("screens:eventShared.deleteEventSuccess", {
         title: event.title,
       }),
     );
@@ -97,7 +97,7 @@ const EventDetailsScreen = (): ReactElement | null => {
 
     manageEventRef.current?.close();
 
-    // TODO: Refactor notification
+    // TODO: Refactor notification??
     notify(
       t("screens:eventAddEdit.eventEditSuccess", { title: updatedEvent.title }),
     );
@@ -110,6 +110,14 @@ const EventDetailsScreen = (): ReactElement | null => {
         <AppBar.Action icon="delete" onPress={onEventDeletePress} />
       </AppBar>
       <ComingSoon />
+      <ScreenFAB
+        icon="account-multiple-plus"
+        onPress={(): void => setIsSelectAttendeesShown(true)}
+      />
+      <EventPeopleSelect
+        visible={isSelectAttendeesShown}
+        onClose={(): void => setIsSelectAttendeesShown(false)}
+      />
       <ManageEventSheet
         ref={manageEventRef}
         event={event}
