@@ -112,13 +112,14 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
      * Prepare modal when opened
      */
     const onOpen = (): void => {
-      // NOTE: Form is reset by "visibility" (necessary for editing people)
-      setNames([]);
-
       // NOTE: Short timeout necessary to access ref and open keyboard!
       setTimeout(() => {
         nameRef.current?.focus();
-      }, 200);
+      }, 250);
+
+      // NOTE: Form is also reset by "visibility" (necessary for editing people)
+      form.reset();
+      setNames([]);
     };
 
     /**

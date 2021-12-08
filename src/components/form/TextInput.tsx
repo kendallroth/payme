@@ -20,10 +20,12 @@ type TextInputProps = {
   innerRef?: RefObject<RNTextInput>;
   /** Form control name */
   name: string;
+  /** Whether field is readonly (allows focus) */
+  readonly?: boolean;
 } & ComponentProps<typeof RNPTextInput>;
 
 const TextInput = (props: TextInputProps): ReactElement => {
-  const { control, hint, innerRef, name, ...rest } = props;
+  const { control, hint, innerRef, name, readonly = false, ...rest } = props;
 
   const { field, fieldState, formState } = useController({
     control,
@@ -43,7 +45,7 @@ const TextInput = (props: TextInputProps): ReactElement => {
         error={errorShown}
         value={field.value}
         onBlur={field.onBlur}
-        onChangeText={field.onChange}
+        onChangeText={!readonly ? field.onChange : undefined}
       />
       <InputHelperText
         error={error?.message}

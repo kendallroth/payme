@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 
 // Components
-import { TextInput } from "@components/form";
+import { DateTimeInput, TextInput } from "@components/form";
 import BottomSheet from "./BottomSheet";
 
 // Types
@@ -40,7 +40,13 @@ type ManageEventSheetProps = {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
   yup.object({
-    cost: yup.number().label(t("screens:eventAddEdit.eventCostLabel")),
+    cost: yup
+      .number()
+      .label(t("screens:eventAddEdit.eventCostLabel"))
+      .min(
+        0,
+        t("common:validations.invalid", { path: t("screens:eventAddEdit.eventCostLabel")}), // prettier-ignore
+      ),
     date: yup
       .string()
       .label(t("screens:eventAddEdit.eventDateLabel"))
@@ -102,7 +108,10 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
       // NOTE: Short timeout necessary to access ref and open keyboard!
       setTimeout(() => {
         titleRef.current?.focus();
-      }, 200);
+      }, 250);
+
+      // NOTE: Form is also reset by "visibility" (necessary for editing event)
+      form.reset();
     };
 
     /**
@@ -150,7 +159,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
         />
         <View style={styles.sheetFormRow}>
           <View style={themeStyles.formRowInput}>
-            <TextInput
+            <DateTimeInput
               // Prevent keyboard from flickering when moving to next field
               blurOnSubmit={false}
               control={form.control}
@@ -158,6 +167,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
               label={t("screens:eventAddEdit.eventDateLabel")}
               name="date"
               returnKeyType="next"
+              onSelect={(): void => costRef.current?.focus()}
               onSubmitEditing={(): void => costRef.current?.focus()}
             />
           </View>
