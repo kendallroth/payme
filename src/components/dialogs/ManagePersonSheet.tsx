@@ -99,9 +99,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
           count: names.length,
         }),
         [
-          { text: t("common:confirmations.cancel"), style: "cancel" },
+          { text: t("common:choices.cancel"), style: "cancel" },
           {
-            text: t("common:confirmations.confirm"),
+            text: t("common:choices.confirm"),
             onPress: onCancelProp,
           },
         ],
@@ -175,7 +175,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
       // NOTE: Must use 'person' rather than 'editing' due to TypeScript inference
       if (!person) {
-        const newPeople: IPersonBase[] = names.map((name) => ({
+        const newPeople: IPersonBase[] = newNames.map((name) => ({
           id: uuidv4(),
           name,
         }));
@@ -225,7 +225,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         />
         <Dialog.Actions style={styles.sheetActions}>
           <Button color={colors.grey.dark} onPress={onCancel}>
-            {t("common:confirmations.cancel")}
+            {t("common:choices.cancel")}
           </Button>
           <Button onPress={form.handleSubmit(onSubmit)}>
             {editing ? t("common:actions.save") : t("common:actions.add")}

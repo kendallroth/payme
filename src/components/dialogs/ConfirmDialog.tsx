@@ -43,8 +43,8 @@ const ConfirmDialog = (props: ConfirmDialogProps): ReactElement => {
   const { t } = useTranslation(["common"]);
   const { colors } = useTheme();
 
-  cancelText = cancelText ?? t("common:confirmations.cancel");
-  confirmText = confirmText ?? t("common:confirmations.confirm");
+  cancelText = cancelText ?? t("common:choices.cancel");
+  confirmText = confirmText ?? t("common:choices.confirm");
 
   return (
     <Portal>

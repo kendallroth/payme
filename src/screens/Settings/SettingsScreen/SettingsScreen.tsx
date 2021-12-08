@@ -1,7 +1,7 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
-import { Alert, Platform, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import { List, Text } from "react-native-paper";
 
 // Components
@@ -90,9 +90,9 @@ const SettingsScreen = (): ReactElement => {
       t("screens:settingsDeveloper.resetDataTitle"),
       t("screens:settingsDeveloper.resetDataDescription"),
       [
-        { text: t("common:confirmations.cancel"), style: "cancel" },
+        { text: t("common:choices.cancel"), style: "cancel" },
         {
-          text: t("common:confirmations.confirm"),
+          text: t("common:choices.confirm"),
           onPress: async (): Promise<void> => {
             appResetRef.current?.close();
             loader.show(t("screens:settingsDeveloper.resetDataLoading"));
@@ -253,12 +253,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   settingsFooterEnvironment: {
-    fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
     color: sharedColors.grey.base,
   },
-  settingsFooterVersion: {
-    fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
-  },
+  settingsFooterVersion: {},
   settingsLanguageIcon: {
     alignSelf: "center",
     left: -12,

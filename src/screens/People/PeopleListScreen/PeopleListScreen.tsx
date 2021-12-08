@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
-import { AppBar, Page, PortalFAB } from "@components/layout";
+import { AppBar, Page, ScreenFAB } from "@components/layout";
 import PeopleList from "./PeopleList";
 
 // Utilities
@@ -141,7 +141,7 @@ const PeopleListScreen = (): ReactElement => {
         onRemove={onPersonDeletePress}
       />
       {/* NOTE: Must render before other Portals for z-positioning! */}
-      <PortalFAB
+      <ScreenFAB
         icon="account-plus"
         onPress={(): void => managePersonRef.current?.open()}
       />

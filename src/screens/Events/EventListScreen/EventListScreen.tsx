@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { DeleteEventDialog, ManageEventSheet } from "@components/dialogs";
-import { AppBar, Page, PortalFAB } from "@components/layout";
+import { AppBar, Page, ScreenFAB } from "@components/layout";
 import EventList from "./EventList";
 
 // Utilities
@@ -131,7 +131,7 @@ const EventListScreen = (): ReactElement => {
         />
       </ScrollView>
       {/* NOTE: Must render before other Portals for z-positioning! */}
-      <PortalFAB
+      <ScreenFAB
         icon="calendar-plus"
         onPress={(): void => manageEventRef.current?.open()}
       />

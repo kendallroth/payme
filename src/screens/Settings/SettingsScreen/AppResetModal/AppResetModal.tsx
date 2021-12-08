@@ -64,6 +64,7 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
     return (
       <BottomSheet
         ref={ref}
+        dismissable
         inset={false}
         title={t("screens:settingsAppReset.title")}
         onOpen={onModalOpen}

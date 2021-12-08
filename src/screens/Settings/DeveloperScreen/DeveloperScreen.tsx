@@ -40,9 +40,9 @@ const DeveloperScreen = (): ReactElement => {
       t("screens:settingsDeveloper.populateDataTitle"),
       t("screens:settingsDeveloper.populateDataDescription"),
       [
-        { text: t("common:confirmations.cancel"), style: "cancel" },
+        { text: t("common:choices.cancel"), style: "cancel" },
         {
-          text: t("common:confirmations.confirm"),
+          text: t("common:choices.confirm"),
           onPress: async (): Promise<void> => {
             loader.show(t("screens:settingsDeveloper.populateDataLoading"));
             await dispatch(addDebugData(populateOptions));

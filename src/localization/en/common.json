@@ -8,7 +8,7 @@
     "save": "Save"
   },
   "app": {},
-  "confirmations": {
+  "choices": {
     "cancel": "Cancel",
     "confirm": "Confirm",
     "no": "No",

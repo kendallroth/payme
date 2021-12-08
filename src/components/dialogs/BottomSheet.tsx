@@ -4,7 +4,14 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import { Keyboard, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import {
+  Keyboard,
+  Platform,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 import Modal from "react-native-modal";
 import { Text, useTheme } from "react-native-paper";
 
@@ -95,6 +102,8 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
 
     return (
       <Modal
+        // NOTE: Apparently only necessary on iOS (Android handles already)
+        avoidKeyboard={Platform.OS === "ios"}
         backdropColor={themeStyles.backdropColor}
         backdropOpacity={0.8}
         // NOTE: Necessary to fix backdrop flicker bug when closing. If flickering

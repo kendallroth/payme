@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
 import {
+  Platform,
   StyleSheet,
   TextInput as RNTextInput,
   useWindowDimensions,
@@ -38,15 +39,17 @@ type ManageEventSheetProps = {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
-  yup.object({
+const getSchema = (t: TFunction<("common" | "screens")[], undefined>) => {
+  const invalidField = t("common:validations.invalid", {
+    path: t("screens:eventAddEdit.eventCostLabel"),
+  });
+
+  return yup.object({
     cost: yup
       .number()
+      .typeError(invalidField)
       .label(t("screens:eventAddEdit.eventCostLabel"))
-      .min(
-        0,
-        t("common:validations.invalid", { path: t("screens:eventAddEdit.eventCostLabel")}), // prettier-ignore
-      ),
+      .min(0, invalidField),
     date: yup
       .string()
       .label(t("screens:eventAddEdit.eventDateLabel"))
@@ -61,6 +64,7 @@ const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
       .required()
       .min(2),
   });
+};
 
 const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
   (props: ManageEventSheetProps, ref): ReactElement => {
@@ -83,11 +87,13 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
     });
 
     const editing = Boolean(event);
+    const rowWidth = screenWidth - BOTTOM_SHEET_PADDING * 3;
     const themeStyles = {
-      formRowInput: {
-        width: screenWidth / 2 - BOTTOM_SHEET_PADDING * 1.5,
+      formRowLeft: {
+        width: rowWidth * 0.6,
       },
-      formRowInputMargin: {
+      formRowRight: {
+        width: rowWidth * 0.4,
         marginLeft: BOTTOM_SHEET_PADDING,
       },
     };
@@ -158,7 +164,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
           onSubmitEditing={(): void => dateRef.current?.focus()}
         />
         <View style={styles.sheetFormRow}>
-          <View style={themeStyles.formRowInput}>
+          <View style={themeStyles.formRowLeft}>
             <DateTimeInput
               // Prevent keyboard from flickering when moving to next field
               blurOnSubmit={false}
@@ -167,13 +173,17 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
               label={t("screens:eventAddEdit.eventDateLabel")}
               name="date"
               returnKeyType="next"
-              onSelect={(): void => costRef.current?.focus()}
+              onSelect={(): void => {
+                setTimeout(
+                  () => costRef.current?.focus(),
+                  // NOTE: Delay needed on iOS to prevent picker from re-opening (unknown)
+                  Platform.OS === "ios" ? 400 : 0,
+                );
+              }}
               onSubmitEditing={(): void => costRef.current?.focus()}
             />
           </View>
-          <View
-            style={[themeStyles.formRowInput, themeStyles.formRowInputMargin]}
-          >
+          <View style={[themeStyles.formRowRight]}>
             <TextInput
               control={form.control}
               hint={t("common:phrases.optional")}
@@ -188,7 +198,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
         </View>
         <Dialog.Actions style={styles.sheetActions}>
           <Button color={colors.grey.dark} onPress={onCancel}>
-            {t("common:confirmations.cancel")}
+            {t("common:choices.cancel")}
           </Button>
           <Button onPress={form.handleSubmit(onSubmit)}>
             {editing ? t("common:actions.save") : t("common:actions.add")}
