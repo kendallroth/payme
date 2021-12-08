@@ -166,6 +166,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
           >
             <TextInput
               control={form.control}
+              hint={t("common:phrases.optional")}
               innerRef={costRef}
               keyboardType="number-pad"
               label={`${t("screens:eventAddEdit.eventCostLabel")}*`}

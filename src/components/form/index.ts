@@ -1,2 +1,2 @@
-export { default as InputError } from "./InputError";
+export { default as InputHelperText } from "./InputHelperText";
 export { default as TextInput } from "./TextInput";
