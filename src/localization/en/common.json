@@ -8,7 +8,7 @@
     "save": "Save"
   },
   "app": {},
-  "confirmations": {
+  "choices": {
     "cancel": "Cancel",
     "confirm": "Confirm",
     "no": "No",
@@ -21,11 +21,13 @@
   },
   "phrases": {
     "comingSoon": "Coming Soon!",
+    "optional": "Optional",
     "search": "Search"
   },
   "validations": {
     "invalid": "{{path}} is invalid",
-    "invalidType": "{{path}} ust be a {{type}}",
+    "invalidType": "{{path}} must be a {{type}}",
+    "match": "{{path}} has invalid format",
     "required": "{{path}} is required",
     "stringMin": "{{path}} must be at least {{min}} characters"
   }

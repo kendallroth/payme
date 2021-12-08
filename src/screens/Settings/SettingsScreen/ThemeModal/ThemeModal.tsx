@@ -32,6 +32,7 @@ const ThemeModal = forwardRef<BottomSheetRef, ThemeModalProps>(
     return (
       <BottomSheet
         ref={ref}
+        dismissable
         inset={false}
         title={t("screens:settingsTheme.title")}
       >

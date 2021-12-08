@@ -31,6 +31,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
     return (
       <BottomSheet
         ref={ref}
+        dismissable
         inset={false}
         title={t("screens:settingsLanguage.title")}
       >

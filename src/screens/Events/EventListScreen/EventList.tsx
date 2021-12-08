@@ -18,7 +18,7 @@ type EventProps = {
   /** Event list title */
   title: string;
   /** Event removal handler */
-  onRemove: (eventId: string) => void;
+  onRemove: (event: IEvent) => void;
 };
 
 const EventList = (props: EventProps): ReactElement => {

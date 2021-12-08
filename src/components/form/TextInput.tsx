@@ -9,19 +9,23 @@ import { TextInput as RNTextInput } from "react-native";
 import { TextInput as RNPTextInput } from "react-native-paper";
 
 // Components
-import InputError from "./InputError";
+import InputHelperText from "./InputHelperText";
 
 type TextInputProps = {
   /** Control from 'react-hook-form' */
   control: Control<any>;
+  /** Hint text */
+  hint?: string;
   /** TextInput ref */
-  innerRef: RefObject<RNTextInput>;
+  innerRef?: RefObject<RNTextInput>;
   /** Form control name */
   name: string;
+  /** Whether field is readonly (allows focus) */
+  readonly?: boolean;
 } & ComponentProps<typeof RNPTextInput>;
 
 const TextInput = (props: TextInputProps): ReactElement => {
-  const { control, innerRef, name, ...rest } = props;
+  const { control, hint, innerRef, name, readonly = false, ...rest } = props;
 
   const { field, fieldState, formState } = useController({
     control,
@@ -41,9 +45,13 @@ const TextInput = (props: TextInputProps): ReactElement => {
         error={errorShown}
         value={field.value}
         onBlur={field.onBlur}
-        onChangeText={field.onChange}
+        onChangeText={!readonly ? field.onChange : undefined}
       />
-      <InputError error={error?.message} visible={errorShown} />
+      <InputHelperText
+        error={error?.message}
+        hint={hint}
+        visible={Boolean(errorShown || hint)}
+      />
     </Fragment>
   );
 };

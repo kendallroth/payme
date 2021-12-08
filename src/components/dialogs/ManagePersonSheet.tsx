@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
 import { Alert, StyleSheet, TextInput as RNTextInput } from "react-native";
 import { Button, Dialog, Text, useTheme } from "react-native-paper";
+import { v4 as uuidv4 } from "uuid";
 import * as yup from "yup";
 
 // Components
@@ -17,7 +18,7 @@ import { TextInput } from "@components/form";
 import BottomSheet from "./BottomSheet";
 
 // Types
-import { IPerson } from "@typings/people.types";
+import { IPerson, IPersonBase } from "@typings/people.types";
 import { compareSafeStrings } from "@utilities/string";
 import { BottomSheetRef } from "./BottomSheet";
 
@@ -33,7 +34,7 @@ type ManagePersonSheetProps = {
   /** Person to update */
   person?: IPerson | null;
   /** Add people callback */
-  onAdd: (names: string[]) => void;
+  onAdd: (people: IPersonBase[]) => void;
   /** Cancellation callback */
   onCancel: () => void;
   /** Update person callback */
@@ -46,7 +47,7 @@ const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
     count: yup.number(),
     name: yup
       .string()
-      .label(t("screens:peopleAdd.personNameLabel"))
+      .label(t("screens:peopleAddEdit.personNameLabel"))
       .required()
       .min(2),
   });
@@ -68,16 +69,17 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       resolver: yupResolver(getSchema(t)),
     });
 
+    const editing = Boolean(person);
+    const hasNameError = Boolean(form.formState.errors.name);
+    const nameHasValue = Boolean(form.watch("name"));
+    const showTitleRight = Boolean(!editing && names.length);
+
     // Clear form whenever edited person changes (when editing or adding)
     useEffect(() => {
       form.reset({
         name: person?.name ?? "",
       });
     }, [form, person]);
-
-    const editing = Boolean(person);
-    const hasNameError = form.formState.errors.name;
-    const showTitleRight = !editing && names.length > 0;
 
     /**
      * Cancel adding name(s)
@@ -86,21 +88,21 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
      */
     const onCancel = (): void => {
       // Enable cancelling without confirm if no names have already been entered
-      if (!names.length) {
+      if (!names.length || editing) {
         onCancelProp();
         return;
       }
 
       // Prompt user to confirm cancelling adding multiple names!
       Alert.alert(
-        t("screens:peopleAdd.cancelAddConfirmTitle"),
-        t("screens:peopleAdd.cancelAddConfirmDescription", {
+        t("screens:peopleAddEdit.cancelAddConfirmTitle"),
+        t("screens:peopleAddEdit.cancelAddConfirmDescription", {
           count: names.length,
         }),
         [
-          { text: t("common:confirmations.cancel"), style: "cancel" },
+          { text: t("common:choices.cancel"), style: "cancel" },
           {
-            text: t("common:confirmations.confirm"),
+            text: t("common:choices.confirm"),
             onPress: onCancelProp,
           },
         ],
@@ -111,13 +113,14 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
      * Prepare modal when opened
      */
     const onOpen = (): void => {
-      // NOTE: Form is reset by "visibility" (necessary for editing people)
-      setNames([]);
-
       // NOTE: Short timeout necessary to access ref and open keyboard!
       setTimeout(() => {
         nameRef.current?.focus();
-      }, 200);
+      }, 250);
+
+      // NOTE: Form is also reset by "visibility" (necessary for editing people)
+      form.reset();
+      setNames([]);
     };
 
     /**
@@ -141,9 +144,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         : false;
       if (localListHasName || storeListHasName) {
         form.setError("name", {
-          message: editing
-            ? t("screens:personEdit.personNameUsedError")
-            : t("screens:peopleAdd.personNameUsedError"),
+          message: t("screens:peopleAddEdit.personNameUsedError"),
         });
         return [false, names];
       }
@@ -175,7 +176,12 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
       // NOTE: Must use 'person' rather than 'editing' due to TypeScript inference
       if (!person) {
-        onAdd(newNames);
+        const newPeople: IPersonBase[] = newNames.map((name) => ({
+          id: uuidv4(),
+          name,
+        }));
+
+        onAdd(newPeople);
       } else {
         onEdit({
           ...person,
@@ -184,17 +190,45 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       }
     };
 
+    /**
+     * Special handler to add the entered local person/people
+     *
+     * NOTE: Will only be called if multiple names are already entered
+     *         AND there is no current input. Otherwise it would not be
+     *         possible to submit with an empty input (poor UX).
+     *
+     * @param data - Submitted form data
+     */
+    const onSubmitEmpty = (): void => {
+      const newPeople: IPersonBase[] = names.map((name) => ({
+        id: uuidv4(),
+        name,
+      }));
+
+      onAdd(newPeople);
+    };
+
+    // NOTE: Must be able to submit form with empty input IF there is at least
+    //         one name already added "locally." Since form validation will prevent
+    //         this normally, we must skip the validation IF the form is also empty.
+    const submitHandler =
+      !editing && names.length && !nameHasValue
+        ? onSubmitEmpty
+        : form.handleSubmit(onSubmit);
+
     return (
       <BottomSheet
         ref={ref}
         style={styles.sheetContent}
         title={
-          editing ? t("screens:personEdit.title") : t("screens:peopleAdd.title")
+          editing
+            ? t("screens:peopleAddEdit.titleEdit")
+            : t("screens:peopleAddEdit.titleAdd")
         }
         titleRight={
           showTitleRight ? (
             <Text style={styles.sheetTitleRight}>
-              {t("screens:peopleAdd.peopleCount", { count: names.length })}
+              {t("screens:peopleAddEdit.peopleCount", { count: names.length })}
             </Text>
           ) : null
         }
@@ -203,14 +237,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
         <TextInput
           autoCapitalize="words"
           control={form.control}
-          error={false}
           innerRef={nameRef}
+          label={t("screens:peopleAddEdit.personNameLabel")}
           name="name"
-          label={
-            editing
-              ? t("screens:personEdit.personNameLabel")
-              : t("screens:peopleAdd.personNameLabel")
-          }
           right={
             !editing && (
               <TextInput.Icon
@@ -221,11 +250,11 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
             )
           }
         />
-        <Dialog.Actions>
+        <Dialog.Actions style={styles.sheetActions}>
           <Button color={colors.grey.dark} onPress={onCancel}>
-            {t("common:confirmations.cancel")}
+            {t("common:choices.cancel")}
           </Button>
-          <Button onPress={form.handleSubmit(onSubmit)}>
+          <Button onPress={submitHandler}>
             {editing ? t("common:actions.save") : t("common:actions.add")}
           </Button>
         </Dialog.Actions>
@@ -235,6 +264,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 );
 
 const styles = StyleSheet.create({
+  sheetActions: {
+    padding: 0,
+  },
   sheetContent: {},
   sheetTitleRight: {
     marginRight: 2,

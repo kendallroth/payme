@@ -1,9 +1,11 @@
+import { ExpoConfig } from "@expo/config";
+
 // Utilities
 import { version } from "./package.json";
 
 const primaryColor = "#219ebc";
 
-export default {
+export default (): ExpoConfig => ({
   // Information
   name: "PayMe",
   slug: "payme",
@@ -11,6 +13,8 @@ export default {
   orientation: "portrait",
   platforms: ["android", "ios"],
   entryPoint: "./src/App.tsx",
+
+  jsEngine: "hermes",
 
   // Theme
   icon: "./assets/icon.png",
@@ -41,4 +45,4 @@ export default {
   ios: {
     supportsTablet: false,
   },
-};
+});

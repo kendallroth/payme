@@ -1,6 +1,8 @@
 /** Base event shape */
 export interface IEventBase {
   id: string;
+  /** Event cost */
+  cost?: number;
   /** Event date */
   date: string;
   /** Event name/title */
@@ -12,8 +14,6 @@ export interface IEvent extends IEventBase {
   archivedAt: string | null;
   /** When event was created */
   createdAt: string;
-  /** Event cost */
-  cost?: number;
   /** Event description */
   description?: string;
   /** Event statistics (optional) */

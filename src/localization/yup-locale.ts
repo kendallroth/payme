@@ -49,6 +49,10 @@ export const yupLocale = {
     }),
   },
   string: {
+    matches: ({ path }) => ({
+      key: "common:validations.match",
+      values: { path },
+    }),
     min: ({ path, min }) => ({
       key: "common:validations.stringMin",
       values: { path, min },
