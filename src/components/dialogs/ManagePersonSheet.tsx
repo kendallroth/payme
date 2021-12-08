@@ -70,8 +70,9 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
     });
 
     const editing = Boolean(person);
-    const hasNameError = form.formState.errors.name;
-    const showTitleRight = !editing && names.length > 0;
+    const hasNameError = Boolean(form.formState.errors.name);
+    const nameHasValue = Boolean(form.watch("name"));
+    const showTitleRight = Boolean(!editing && names.length);
 
     // Clear form whenever edited person changes (when editing or adding)
     useEffect(() => {
@@ -189,6 +190,32 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
       }
     };
 
+    /**
+     * Special handler to add the entered local person/people
+     *
+     * NOTE: Will only be called if multiple names are already entered
+     *         AND there is no current input. Otherwise it would not be
+     *         possible to submit with an empty input (poor UX).
+     *
+     * @param data - Submitted form data
+     */
+    const onSubmitEmpty = (): void => {
+      const newPeople: IPersonBase[] = names.map((name) => ({
+        id: uuidv4(),
+        name,
+      }));
+
+      onAdd(newPeople);
+    };
+
+    // NOTE: Must be able to submit form with empty input IF there is at least
+    //         one name already added "locally." Since form validation will prevent
+    //         this normally, we must skip the validation IF the form is also empty.
+    const submitHandler =
+      !editing && names.length && !nameHasValue
+        ? onSubmitEmpty
+        : form.handleSubmit(onSubmit);
+
     return (
       <BottomSheet
         ref={ref}
@@ -227,7 +254,7 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
           <Button color={colors.grey.dark} onPress={onCancel}>
             {t("common:choices.cancel")}
           </Button>
-          <Button onPress={form.handleSubmit(onSubmit)}>
+          <Button onPress={submitHandler}>
             {editing ? t("common:actions.save") : t("common:actions.add")}
           </Button>
         </Dialog.Actions>
