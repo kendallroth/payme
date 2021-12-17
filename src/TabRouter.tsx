@@ -1,7 +1,9 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  createMaterialBottomTabNavigator,
+  MaterialBottomTabNavigationProp,
+} from "@react-navigation/material-bottom-tabs";
 import { useTheme } from "react-native-paper";
 
 // Components
@@ -16,7 +18,7 @@ export type BottomRouterParams = {
 };
 
 export type BottomRouterNavigation =
-  NativeStackNavigationProp<BottomRouterParams>;
+  MaterialBottomTabNavigationProp<BottomRouterParams>;
 
 const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
 
@@ -27,7 +29,7 @@ const TabRouter = (): ReactElement => {
 
   return (
     <Tabs.Navigator
-      backBehavior="firstRoute"
+      backBehavior="initialRoute"
       barStyle={{ backgroundColor: dark ? colors.background : colors.primary }}
       shifting={true}
     >

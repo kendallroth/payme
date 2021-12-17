@@ -1,4 +1,5 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -9,6 +10,7 @@ import { StyleSheet, View } from "react-native";
 import { EventDetailsScreen } from "./EventDetailsScreen";
 import { EventListScreen } from "./EventListScreen";
 import { RouteProp } from "@react-navigation/native";
+import { BottomRouterNavigation } from "src/TabRouter";
 
 export type EventsRouterParams = {
   EventDetails: {
@@ -29,6 +31,18 @@ export type EventsRouterNavigation =
 const Stack = createNativeStackNavigator<EventsRouterParams>();
 
 const EventsStack = (): ReactElement => {
+  const tabNavigation = useNavigation<BottomRouterNavigation>();
+  const stackNavigation = useNavigation<EventsRouterNavigation>();
+
+  useEffect(() => {
+    const unsubscribe = tabNavigation.addListener("tabPress", () => {
+      // Directly returning to Events tab should reset state (less confusion)
+      stackNavigation.navigate("EventList");
+    });
+
+    return unsubscribe;
+  }, [stackNavigation, tabNavigation]);
+
   // NOTE: Extra non-collapsable view required to fix issue where navigating to tab
   //         after the first time would not display anything (apparently clipepd out?)!
   // Source: https://github.com/software-mansion/react-native-screens/issues/1197#issuecomment-993682256
