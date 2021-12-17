@@ -1,24 +1,28 @@
 import React, { Fragment, ReactElement, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Badge, Surface, Text, useTheme } from "react-native-paper";
 
 // Components
 import { ProgressIcon } from "@components/icons";
+import { Alert } from "@components/typography";
 
 // Types
 import { LeftRight } from "@typings/app.types";
 
 type HomeScreenSectionProps<ItemType> = {
+  /** Whether section is implemented */
+  comingSoon?: boolean;
   /** Completed section text */
   completedText: string;
   /** Empty section text */
   emptyText: string;
   /** Whether section is left/right aligned */
   direction: LeftRight;
-
+  /** Section items */
   items: ItemType[];
+  /** Callback to render an item */
   renderItem?: (item: ItemType) => ReactElement;
-
   /** Styles */
   style?: StyleProp<ViewStyle>;
   /** Section title */
@@ -33,6 +37,7 @@ const HomeScreenSection = <T extends object>(
   props: HomeScreenSectionProps<T>,
 ): ReactElement | null => {
   const {
+    comingSoon = false,
     completedText,
     direction,
     emptyText,
@@ -45,6 +50,7 @@ const HomeScreenSection = <T extends object>(
   } = props;
 
   const { colors } = useTheme();
+  const { t } = useTranslation(["common"]);
 
   const themeStyles = useMemo(
     () => ({
@@ -79,25 +85,35 @@ const HomeScreenSection = <T extends object>(
           <Badge style={themeStyles.sectionTitleBadge}>{total}</Badge>
         )}
       </View>
-      <View style={styles.sectionContent}>
-        {total && progress < 1 ? (
-          <View style={styles.sectionContentList}>
-            {renderItem ? items.map((item) => renderItem(item)) : null}
-          </View>
-        ) : (
-          <Fragment>
-            <ProgressIcon
-              progress={progress}
-              style={styles.sectionContentProgress}
-              value={unpaid}
-            />
-            <Text style={styles.sectionContentProgressText}>
-              {progress >= 1 && completedText}
-              {!total && !unpaid && emptyText}
-            </Text>
-          </Fragment>
-        )}
-      </View>
+      {!comingSoon || !total ? (
+        <View style={styles.sectionContent}>
+          {total && progress < 1 ? (
+            <View style={styles.sectionContentList}>
+              {renderItem ? items.map((item) => renderItem(item)) : null}
+            </View>
+          ) : (
+            <Fragment>
+              <ProgressIcon
+                progress={progress}
+                style={styles.sectionContentProgress}
+                value={unpaid}
+              />
+              <Text style={styles.sectionContentProgressText}>
+                {progress >= 1 && completedText}
+                {!total && !unpaid && emptyText}
+              </Text>
+            </Fragment>
+          )}
+        </View>
+      ) : (
+        <Alert
+          iconSize={32}
+          style={styles.sectionComingSoon}
+          textStyle={styles.sectionComingSoonText}
+        >
+          {t("common:phrases.comingSoon")}
+        </Alert>
+      )}
     </Surface>
   );
 };
@@ -108,6 +124,12 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     elevation: 2,
     overflow: "hidden",
+  },
+  sectionComingSoon: {
+    padding: contentPadding,
+  },
+  sectionComingSoonText: {
+    alignSelf: "center",
   },
   sectionContent: {
     flexDirection: "row",

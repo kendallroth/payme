@@ -89,6 +89,7 @@ const HomeScreen = (): ReactElement | null => {
             unpaid={eventCountUnpaid}
           />
           <HomeScreenSection
+            comingSoon
             completedText={t("screens:home.peopleAllPaid")}
             direction="right"
             emptyText={t("screens:home.peopleEmpty")}
