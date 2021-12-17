@@ -46,6 +46,12 @@ export interface IAppResetOptions {
   events: boolean;
   /** Whether to reset people */
   people: boolean;
+  /**
+   * Whether to reset attendance
+   *
+   * NOTE: This is automatic if events or people are reset!
+   */
+  attendance: boolean;
   /** Whether to reset settings */
   settings: boolean;
 }

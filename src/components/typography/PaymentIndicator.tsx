@@ -3,7 +3,7 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
-type UnpaidIndicatorProps = {
+type PaymentIndicatorProps = {
   /** Number of attending people (optional) */
   attending?: number | null;
   /** Style */
@@ -12,7 +12,9 @@ type UnpaidIndicatorProps = {
   unpaid?: number | null;
 };
 
-const UnpaidIndicator = (props: UnpaidIndicatorProps): ReactElement | null => {
+const PaymentIndicator = (
+  props: PaymentIndicatorProps,
+): ReactElement | null => {
   const { attending, style, unpaid } = props;
 
   const { colors } = useTheme();
@@ -66,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UnpaidIndicator;
+export default PaymentIndicator;

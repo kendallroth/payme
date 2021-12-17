@@ -46,8 +46,8 @@ const peopleSlice = createSlice({
 
       peopleAdapter.addOne(state, newPerson);
     },
-    // TODO: Handle removing attendance for this person!
     removePerson(state, action: PayloadAction<string>): void {
+      // NOTE: Cleaning up attendance is handled by 'attendance' slice
       peopleAdapter.removeOne(state, action.payload);
     },
     updatePerson(state, action: PayloadAction<IPerson>): void {

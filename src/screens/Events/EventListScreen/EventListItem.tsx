@@ -66,7 +66,6 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
    * @returns Right actions
    */
   const renderListItemRight = (rightProps: any): ReactElement => {
-    // return <UnpaidIndicator {...rightProps} count={event.stats?.unpaid ?? 0} />;
     return (
       <View {...rightProps} style={styles.listItemActions}>
         <PaymentIndicator

@@ -41,12 +41,16 @@ const eventsSlice = createSlice({
         archivedAt: null,
         createdAt: dayjs().toISOString(),
         title: action.payload.title.trim(),
+        stats: {
+          attending: 0,
+          unpaid: 0,
+        },
       };
 
       eventsAdapter.addOne(state, newEvent);
     },
-    // TODO: Handle removing attendance for this person!
     removeEvent(state, action: PayloadAction<string>): void {
+      // NOTE: Cleaning up attendance is handled by 'attendance' slice
       eventsAdapter.removeOne(state, action.payload);
     },
     updateEvent(state, action: PayloadAction<IEvent>): void {

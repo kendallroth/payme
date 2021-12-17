@@ -11,6 +11,9 @@
     "eventEditSuccess": "Actualizar {{title}}"
   },
   "eventDetails": {
+    "attendeeListEmpty": "No se han seleccionado asistentes",
+    "attendeeRemoveConfirmDescription": "¿Estás seguro de que quieres eliminar a este asistente?",
+    "attendeeRemoveConfirmTitle": "Eliminar Asistente",
     "peopleSelectTitle": "Seleccionar Asistentes"
   },
   "eventList": {
@@ -74,6 +77,7 @@
   "settingsAppReset": {
     "title": "Restablecer la Aplicación",
     "actionSubmit": "Restablecer Seleccionado",
+    "listItemAttendance": "Asistencia",
     "listItemEvents": "Eventos",
     "listItemPeople": "Gente",
     "listItemSettings": "Ajustes"

@@ -21,6 +21,12 @@ type ProgressIconProps = {
    * @default "check-decagram"
    */
   completedIcon?: keyof MaterialCommunityIcons;
+  /**
+   * Empty icon (no progress or value)
+   *
+   * @default "alert-decagram"
+   */
+  emptyIcon?: keyof MaterialCommunityIcons;
   /** Progress percentage (between 0 and 1) */
   progress: number;
   /** Progress circle colour */
@@ -41,6 +47,7 @@ const ProgressIcon = (props: ProgressIconProps): ReactElement => {
   let { completedColor, progressColor } = props;
   const {
     completedIcon = "check-decagram",
+    emptyIcon = "alert-decagram-outline",
     progress,
     size = 32,
     style,
@@ -77,6 +84,14 @@ const ProgressIcon = (props: ProgressIconProps): ReactElement => {
   const lineWidth = 3;
   const radius = size / 2 - lineWidth / 2;
   const circumference = radius * 2 * Math.PI;
+
+  if (!progress && !value) {
+    return (
+      <View style={[styles.container, styles.progressIcon, style]}>
+        <Icon color={colors.warning} name={emptyIcon} size={size} />
+      </View>
+    );
+  }
 
   if (progress > EPSILON) {
     return (
