@@ -3,7 +3,7 @@ import { ExpoConfig } from "@expo/config";
 // Utilities
 import { version } from "./package.json";
 
-const primaryColor = "#219ebc";
+const primaryColor = "#2196f3";
 
 export default (): ExpoConfig => ({
   // Information
@@ -32,8 +32,8 @@ export default (): ExpoConfig => ({
   // Android overrides
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/icon-clear.png",
-      backgroundColor: "#2196f3",
+      foregroundImage: "./assets/icon_clear.png",
+      backgroundColor: primaryColor,
     },
   },
   androidNavigationBar: {
