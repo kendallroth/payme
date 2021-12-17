@@ -11,6 +11,9 @@
     "eventEditSuccess": "Actualizar {{title}}"
   },
   "eventDetails": {
+    "attendeeListEmpty": "No se han seleccionado asistentes",
+    "attendeeRemoveConfirmDescription": "¿Estás seguro de que quieres eliminar a este asistente?",
+    "attendeeRemoveConfirmTitle": "Eliminar Asistente",
     "peopleSelectTitle": "Seleccionar Asistentes"
   },
   "eventList": {
@@ -28,8 +31,10 @@
     "title": "Hogar",
     "welcomeText": "¡Bienvenido!",
     "eventsAllPaid": "¡Todos los eventos son pagos!",
+    "eventsEmpty": "¡No hay eventos!",
     "eventsSomeUnpaid": "¡Algunos eventos no son remunerados!",
     "peopleAllPaid": "¡Todas las personas han pagado!",
+    "peopleEmpty": "¡No hay gente!",
     "peopleSomeUnpaid": "Algunos personas no han pagado!"
   },
   "peopleAddEdit": {
@@ -74,6 +79,7 @@
   "settingsAppReset": {
     "title": "Restablecer la Aplicación",
     "actionSubmit": "Restablecer Seleccionado",
+    "listItemAttendance": "Asistencia",
     "listItemEvents": "Eventos",
     "listItemPeople": "Gente",
     "listItemSettings": "Ajustes"

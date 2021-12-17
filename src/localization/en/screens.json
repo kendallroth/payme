@@ -11,6 +11,9 @@
     "eventEditSuccess": "Updated {{title}}"
   },
   "eventDetails": {
+    "attendeeListEmpty": "No attendees have been selected",
+    "attendeeRemoveConfirmDescription": "Are you sure you want to remove this attendee?",
+    "attendeeRemoveConfirmTitle": "Remove Attendee",
     "peopleSelectTitle": "Select Attendees"
   },
   "eventList": {
@@ -28,8 +31,10 @@
     "title": "Home",
     "welcomeText": "Welcome!",
     "eventsAllPaid": "All events are paid!",
+    "eventsEmpty": "No events!",
     "eventsSomeUnpaid": "Some events are unpaid!",
     "peopleAllPaid": "All people have paid!",
+    "peopleEmpty": "No people!",
     "peopleSomeUnpaid": "Some people have not paid!"
   },
   "peopleAddEdit": {
@@ -74,6 +79,7 @@
   "settingsAppReset": {
     "title": "Reset App",
     "actionSubmit": "Reset Selected",
+    "listItemAttendance": "Attendance",
     "listItemEvents": "Events",
     "listItemPeople": "People",
     "listItemSettings": "Settings"

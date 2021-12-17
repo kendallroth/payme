@@ -29,6 +29,10 @@ interface SettingsState {
   theme: AppTheme;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Slice
+////////////////////////////////////////////////////////////////////////////////
+
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
   behaviours: {
@@ -73,19 +77,23 @@ const settingsSlice = createSlice({
   },
 });
 
+////////////////////////////////////////////////////////////////////////////////
+// Thunks
+////////////////////////////////////////////////////////////////////////////////
+
 // Add debug data to the store
-const addDebugData = createAsyncThunk(
+const addDebugDataThunk = createAsyncThunk(
   "settings/addDebugData",
   async (options: IAppPopulateOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    await dispatch(addDebugDataAction(options));
+    dispatch(addDebugDataAction(options));
   },
 );
 
 // Reset the store state
-const resetApp = createAsyncThunk(
+const resetAppThunk = createAsyncThunk(
   "settings/resetApp",
   async (options: IAppResetOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
@@ -96,9 +104,13 @@ const resetApp = createAsyncThunk(
       i18n.changeLanguage(initialState.language);
     }
 
-    await dispatch(resetAppAction(options));
+    dispatch(resetAppAction(options));
   },
 );
+
+////////////////////////////////////////////////////////////////////////////////
+// Selectors
+////////////////////////////////////////////////////////////////////////////////
 
 export const selectBehaviours = (state: RootState): IAppBehaviours =>
   state.settings.behaviours;
@@ -111,7 +123,7 @@ export const selectLanguageConfig = (state: RootState): IAppLanguageConfig =>
 export const selectThemeConfig = (state: RootState): IAppThemeConfig =>
   THEMES[state.settings.theme];
 
-export { addDebugData, resetApp };
+export { addDebugDataThunk, resetAppThunk };
 export const { setAppBehaviour, setAppDeveloper, setAppLanguage, setAppTheme } =
   settingsSlice.actions;
 

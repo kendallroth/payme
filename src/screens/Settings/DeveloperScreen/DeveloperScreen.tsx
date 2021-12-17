@@ -13,7 +13,7 @@ import DeveloperListItem from "./DeveloperListItem";
 // Utilities
 import config from "@config";
 import { useAppDispatch, useAppLoader, useSnackbar } from "@hooks";
-import { addDebugData, setAppDeveloper } from "@store/slices/settings";
+import { addDebugDataThunk, setAppDeveloper } from "@store/slices/settings";
 
 // Types
 import { SettingsRouterNavigation } from "@screens/Settings/SettingsRouter";
@@ -45,7 +45,7 @@ const DeveloperScreen = (): ReactElement => {
           text: t("common:choices.confirm"),
           onPress: async (): Promise<void> => {
             loader.show(t("screens:settingsDeveloper.populateDataLoading"));
-            await dispatch(addDebugData(populateOptions));
+            await dispatch(addDebugDataThunk(populateOptions));
             loader.hide();
             notify(t("screens:settingsDeveloper.populateDataSuccess"));
           },

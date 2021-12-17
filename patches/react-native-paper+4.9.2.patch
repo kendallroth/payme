@@ -1,0 +1,38 @@
+diff --git a/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx b/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx
+index 93d5af4..fc28092 100644
+--- a/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx
++++ b/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx
+@@ -87,6 +87,7 @@ type Props = {
+  */
+ 
+ const CheckboxItem = ({
++  disabled,
+   style,
+   status,
+   label,
+@@ -98,7 +99,7 @@ const CheckboxItem = ({
+   position = 'trailing',
+   ...props
+ }: Props) => {
+-  const checkboxProps = { ...props, status, theme };
++  const checkboxProps = { ...props, disabled, status, theme };
+   const isLeading = position === 'leading';
+   let checkbox;
+ 
+@@ -111,14 +112,14 @@ const CheckboxItem = ({
+   }
+ 
+   return (
+-    <TouchableRipple onPress={onPress} testID={testID}>
++    <TouchableRipple disabled={disabled} onPress={onPress} testID={testID}>
+       <View style={[styles.container, style]} pointerEvents="none">
+         {isLeading && checkbox}
+         <Text
+           style={[
+             styles.label,
+             {
+-              color: theme.colors.text,
++              color: disabled ? theme.colors.disabled : theme.colors.text,
+               textAlign: isLeading ? 'right' : 'left',
+             },
+             labelStyle,

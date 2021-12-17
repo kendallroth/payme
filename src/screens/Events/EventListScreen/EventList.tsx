@@ -19,12 +19,13 @@ type EventProps = {
   style?: StyleProp<ViewStyle>;
   /** Event list title */
   title: string;
+  // NOTE: Currently not implemented!
   /** Event removal handler */
   onRemove: (event: IEvent) => void;
 };
 
 const EventList = (props: EventProps): ReactElement => {
-  const { events, style, title, onRemove } = props;
+  const { events, style, title } = props;
 
   const navigator = useNavigation<EventsRouterNavigation>();
   const { t } = useTranslation(["common"]);
@@ -68,12 +69,7 @@ const EventList = (props: EventProps): ReactElement => {
       </View>
       {hasEvents &&
         events.map((event) => (
-          <EventListItem
-            key={event.id}
-            event={event}
-            onPress={onEventPress}
-            onRemove={onRemove}
-          />
+          <EventListItem key={event.id} event={event} onPress={onEventPress} />
         ))}
       {!hasEvents && (
         <Alert style={styles.listEmpty}>

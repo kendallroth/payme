@@ -4,7 +4,7 @@ import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 
 // Components
 import { Alert } from "@components/typography";
-import EventPeopleListItem from "./EventPeopleListItem";
+import EventAttendeeListItem from "./EventAttendeeListItem";
 
 // Utilities
 import { flatListIdExtractor } from "@utilities/list.util";
@@ -12,42 +12,44 @@ import { flatListIdExtractor } from "@utilities/list.util";
 // Types
 import { IPersonForEvent } from "@typings/attendance.types";
 
-type EventPeopleListProps = {
-  /** List of people with relation to the event */
-  people: IPersonForEvent[];
-  /** Toggle whether a person is attending the event */
-  onPersonToggle: (person: IPersonForEvent) => void;
+type EventAttendeeListProps = {
+  /** List of event attendees */
+  attendees: IPersonForEvent[];
+  /** Toggle whether an attendee has paid for an event */
+  onPay: (person: IPersonForEvent) => void;
+  /** Remove an attendee */
+  onRemove: (person: IPersonForEvent) => void;
 };
 
-const EventPeopleList = (props: EventPeopleListProps): ReactElement => {
-  const { people, onPersonToggle } = props;
+const EventAttendeeList = (props: EventAttendeeListProps): ReactElement => {
+  const { attendees, onPay, onRemove } = props;
 
-  const { t } = useTranslation(["common"]);
+  const { t } = useTranslation(["screens"]);
 
   /**
-   * Render a person list item
+   * Render an attendee list item
    *
-   * @param   item - Person item
-   * @returns Person list item
+   * @param   item - Attendee item
+   * @returns Attendee list item
    */
-  const renderPersonItem = ({
+  const renderAttendeeItem = ({
     item,
   }: ListRenderItemInfo<IPersonForEvent>): ReactElement => (
-    <EventPeopleListItem person={item} onToggle={onPersonToggle} />
+    <EventAttendeeListItem person={item} onPay={onPay} onRemove={onRemove} />
   );
 
   // TODO: Render something else (big image) when no people have been added!
 
   return (
     <FlatList
-      data={people}
+      data={attendees}
       keyExtractor={flatListIdExtractor}
       ListEmptyComponent={(): ReactElement => (
         <Alert style={styles.listEmpty}>
-          {t("common:errors.noMatchingPeople")}
+          {t("screens:eventDetails.attendeeListEmpty")}
         </Alert>
       )}
-      renderItem={renderPersonItem}
+      renderItem={renderAttendeeItem}
       style={[styles.list]}
     />
   );
@@ -58,8 +60,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listEmpty: {
+    marginTop: 24,
     marginHorizontal: 24,
   },
 });
 
-export default EventPeopleList;
+export default EventAttendeeList;

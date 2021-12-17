@@ -31,18 +31,19 @@ export default (): ExpoConfig => ({
 
   // Android overrides
   android: {
-    /*adaptiveIcon: {
-      foregroundImage: "./assets/adaptive-icon.png",
-      backgroundColor: "#FFFFFF",
-    },*/
+    adaptiveIcon: {
+      foregroundImage: "./assets/icon-clear.png",
+      backgroundColor: "#2196f3",
+    },
   },
   androidNavigationBar: {
     barStyle: "dark-content",
-    // backgroundColor: "#8ecae6",
   },
 
   // iOS overrides
   ios: {
+    // Icon must be 1024x1024 (no transparency)
+    icon: "./assets/icon.png",
     supportsTablet: false,
   },
 });

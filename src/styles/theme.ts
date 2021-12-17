@@ -18,8 +18,9 @@ declare global {
         lightest: string;
       };
       transparent: string;
-      warning: string;
       white: string;
+
+      warning: string;
     }
 
     /*interface Theme {
@@ -28,11 +29,13 @@ declare global {
   }
 }
 
-const colorPrimary = "#219ebc";
+const colorPrimary = "#2196f3";
 
 /** Shared theme colors (typically literals) */
 const sharedColors = {
+  accent: "#eb144c",
   black: "#000000",
+  error: "#c62828",
   // TODO: Figure out how to handle grey colors per theme!
   grey: {
     dark: "#666666",
@@ -40,8 +43,8 @@ const sharedColors = {
     light: "#cdcdcd",
     lightest: "#dedede",
   },
-  warning: "#ffa23a",
   transparent: "transparent",
+  warning: "#ffa23a",
   white: "#ffffff",
 };
 

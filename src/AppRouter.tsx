@@ -1,17 +1,21 @@
 import React, { ReactElement } from "react";
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { useTheme } from "react-native-paper";
 
 // Components
-import MainTabRouter from "./TabRouter";
+import MainTabRouter, { BottomRouterParams } from "./TabRouter";
 import { SettingsRouter } from "@screens/Settings";
 
 export type RootRouterParams = {
-  MainRouter: undefined;
+  MainRouter: NavigatorScreenParams<BottomRouterParams>;
   SettingsRouter: undefined;
 };
 

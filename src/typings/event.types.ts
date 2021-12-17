@@ -35,3 +35,9 @@ export interface IEventStats {
   /** Number of unpaid attendees */
   unpaid: number;
 }
+
+/** Update event statistics */
+export interface IEventStatsUpdate extends IEventStats {
+  /** Event ID */
+  eventId: string;
+}

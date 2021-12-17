@@ -5,25 +5,27 @@ import { Text, useTheme } from "react-native-paper";
 
 type UnpaidIndicatorProps = {
   /** Number of unpaid items */
-  count: number | null;
+  count?: number;
   /** Style */
   style?: StyleProp<ViewStyle>;
+  /** Whether indicator is visible */
+  visible?: boolean;
 };
 
 const UnpaidIndicator = (props: UnpaidIndicatorProps): ReactElement | null => {
-  const { count, style } = props;
+  const { count, style, visible = true } = props;
 
   const { colors } = useTheme();
 
-  if (!count) return null;
+  if (!visible) return null;
 
   return (
     <View style={[styles.indicator, style]}>
-      <Text style={styles.indicatorText}>{count}</Text>
+      {Boolean(count) && <Text style={styles.indicatorText}>{count}</Text>}
       <Icon
         color={colors.error}
         name="alert-circle"
-        size={20}
+        size={24}
         style={styles.indicatorIcon}
       />
     </View>

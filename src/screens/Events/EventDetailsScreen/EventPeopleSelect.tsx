@@ -9,11 +9,19 @@ import { AppBar, Page } from "@components/layout";
 import EventPeopleList from "./EventPeopleList";
 
 // Utilities
-import { useAppSelector } from "@hooks";
-import { selectPeople } from "@store/slices/people";
+import { useAppDispatch } from "@hooks";
 import { includesSafeString } from "@utilities/string";
 
+// Types
+import { IPersonForEvent } from "@typings/attendance.types";
+import { IEvent } from "@typings/event.types";
+import { toggleAttendanceThunk } from "@store/slices/attendance";
+
 type EventPeopleSelectProps = {
+  /** Event */
+  event: IEvent;
+  /** List of people with relation to the event */
+  people: IPersonForEvent[];
   /** Whether modal is visible */
   visible: boolean;
   /** Close handler */
@@ -21,18 +29,34 @@ type EventPeopleSelectProps = {
 };
 
 const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
-  const { visible, onClose } = props;
+  const { event, people, visible, onClose } = props;
 
   const [searchText, setSearchText] = useState("");
 
-  const people = useAppSelector(selectPeople);
+  const dispatch = useAppDispatch();
   const { colors } = useTheme();
   const { t } = useTranslation(["common", "screens"]);
 
   const isIOS = Platform.OS === "ios";
-  const filteredPeople = searchText.trim()
-    ? people.filter((person) => includesSafeString(person.name, searchText))
-    : people;
+  const filteredPeople =
+    searchText.trim() && visible
+      ? people.filter((person) => includesSafeString(person.name, searchText))
+      : people;
+
+  /**
+   * Toggle whether a person is attending the event
+   *
+   * @param person - Attendee
+   */
+  const onToggleAttendancePerson = (person: IPersonForEvent): void => {
+    dispatch(
+      toggleAttendanceThunk({
+        attending: !person.attending,
+        eventId: event.id,
+        personId: person.id,
+      }),
+    );
+  };
 
   return (
     <Modal
@@ -63,7 +87,10 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
           value={searchText}
           onChangeText={setSearchText}
         />
-        <EventPeopleList people={filteredPeople} />
+        <EventPeopleList
+          people={filteredPeople}
+          onPersonToggle={onToggleAttendancePerson}
+        />
       </Page>
     </Modal>
   );

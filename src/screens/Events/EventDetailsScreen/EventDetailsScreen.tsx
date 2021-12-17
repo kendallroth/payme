@@ -1,15 +1,26 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Vibration } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { Text } from "react-native-paper";
 
 // Components
-import { DeleteEventDialog, ManageEventSheet } from "@components/dialogs";
-import { AppBar, ComingSoon, Page, ScreenFAB } from "@components/layout";
+import {
+  ConfirmDialog,
+  DeleteEventDialog,
+  ManageEventSheet,
+} from "@components/dialogs";
+import { AppBar, Page, ScreenFAB } from "@components/layout";
 import EventPeopleSelect from "./EventPeopleSelect";
+import EventAttendeeList from "./EventAttendeeList";
 
 // Utilities
 import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import {
+  selectPeopleForEvent,
+  toggleAttendanceThunk,
+  togglePaymentThunk,
+} from "@store/slices/attendance";
 import { removeEvent, selectEvent, updateEvent } from "@store/slices/events";
 import { formatDateString } from "@utilities/date.util";
 
@@ -17,17 +28,22 @@ import { formatDateString } from "@utilities/date.util";
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
 import { IEvent } from "@typings/event.types";
 import { EventDetailsScreenProps } from "../EventsRouter";
+import { IPersonForEvent } from "@typings/attendance.types";
 
 const EventDetailsScreen = (): ReactElement | null => {
   const [isDeleteDialogShown, setIsDeleteDialogShown] = useState(false);
   const [isSelectAttendeesShown, setIsSelectAttendeesShown] = useState(false);
+  const [removedAttendee, setRemovedAttendee] =
+    useState<IPersonForEvent | null>(null);
   const manageEventRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const route = useRoute<EventDetailsScreenProps>();
-  const event = useAppSelector((state) =>
-    selectEvent(state, route.params.eventId),
+  const { eventId } = route.params;
+  const event = useAppSelector((state) => selectEvent(state, eventId));
+  const peopleForEvent = useAppSelector((state) =>
+    selectPeopleForEvent(state, eventId),
   );
   const { notify } = useSnackbar();
   const { t } = useTranslation(["common", "screens"]);
@@ -40,10 +56,64 @@ const EventDetailsScreen = (): ReactElement | null => {
     return null;
   }
 
+  const attendees = peopleForEvent.filter((p) => p.attending);
+
   let eventSubtitle = formatDateString(event.date);
   if (event.cost) {
     eventSubtitle = `${eventSubtitle}  •  $${event.cost}`;
   }
+
+  /**
+   * Toggle whether an attendee has paid
+   *
+   * @param attendee - Attendee
+   */
+  const onAttendeePayPress = (attendee: IPersonForEvent): void => {
+    Vibration.vibrate(100);
+
+    dispatch(
+      togglePaymentThunk({
+        eventId: event.id,
+        paid: !attendee.paidAt,
+        personId: attendee.id,
+      }),
+    );
+  };
+
+  /**
+   * Prompt for confirmation before removing attendee
+   *
+   * @param attendee - Attendee for removal
+   */
+  const onAttendeeRemovePress = (attendee: IPersonForEvent): void => {
+    setRemovedAttendee(attendee);
+  };
+
+  /**
+   * Cancel removing an attendee
+   */
+  const onAttendeeRemoveCancel = (): void => {
+    setRemovedAttendee(null);
+  };
+
+  /**
+   * Confirm removing an attendee
+   */
+  const onAttendeeRemoveConfirm = (): void => {
+    setRemovedAttendee(null);
+
+    if (!removedAttendee) return;
+
+    dispatch(
+      toggleAttendanceThunk({
+        attending: false,
+        eventId: event.id,
+        personId: removedAttendee.id,
+      }),
+    );
+
+    notify(`Removed ${removedAttendee?.name}`);
+  };
 
   /**
    * Prompt user for confirmation before deleting event
@@ -109,12 +179,29 @@ const EventDetailsScreen = (): ReactElement | null => {
         <AppBar.Action icon="pencil" onPress={onEventEditPress} />
         <AppBar.Action icon="delete" onPress={onEventDeletePress} />
       </AppBar>
-      <ComingSoon />
+      <EventAttendeeList
+        attendees={attendees}
+        onPay={onAttendeePayPress}
+        onRemove={onAttendeeRemovePress}
+      />
       <ScreenFAB
         icon="account-multiple-plus"
         onPress={(): void => setIsSelectAttendeesShown(true)}
       />
+      <ConfirmDialog
+        title={t("screens:eventDetails.attendeeRemoveConfirmTitle")}
+        visible={Boolean(removedAttendee)}
+        onCancel={onAttendeeRemoveCancel}
+        onConfirm={onAttendeeRemoveConfirm}
+      >
+        <Text>
+          {t("screens:eventDetails.attendeeRemoveConfirmDescription")}
+        </Text>
+        <Text style={styles.removeDialogAttendee}>{removedAttendee?.name}</Text>
+      </ConfirmDialog>
       <EventPeopleSelect
+        event={event}
+        people={peopleForEvent}
         visible={isSelectAttendeesShown}
         onClose={(): void => setIsSelectAttendeesShown(false)}
       />
@@ -134,6 +221,11 @@ const EventDetailsScreen = (): ReactElement | null => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  removeDialogAttendee: {
+    marginTop: 16,
+    fontWeight: "bold",
+  },
+});
 
 export default EventDetailsScreen;

@@ -1,32 +1,64 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
+import { sort } from "fast-sort";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 
 // Components
 import { AppBar, Page } from "@components/layout";
+import EventListItem from "@screens/Events/EventListScreen/EventListItem";
 import HomeScreenSection from "./HomeScreenSection";
 
 // Utilities
-import { selectEvents } from "@store/slices/events";
+import { useAppSelector } from "@hooks";
+import {
+  selectEvents,
+  selectEventsCount,
+  selectEventsUnpaidCount,
+} from "@store/slices/events";
 import { selectPeople } from "@store/slices/people";
 
 // Types
+import { IEvent } from "@typings/event.types";
 import { RootRouterNavigation } from "src/AppRouter";
+
+const getTopUnpaidEvents = (events: IEvent[]): IEvent[] => {
+  const unpaidEvents = events.filter((e) => e.stats?.unpaid);
+  const topUnpaidEvents = sort(unpaidEvents)
+    .desc((e) => e.stats?.unpaid)
+    .slice(0, 3);
+  return sort(topUnpaidEvents).desc((e) => e.date);
+};
 
 const HomeScreen = (): ReactElement | null => {
   const navigation = useNavigation<RootRouterNavigation>();
 
-  const events = useSelector(selectEvents);
-  const people = useSelector(selectPeople);
+  const events = useAppSelector(selectEvents);
+  const people = useAppSelector(selectPeople);
   const { t } = useTranslation(["screens"]);
 
-  const unpaidEvents = events.reduce(
-    (accum, e) => (e.stats ? (e.stats.unpaid > 0 ? accum + 1 : accum) : accum),
-    0,
-  );
-  const eventProgress = (events.length - unpaidEvents) / events.length;
+  const eventCountTotal = useAppSelector(selectEventsCount);
+  const eventCountUnpaid = useAppSelector(selectEventsUnpaidCount);
+
+  const topUnpaidEvents = useMemo(() => getTopUnpaidEvents(events), [events]);
+
+  /**
+   * Open an event's details
+   *
+   * @param event - Selected event
+   */
+  const onEventPress = (event: IEvent): void => {
+    // TODO: Figure out how to prevent "back" from going through events list...
+    navigation.navigate("MainRouter", {
+      screen: "Events",
+      params: {
+        screen: "EventDetails",
+        params: {
+          eventId: event.id,
+        },
+      },
+    });
+  };
 
   return (
     <Page>
@@ -36,27 +68,39 @@ const HomeScreen = (): ReactElement | null => {
           onPress={(): void => navigation.navigate("SettingsRouter")}
         />
       </AppBar>
-      <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
-      <View style={styles.pageStats}>
-        <HomeScreenSection
-          count={events.length}
-          direction="left"
-          progress={1}
-          progressText={t("screens:home.eventsAllPaid")}
-          progressValue={unpaidEvents}
-          style={styles.pageStat}
-          title={t("screens:eventList.title")}
-        />
-        <HomeScreenSection
-          count={people.length}
-          direction="right"
-          // TODO: Refactor fake progress/text
-          progress={1}
-          progressText={t("screens:home.peopleAllPaid")}
-          style={styles.pageStat}
-          title={t("screens:peopleList.title")}
-        />
-      </View>
+      <ScrollView contentContainerStyle={styles.pageScroll}>
+        <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
+        <View style={styles.pageStats}>
+          <HomeScreenSection
+            completedText={t("screens:home.eventsAllPaid")}
+            direction="left"
+            emptyText={t("screens:home.eventsEmpty")}
+            items={topUnpaidEvents}
+            style={styles.pageStat}
+            renderItem={(event): ReactElement => (
+              <EventListItem
+                key={event.id}
+                event={event}
+                onPress={onEventPress}
+              />
+            )}
+            title={t("screens:eventList.title")}
+            total={eventCountTotal}
+            unpaid={eventCountUnpaid}
+          />
+          <HomeScreenSection
+            comingSoon
+            completedText={t("screens:home.peopleAllPaid")}
+            direction="right"
+            emptyText={t("screens:home.peopleEmpty")}
+            items={[]}
+            // TODO: Enable tracking people unpaid progress
+            style={styles.pageStat}
+            title={t("screens:peopleList.title")}
+            total={people.length}
+          />
+        </View>
+      </ScrollView>
     </Page>
   );
 };
@@ -67,6 +111,9 @@ const styles = StyleSheet.create({
     width: 64,
     alignSelf: "center",
     borderRadius: 16,
+  },
+  pageScroll: {
+    flexGrow: 1,
   },
   pageStat: {
     marginVertical: 16,

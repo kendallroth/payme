@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import {
+  createAction,
   createEntityAdapter,
   createSlice,
   PayloadAction,
@@ -12,7 +13,7 @@ import { fakeEvents } from "../data/events";
 import { RootState } from "../index";
 
 // Types
-import { IEvent, IEventBase } from "@typings/event.types";
+import { IEvent, IEventBase, IEventStatsUpdate } from "@typings/event.types";
 
 interface IEventsState {
   sample: string;
@@ -21,6 +22,9 @@ interface IEventsState {
 export const eventsAdapter = createEntityAdapter<IEvent>({
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
+
+export const eventStatsUpdate =
+  createAction<IEventStatsUpdate>("eventStatsUpdate");
 
 ////////////////////////////////////////////////////////////////////////////////
 // Slice
@@ -41,12 +45,16 @@ const eventsSlice = createSlice({
         archivedAt: null,
         createdAt: dayjs().toISOString(),
         title: action.payload.title.trim(),
+        stats: {
+          attending: 0,
+          unpaid: 0,
+        },
       };
 
       eventsAdapter.addOne(state, newEvent);
     },
-    // TODO: Handle removing attendance for this person!
     removeEvent(state, action: PayloadAction<string>): void {
+      // NOTE: Cleaning up attendance is handled by 'attendance' slice
       eventsAdapter.removeOne(state, action.payload);
     },
     updateEvent(state, action: PayloadAction<IEvent>): void {
@@ -72,6 +80,19 @@ const eventsSlice = createSlice({
         if (existingEvents.find((e) => e?.title === event.title)) return;
 
         eventsAdapter.addOne(state, event);
+      });
+    });
+    builder.addCase(eventStatsUpdate, (state, action) => {
+      const { attending, eventId, unpaid } = action.payload;
+
+      eventsAdapter.updateOne(state, {
+        id: eventId,
+        changes: {
+          stats: {
+            attending,
+            unpaid,
+          },
+        },
       });
     });
     builder.addCase(resetAppAction, (state, action) => {
@@ -106,6 +127,21 @@ export const selectEvent = (state: RootState, id: string): IEvent | undefined =>
  * @returns All events
  */
 export const selectEvents = eventsSelectors.selectAll;
+/**
+ * Total number of events
+ */
+export const selectEventsCount = eventsSelectors.selectTotal;
+/**
+ * Number of unpaid events
+ *
+ * @param   state - Store state
+ * @returns Number of unpaid events
+ */
+export const selectEventsUnpaidCount = (state: RootState): number => {
+  return Object.values(state.events.entities).filter(
+    (e) => e?.stats?.unpaid ?? 0,
+  ).length;
+};
 
 export const { addEvent, removeEvent, updateEvent } = eventsSlice.actions;
 

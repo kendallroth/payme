@@ -20,6 +20,7 @@ type AppResetOptionKeys = keyof IAppResetOptions;
 const initialOptions: IAppResetOptions = {
   events: false,
   people: false,
+  attendance: false,
   settings: false,
 };
 
@@ -34,6 +35,7 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
     const { colors } = useTheme();
 
     const resetOptionsMap: Record<AppResetOptionKeys, string> = {
+      attendance: t("screens:settingsAppReset.listItemAttendance"),
       events: t("screens:settingsAppReset.listItemEvents"),
       people: t("screens:settingsAppReset.listItemPeople"),
       settings: t("screens:settingsAppReset.listItemSettings"),
@@ -55,9 +57,15 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
      * @param key - Selected reset option
      */
     const onOptionPress = (key: AppResetOptionKeys): void => {
-      setResetOptions({
+      const newOptions: IAppResetOptions = {
         ...resetOptions,
         [key]: !resetOptions[key],
+      };
+
+      setResetOptions({
+        ...newOptions,
+        // Attendance cannot be selected manually (applied automatically)
+        attendance: newOptions.events || newOptions.people,
       });
     };
 
@@ -73,6 +81,7 @@ const AppResetModal = forwardRef<BottomSheetRef, AppResetModalProps>(
           {resetOptionList.map(
             (option): ReactElement => (
               <Checkbox.Item
+                disabled={option === "attendance"}
                 key={option}
                 label={resetOptionsMap[option]}
                 status={resetOptions[option] ? "checked" : "unchecked"}

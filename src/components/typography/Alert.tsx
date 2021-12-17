@@ -19,6 +19,8 @@ type AlertProps = {
   children: ReactElement | ReactElement[] | string;
   /** Alert icon */
   icon?: keyof MaterialCommunityIcons;
+  /** Alert icon size */
+  iconSize?: number;
   /** Style */
   style?: StyleProp<ViewStyle>;
   /** Text style */
@@ -31,6 +33,7 @@ const Alert = (props: AlertProps): ReactElement | null => {
   const {
     children,
     icon = "alert-decagram",
+    iconSize = 24,
     style,
     textStyle,
     type = "warning",
@@ -57,7 +60,7 @@ const Alert = (props: AlertProps): ReactElement | null => {
       <Icon
         color={iconColorMap[type]}
         name={icon}
-        size={24}
+        size={iconSize}
         style={styles.alertIcon}
       />
       {childIsString ? (
