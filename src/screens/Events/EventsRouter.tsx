@@ -4,13 +4,17 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
+import { RouteProp } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 
 // Components
 import { EventDetailsScreen } from "./EventDetailsScreen";
 import { EventListScreen } from "./EventListScreen";
-import { RouteProp } from "@react-navigation/native";
 import { BottomRouterNavigation } from "src/TabRouter";
+
+// Utilities
+import { useAppSelector } from "@hooks";
+import { selectBehaviours } from "@store/slices/settings";
 
 export type EventsRouterParams = {
   EventDetails: {
@@ -31,17 +35,22 @@ export type EventsRouterNavigation =
 const Stack = createNativeStackNavigator<EventsRouterParams>();
 
 const EventsStack = (): ReactElement => {
+  const appBehaviours = useAppSelector(selectBehaviours);
   const tabNavigation = useNavigation<BottomRouterNavigation>();
   const stackNavigation = useNavigation<EventsRouterNavigation>();
 
   useEffect(() => {
     const unsubscribe = tabNavigation.addListener("tabPress", () => {
-      // Directly returning to Events tab should reset state (less confusion)
-      stackNavigation.navigate("EventList");
+      if (appBehaviours?.tabsResetHistory) {
+        // Directly returning to Events tab should optionally reset state (less confusion)
+        // TODO: Maybe find a way to do this proactively, so that the tab doesn't focus
+        //         mid-animation (ie. do when leaving tab)?
+        stackNavigation.navigate("EventList");
+      }
     });
 
     return unsubscribe;
-  }, [stackNavigation, tabNavigation]);
+  }, [appBehaviours, stackNavigation, tabNavigation]);
 
   // NOTE: Extra non-collapsable view required to fix issue where navigating to tab
   //         after the first time would not display anything (apparently clipepd out?)!

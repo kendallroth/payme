@@ -10,6 +10,7 @@ import { addDebugDataAction, resetAppAction } from "../actions";
 import {
   AppLanguage,
   AppTheme,
+  IAppBehaviours,
   IAppLanguageConfig,
   IAppPopulateOptions,
   IAppResetOptions,
@@ -18,6 +19,8 @@ import {
 import { RootState } from "../index";
 
 interface SettingsState {
+  /** App behaviour settings */
+  behaviours: IAppBehaviours;
   /** Whether app is in development mode */
   developer: boolean;
   /** App language (for internationalization) */
@@ -28,6 +31,9 @@ interface SettingsState {
 
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
+  behaviours: {
+    tabsResetHistory: true,
+  },
   developer: false,
   language: SettingsService.getDeviceLanguage(),
   theme: SettingsService.getDeviceTheme(),
@@ -37,17 +43,22 @@ const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
+    setAppBehaviour: (
+      state,
+      action: PayloadAction<Partial<IAppBehaviours>>,
+    ) => {
+      state.behaviours = {
+        ...state.behaviours,
+        ...action.payload,
+      };
+    },
     setAppDeveloper: (state, action: PayloadAction<boolean>) => {
       state.developer = action.payload;
     },
     setAppLanguage: (state, action: PayloadAction<AppLanguage>) => {
-      if (!action.payload) return;
-
       state.language = action.payload;
     },
     setAppTheme: (state, action: PayloadAction<AppTheme>) => {
-      if (!action.payload) return;
-
       state.theme = action.payload;
     },
   },
@@ -55,6 +66,7 @@ const settingsSlice = createSlice({
     builder.addCase(resetAppAction, (state, action) => {
       if (!action.payload.settings) return;
 
+      state.behaviours = initialState.behaviours;
       state.language = initialState.language;
       state.theme = initialState.theme;
     });
@@ -88,6 +100,8 @@ const resetApp = createAsyncThunk(
   },
 );
 
+export const selectBehaviours = (state: RootState): IAppBehaviours =>
+  state.settings.behaviours;
 export const selectDeveloperMode = (state: RootState): boolean =>
   state.settings.developer;
 export const selectLanguage = (state: RootState): AppLanguage =>
@@ -98,7 +112,7 @@ export const selectThemeConfig = (state: RootState): IAppThemeConfig =>
   THEMES[state.settings.theme];
 
 export { addDebugData, resetApp };
-export const { setAppDeveloper, setAppLanguage, setAppTheme } =
+export const { setAppBehaviour, setAppDeveloper, setAppLanguage, setAppTheme } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;

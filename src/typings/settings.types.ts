@@ -1,3 +1,9 @@
+/** Customizable app behaviour settings */
+export interface IAppBehaviours {
+  /** Whether tab history is reset when navigating between tabs */
+  tabsResetHistory: boolean;
+}
+
 /** Supported app languages */
 export enum AppLanguage {
   ENGLISH = "en",
