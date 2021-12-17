@@ -57,6 +57,7 @@
     "title": "Settings",
     "listItemBug": "Report a bug",
     "listItemAppearance": "Appearance",
+    "listItemBehaviours": "Behaviours",
     "listItemLanguage": "Language",
     "listItemSuggestion": "Suggest an improvement",
     "listSectionCustomize": "Customize",
@@ -76,6 +77,12 @@
     "listItemEvents": "Events",
     "listItemPeople": "People",
     "listItemSettings": "Settings"
+  },
+  "settingsBehaviours": {
+    "title": "Behaviours",
+    "listItemTabHistoryResetDescription": "Whether tab navigation resets tab history",
+    "listItemTabHistoryResetTitle": "Reset tab history",
+    "moreBehavioursAlert": "More behaviours coming soon!"
   },
   "settingsDeveloper": {
     "title": "Debug",

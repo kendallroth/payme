@@ -57,6 +57,7 @@
     "title": "Ajustes",
     "listItemBug": "Reportar un error",
     "listItemAppearance": "Apariencia",
+    "listItemBehaviours": "Comportamientos",
     "listItemLanguage": "Idioma",
     "listItemSuggestion": "Sugerir una mejora",
     "listSectionCustomize": "Personalizar",
@@ -76,6 +77,12 @@
     "listItemEvents": "Eventos",
     "listItemPeople": "Gente",
     "listItemSettings": "Ajustes"
+  },
+  "settingsBehaviours": {
+    "title": "Comportamientos",
+    "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas",
+    "listItemTabHistoryResetTitle": "Restablecer historial de pestañas",
+    "moreBehavioursAlert": "¡Más comportamientos próximamente!"
   },
   "settingsDeveloper": {
     "title": "Depurar",
