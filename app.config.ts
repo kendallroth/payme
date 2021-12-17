@@ -35,6 +35,9 @@ export default (): ExpoConfig => ({
       foregroundImage: "./assets/icon_clear.png",
       backgroundColor: primaryColor,
     },
+    package: "com.kendallroth.payme",
+    permissions: [],
+    versionCode: 2,
   },
   androidNavigationBar: {
     barStyle: "dark-content",
@@ -42,6 +45,8 @@ export default (): ExpoConfig => ({
 
   // iOS overrides
   ios: {
+    buildNumber: version,
+    bundleIdentifier: "ca.kendallroth.payme",
     // Icon must be 1024x1024 (no transparency)
     icon: "./assets/icon.png",
     supportsTablet: false,
