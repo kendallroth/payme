@@ -10,7 +10,7 @@ import { TextInput as RNPTextInput, useTheme } from "react-native-paper";
 import TextInput from "./TextInput";
 
 // Utilities
-import { formatDateString } from "@utilities/date.util";
+import { DATE_FORMAT_ISO_SHORT, formatDateString } from "@utilities/date.util";
 
 type DatePickerInputProps = {
   /** Parent selection callback */
@@ -43,7 +43,7 @@ const DatePickerInput = (props: DatePickerInputProps): ReactElement => {
     }
 
     const dateString = date
-      ? formatDateString(date.toISOString(), "YYYY-MM-DD")
+      ? formatDateString(date.toISOString(), DATE_FORMAT_ISO_SHORT)
       : "";
 
     setOpen(false);

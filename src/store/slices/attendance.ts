@@ -1,13 +1,17 @@
 import dayjs from "dayjs";
 import {
+  createAsyncThunk,
   createEntityAdapter,
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
 
 // Utilites
+import { EventsService } from "@services";
 import { addDebugDataAction, resetAppAction } from "../actions";
 import { RootState } from "../index";
+import { eventStatsUpdate, removeEvent } from "./events";
+import { removePerson } from "./people";
 
 // Types
 import {
@@ -16,8 +20,6 @@ import {
   IEventAttendance,
   IPersonForEvent,
 } from "@typings/attendance.types";
-import { removeEvent } from "./events";
-import { removePerson } from "./people";
 
 interface IAttendanceState {}
 
@@ -113,12 +115,58 @@ const attendanceSlice = createSlice({
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// Selectors
+// Thunks
 ////////////////////////////////////////////////////////////////////////////////
 
-export const attendanceSelector = attendanceAdapter.getSelectors<RootState>(
-  (state) => state.attendance,
+// Toggle event attendance for a person and update event attendance stats
+export const toggleAttendanceThunk = createAsyncThunk(
+  "attendance/toggleAttendancePerson",
+  async (attendance: IAttendanceTogglePerson, { dispatch, getState }) => {
+    // NOTE: Strange way of accessing action... (intended to keep it internal)
+    dispatch(attendanceSlice.actions.toggleAttendancePerson(attendance));
+
+    const rootState = getState() as RootState;
+    const stats = EventsService.calculateEventStats(
+      attendance.eventId,
+      Object.values(rootState.attendance.entities),
+    );
+
+    // TODO: Investigate whether this has performance implications???
+    dispatch(
+      eventStatsUpdate({
+        eventId: attendance.eventId,
+        ...stats,
+      }),
+    );
+  },
 );
+
+// Toggle event payment for a person and update event attendance stats
+export const togglePaymentThunk = createAsyncThunk(
+  "attendance/toggleAttendancePayment",
+  async (payment: IAttendanceTogglePayment, { dispatch, getState }) => {
+    // NOTE: Strange way of accessing action... (intended to keep it internal)
+    dispatch(attendanceSlice.actions.toggleAttendancePayment(payment));
+
+    const rootState = getState() as RootState;
+    const stats = EventsService.calculateEventStats(
+      payment.eventId,
+      Object.values(rootState.attendance.entities),
+    );
+
+    // TODO: Investigate whether this has performance implications???
+    dispatch(
+      eventStatsUpdate({
+        eventId: payment.eventId,
+        ...stats,
+      }),
+    );
+  },
+);
+
+////////////////////////////////////////////////////////////////////////////////
+// Selectors
+////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Select people with relation to an event
@@ -149,9 +197,6 @@ export const selectPeopleForEvent = (
   }, [] as IPersonForEvent[]);
 };
 
-export const {
-  toggleAttendancePerson: toggleAttendance,
-  toggleAttendancePayment: togglePayment,
-} = attendanceSlice.actions;
+export const {} = attendanceSlice.actions;
 
 export default attendanceSlice.reducer;

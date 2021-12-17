@@ -18,8 +18,8 @@ import EventAttendeeList from "./EventAttendeeList";
 import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
 import {
   selectPeopleForEvent,
-  toggleAttendance,
-  togglePayment,
+  toggleAttendanceThunk,
+  togglePaymentThunk,
 } from "@store/slices/attendance";
 import { removeEvent, selectEvent, updateEvent } from "@store/slices/events";
 import { formatDateString } from "@utilities/date.util";
@@ -72,7 +72,7 @@ const EventDetailsScreen = (): ReactElement | null => {
     Vibration.vibrate(100);
 
     dispatch(
-      togglePayment({
+      togglePaymentThunk({
         eventId: event.id,
         paid: !attendee.paidAt,
         personId: attendee.id,
@@ -105,7 +105,7 @@ const EventDetailsScreen = (): ReactElement | null => {
     if (!removedAttendee) return;
 
     dispatch(
-      toggleAttendance({
+      toggleAttendanceThunk({
         attending: false,
         eventId: event.id,
         personId: removedAttendee.id,

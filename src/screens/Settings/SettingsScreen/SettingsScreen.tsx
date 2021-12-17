@@ -21,7 +21,7 @@ import {
   useSnackbar,
 } from "@hooks";
 import {
-  resetApp,
+  resetAppThunk,
   selectDeveloperMode,
   selectLanguageConfig,
   selectThemeConfig,
@@ -96,7 +96,7 @@ const SettingsScreen = (): ReactElement => {
           onPress: async (): Promise<void> => {
             appResetRef.current?.close();
             loader.show(t("screens:settingsDeveloper.resetDataLoading"));
-            await dispatch(resetApp(resetOptions));
+            await dispatch(resetAppThunk(resetOptions));
             loader.hide();
             notify(t("screens:settingsDeveloper.resetDataSuccess"));
           },

@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 
 // Human-readable date format
 export const DATE_FORMAT_NICE = "YYYY-MMM-DD";
+// Shortened ISO date format
+export const DATE_FORMAT_ISO_SHORT = "YYYY-MM-DD";
 
 /**
  * Format an ISO date string

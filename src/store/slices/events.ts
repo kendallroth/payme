@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import {
+  createAction,
   createEntityAdapter,
   createSlice,
   PayloadAction,
@@ -12,7 +13,7 @@ import { fakeEvents } from "../data/events";
 import { RootState } from "../index";
 
 // Types
-import { IEvent, IEventBase } from "@typings/event.types";
+import { IEvent, IEventBase, IEventStatsUpdate } from "@typings/event.types";
 
 interface IEventsState {
   sample: string;
@@ -21,6 +22,9 @@ interface IEventsState {
 export const eventsAdapter = createEntityAdapter<IEvent>({
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
+
+export const eventStatsUpdate =
+  createAction<IEventStatsUpdate>("eventStatsUpdate");
 
 ////////////////////////////////////////////////////////////////////////////////
 // Slice
@@ -76,6 +80,19 @@ const eventsSlice = createSlice({
         if (existingEvents.find((e) => e?.title === event.title)) return;
 
         eventsAdapter.addOne(state, event);
+      });
+    });
+    builder.addCase(eventStatsUpdate, (state, action) => {
+      const { attending, eventId, unpaid } = action.payload;
+
+      eventsAdapter.updateOne(state, {
+        id: eventId,
+        changes: {
+          stats: {
+            attending,
+            unpaid,
+          },
+        },
       });
     });
     builder.addCase(resetAppAction, (state, action) => {

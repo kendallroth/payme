@@ -15,7 +15,7 @@ import { includesSafeString } from "@utilities/string";
 // Types
 import { IPersonForEvent } from "@typings/attendance.types";
 import { IEvent } from "@typings/event.types";
-import { toggleAttendance } from "@store/slices/attendance";
+import { toggleAttendanceThunk } from "@store/slices/attendance";
 
 type EventPeopleSelectProps = {
   /** Event */
@@ -50,7 +50,7 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
    */
   const onToggleAttendancePerson = (person: IPersonForEvent): void => {
     dispatch(
-      toggleAttendance({
+      toggleAttendanceThunk({
         attending: !person.attending,
         eventId: event.id,
         personId: person.id,

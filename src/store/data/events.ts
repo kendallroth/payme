@@ -3,7 +3,7 @@ import { date as fakeDate } from "faker";
 import { v4 as uuidv4 } from "uuid";
 
 // Utilities
-import { DATE_FORMAT_NICE } from "@utilities/date.util";
+import { DATE_FORMAT_ISO_SHORT, DATE_FORMAT_NICE } from "@utilities/date.util";
 
 // Types
 import { IEvent } from "@typings/event.types";
@@ -28,7 +28,7 @@ const createFakeEvent = (event: FakeEventNew): IEvent => {
 const fakeEvents: IEvent[] = [
   // Future events
   createFakeEvent({
-    date: dayjs().add(15, "day").format(DATE_FORMAT_NICE),
+    date: dayjs().add(15, "day").format(DATE_FORMAT_ISO_SHORT),
     title: "Camping Trip",
     cost: 25,
     stats: {
@@ -37,7 +37,7 @@ const fakeEvents: IEvent[] = [
     },
   }),
   createFakeEvent({
-    date: dayjs().add(6, "day").format(DATE_FORMAT_NICE),
+    date: dayjs().add(6, "day").format(DATE_FORMAT_ISO_SHORT),
     title: "Ice Skating",
     cost: undefined,
     stats: {
@@ -47,7 +47,7 @@ const fakeEvents: IEvent[] = [
   }),
   // Past events
   createFakeEvent({
-    date: dayjs().subtract(1, "day").format(DATE_FORMAT_NICE),
+    date: dayjs().subtract(1, "day").format(DATE_FORMAT_ISO_SHORT),
     title: "Family Supper",
     cost: undefined,
     stats: {
@@ -56,7 +56,7 @@ const fakeEvents: IEvent[] = [
     },
   }),
   createFakeEvent({
-    date: dayjs().subtract(2, "day").format(DATE_FORMAT_NICE),
+    date: dayjs().subtract(2, "day").format(DATE_FORMAT_ISO_SHORT),
     title: "Pickup Hockey",
     cost: 15,
     stats: {
@@ -65,7 +65,7 @@ const fakeEvents: IEvent[] = [
     },
   }),
   createFakeEvent({
-    date: dayjs().subtract(5, "day").format(DATE_FORMAT_NICE),
+    date: dayjs().subtract(5, "day").format(DATE_FORMAT_ISO_SHORT),
     title: "Volleyball Game",
     cost: 10,
     stats: {
