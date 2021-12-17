@@ -15,7 +15,6 @@ import MainTabRouter, { BottomRouterParams } from "./TabRouter";
 import { SettingsRouter } from "@screens/Settings";
 
 export type RootRouterParams = {
-  // MainRouter: undefined;
   MainRouter: NavigatorScreenParams<BottomRouterParams>;
   SettingsRouter: undefined;
 };

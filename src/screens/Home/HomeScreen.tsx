@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo } from "react";
 import { sort } from "fast-sort";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // Components
@@ -68,36 +68,38 @@ const HomeScreen = (): ReactElement | null => {
           onPress={(): void => navigation.navigate("SettingsRouter")}
         />
       </AppBar>
-      <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
-      <View style={styles.pageStats}>
-        <HomeScreenSection
-          completedText={t("screens:home.eventsAllPaid")}
-          direction="left"
-          emptyText={t("screens:home.eventsEmpty")}
-          items={topUnpaidEvents}
-          style={styles.pageStat}
-          renderItem={(event): ReactElement => (
-            <EventListItem
-              key={event.id}
-              event={event}
-              onPress={onEventPress}
-            />
-          )}
-          title={t("screens:eventList.title")}
-          total={eventCountTotal}
-          unpaid={eventCountUnpaid}
-        />
-        <HomeScreenSection
-          completedText={t("screens:home.peopleAllPaid")}
-          direction="right"
-          emptyText={t("screens:home.peopleEmpty")}
-          items={[]}
-          // TODO: Enable tracking people unpaid progress
-          style={styles.pageStat}
-          title={t("screens:peopleList.title")}
-          total={people.length}
-        />
-      </View>
+      <ScrollView contentContainerStyle={styles.pageScroll}>
+        <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
+        <View style={styles.pageStats}>
+          <HomeScreenSection
+            completedText={t("screens:home.eventsAllPaid")}
+            direction="left"
+            emptyText={t("screens:home.eventsEmpty")}
+            items={topUnpaidEvents}
+            style={styles.pageStat}
+            renderItem={(event): ReactElement => (
+              <EventListItem
+                key={event.id}
+                event={event}
+                onPress={onEventPress}
+              />
+            )}
+            title={t("screens:eventList.title")}
+            total={eventCountTotal}
+            unpaid={eventCountUnpaid}
+          />
+          <HomeScreenSection
+            completedText={t("screens:home.peopleAllPaid")}
+            direction="right"
+            emptyText={t("screens:home.peopleEmpty")}
+            items={[]}
+            // TODO: Enable tracking people unpaid progress
+            style={styles.pageStat}
+            title={t("screens:peopleList.title")}
+            total={people.length}
+          />
+        </View>
+      </ScrollView>
     </Page>
   );
 };
@@ -108,6 +110,9 @@ const styles = StyleSheet.create({
     width: 64,
     alignSelf: "center",
     borderRadius: 16,
+  },
+  pageScroll: {
+    flexGrow: 1,
   },
   pageStat: {
     marginVertical: 16,
