@@ -31,8 +31,10 @@
     "title": "Hogar",
     "welcomeText": "¡Bienvenido!",
     "eventsAllPaid": "¡Todos los eventos son pagos!",
+    "eventsEmpty": "¡No hay eventos!",
     "eventsSomeUnpaid": "¡Algunos eventos no son remunerados!",
     "peopleAllPaid": "¡Todas las personas han pagado!",
+    "peopleEmpty": "¡No hay gente!",
     "peopleSomeUnpaid": "Algunos personas no han pagado!"
   },
   "peopleAddEdit": {

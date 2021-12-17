@@ -127,6 +127,21 @@ export const selectEvent = (state: RootState, id: string): IEvent | undefined =>
  * @returns All events
  */
 export const selectEvents = eventsSelectors.selectAll;
+/**
+ * Total number of events
+ */
+export const selectEventsCount = eventsSelectors.selectTotal;
+/**
+ * Number of unpaid events
+ *
+ * @param   state - Store state
+ * @returns Number of unpaid events
+ */
+export const selectEventsUnpaidCount = (state: RootState): number => {
+  return Object.values(state.events.entities).filter(
+    (e) => e?.stats?.unpaid ?? 0,
+  ).length;
+};
 
 export const { addEvent, removeEvent, updateEvent } = eventsSlice.actions;
 

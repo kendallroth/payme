@@ -8,34 +8,40 @@ import { ProgressIcon } from "@components/icons";
 // Types
 import { LeftRight } from "@typings/app.types";
 
-type HomeScreenSectionProps = {
-  /** Number of items */
-  count?: number;
+type HomeScreenSectionProps<ItemType> = {
+  /** Completed section text */
+  completedText: string;
+  /** Empty section text */
+  emptyText: string;
   /** Whether section is left/right aligned */
   direction: LeftRight;
-  /** Combined progress of items */
-  progress?: number;
-  /** Progress indicator message */
-  progressText?: string;
-  /** Progress indicator display value */
-  progressValue?: number;
+
+  items: ItemType[];
+  renderItem?: (item: ItemType) => ReactElement;
+
   /** Styles */
   style?: StyleProp<ViewStyle>;
   /** Section title */
   title: string;
+  /** Total number of items */
+  total?: number;
+  /** Number of unpaid items */
+  unpaid?: number;
 };
 
-const HomeScreenSection = (
-  props: HomeScreenSectionProps,
+const HomeScreenSection = <T extends object>(
+  props: HomeScreenSectionProps<T>,
 ): ReactElement | null => {
   const {
-    count = 0,
+    completedText,
     direction,
-    progress = 1,
-    progressText,
-    progressValue,
+    emptyText,
+    items,
+    renderItem,
     style,
     title,
+    total = 0,
+    unpaid = 0,
   } = props;
 
   const { colors } = useTheme();
@@ -55,6 +61,8 @@ const HomeScreenSection = (
     [colors],
   );
 
+  const progress = (total - unpaid) / total;
+
   return (
     <Surface
       style={[
@@ -67,32 +75,34 @@ const HomeScreenSection = (
         <Text style={[styles.sectionTitleText, themeStyles.sectionTitleText]}>
           {title}
         </Text>
-        {Boolean(count) && (
-          <Badge style={themeStyles.sectionTitleBadge}>{count}</Badge>
+        {Boolean(total) && (
+          <Badge style={themeStyles.sectionTitleBadge}>{total}</Badge>
         )}
       </View>
       <View style={styles.sectionContent}>
-        {count ? (
+        {total && progress < 1 ? (
+          <View style={styles.sectionContentList}>
+            {renderItem ? items.map((item) => renderItem(item)) : null}
+          </View>
+        ) : (
           <Fragment>
             <ProgressIcon
               progress={progress}
               style={styles.sectionContentProgress}
-              value={progressValue}
+              value={unpaid}
             />
             <Text style={styles.sectionContentProgressText}>
-              {progressText}
+              {progress >= 1 && completedText}
+              {!total && !unpaid && emptyText}
             </Text>
           </Fragment>
-        ) : (
-          <View style={styles.sectionContentEmpty}>
-            <Text style={styles.sectionContentEmptyText}>Empty</Text>
-          </View>
         )}
       </View>
     </Surface>
   );
 };
 
+const contentPadding = 16;
 const styles = StyleSheet.create({
   section: {
     marginVertical: 16,
@@ -102,10 +112,13 @@ const styles = StyleSheet.create({
   sectionContent: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 16,
+    padding: contentPadding,
   },
-  sectionContentEmpty: {},
-  sectionContentEmptyText: {},
+  sectionContentList: {
+    flexGrow: 1,
+    marginHorizontal: -contentPadding,
+    marginVertical: -contentPadding / 2,
+  },
   sectionContentProgress: {
     marginRight: 16,
   },

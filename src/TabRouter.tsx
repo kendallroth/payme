@@ -1,19 +1,25 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "react-native-paper";
 import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationProp,
 } from "@react-navigation/material-bottom-tabs";
-import { useTheme } from "react-native-paper";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
 // Components
 import { HomeScreen } from "@screens/Home";
 import { EventsRouter } from "@screens/Events";
 import { PeopleListScreen } from "@screens/People";
+import { EventsRouterParams } from "@screens/Events/EventsRouter";
+
+// Utilities
+import { useAppSelector } from "@hooks";
+import { selectEventsUnpaidCount } from "@store/slices/events";
 
 export type BottomRouterParams = {
   Home: undefined;
-  Events: undefined;
+  Events: NavigatorScreenParams<EventsRouterParams>;
   People: undefined;
 };
 
@@ -25,6 +31,7 @@ const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
 const TabRouter = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
 
+  const unpaidEvents = useAppSelector(selectEventsUnpaidCount);
   const { colors, dark } = useTheme();
 
   return (
@@ -45,6 +52,7 @@ const TabRouter = (): ReactElement => {
         component={EventsRouter}
         name="Events"
         options={{
+          tabBarBadge: unpaidEvents || undefined,
           tabBarIcon: "calendar",
           tabBarLabel: t("screens:eventList.title"),
         }}

@@ -31,8 +31,10 @@
     "title": "Home",
     "welcomeText": "Welcome!",
     "eventsAllPaid": "All events are paid!",
+    "eventsEmpty": "No events!",
     "eventsSomeUnpaid": "Some events are unpaid!",
     "peopleAllPaid": "All people have paid!",
+    "peopleEmpty": "No people!",
     "peopleSomeUnpaid": "Some people have not paid!"
   },
   "peopleAddEdit": {
