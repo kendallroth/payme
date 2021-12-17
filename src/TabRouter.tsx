@@ -20,9 +20,6 @@ export type BottomRouterNavigation =
 
 const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
 
-// TODO: Figure out why event/people tabs only render once!
-// Maybe because I navigate to the router instead of the route (but it is handled by tabs...)???
-
 const TabRouter = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
 
@@ -42,7 +39,6 @@ const TabRouter = (): ReactElement => {
           tabBarLabel: t("screens:home.title"),
         }}
       />
-      {/* TODO: Figure out why this is broken on Android!!! */}
       <Tabs.Screen
         component={EventsRouter}
         name="Events"
@@ -51,14 +47,6 @@ const TabRouter = (): ReactElement => {
           tabBarLabel: t("screens:eventList.title"),
         }}
       />
-      {/*<Tabs.Screen
-        component={EventListScreen}
-        name="Events"
-        options={{
-          tabBarIcon: "calendar",
-          tabBarLabel: t("screens:eventList.title"),
-        }}
-      />*/}
       <Tabs.Screen
         component={PeopleListScreen}
         name="People"

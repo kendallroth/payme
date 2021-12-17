@@ -5,6 +5,8 @@ Simple app that tracks who has paid for an event.
 - Track small payments for an event
 - Use common people lists for an event
 
+> [Expo - `testing`](https://expo.dev/@kendallroth/payme?release-channel=testing)
+
 ## Features
 
 - Overview (_list of oustanding events_)*
@@ -74,6 +76,11 @@ Since the upgrade to Expo SDK 43, `@react-native-community/eslint-config` does n
 #### `react-native-paper`
 
 Version `4.10.0` of `react-native-paper` has issues with TypeScript for any component based upon the `Text` component. Downgrading to `3.9.2` resolves the issues without missing many additional features.
+
+
+#### `@react-navigation/material-bottom-tabs`
+
+The `@react-navigation/material-bottom-tabs` introduced an Android issue in Expo SDK 43 when nesting a stack navigator inside a Material bottom tab navigator. After the first time the nested stack navigator is accessed, it will no longer be accessible (apparently clipped out entirely)? This can be resolved by surrounding the nested `Stack` navigator with a non-collapsable `View` ([source](https://github.com/software-mansion/react-native-screens/issues/1197#issuecomment-993682256)). However, this is a workaround that has not been fixed yet!
 
 ## TODOs
 
