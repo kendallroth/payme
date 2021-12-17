@@ -35,7 +35,7 @@ type ManageEventSheetProps = {
   /** Cancellation callback */
   onCancel: () => void;
   /** Update event callback */
-  onEdit: (event: IEvent) => void;
+  onEdit?: (event: IEvent) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -138,6 +138,7 @@ const ManageEventSheet = forwardRef<BottomSheetRef, ManageEventSheetProps>(
           cost: data.cost ?? undefined,
         });
       } else {
+        if (!onEdit) return;
         onEdit({
           ...event,
           ...data,

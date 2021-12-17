@@ -70,7 +70,9 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
       isVisible={visible}
       style={styles.modal}
       // Replicate normal iOS "back" swipe behaviour (Android has back button)
-      swipeDirection={isIOS ? "right" : undefined}
+      // NOTE: This is currently broken on iOS and prevents scrolling entirely!
+      // Source: https://github.com/react-native-modal/react-native-modal/issues/236
+      // swipeDirection={isIOS ? "right" : undefined}
       onBackButtonPress={onClose}
       onBackdropPress={onClose}
       onSwipeComplete={isIOS ? onClose : undefined}
