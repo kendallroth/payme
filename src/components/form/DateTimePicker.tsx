@@ -42,7 +42,9 @@ const DatePickerInput = (props: DatePickerInputProps): ReactElement => {
       return;
     }
 
-    const dateString = date ? formatDateString(date) : "";
+    const dateString = date
+      ? formatDateString(date.toISOString(), "YYYY-MM-DD")
+      : "";
 
     setOpen(false);
 
@@ -73,6 +75,7 @@ const DatePickerInput = (props: DatePickerInputProps): ReactElement => {
         cancelTextIOS={t("common:choices.cancel")} // iOS only
         confirmTextIOS={t("common:choices.confirm")} // iOS only
         date={valueDate}
+        // @ts-ignore
         display={Platform.OS === "ios" ? "inline" : "default"}
         isDarkModeEnabled={dark} // iOS only
         isVisible={open}

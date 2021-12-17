@@ -14,16 +14,18 @@ export const DATE_FORMAT_NICE = "YYYY-MMM-DD";
  *
  * @param  dateString   - ISO date string
  * @param  formatString - Date format string
+ * @param  inputFormat  - Input date string format
  * @return - Formatted date string
  */
 const formatDateString = (
   dateString: string,
   formatString: string = DATE_FORMAT_NICE,
+  inputFormat?: string,
 ): string => {
   if (!dateString) return "";
 
   try {
-    return dayjs(dateString).format(formatString);
+    return dayjs(dateString, inputFormat).format(formatString);
   } catch (e) {
     // NOTE: Fallthrough
     // eslint-disable-next-line no-console
