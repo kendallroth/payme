@@ -1,12 +1,14 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  createMaterialBottomTabNavigator,
+  MaterialBottomTabNavigationProp,
+} from "@react-navigation/material-bottom-tabs";
 import { useTheme } from "react-native-paper";
 
 // Components
 import { HomeScreen } from "@screens/Home";
-import { EventListScreen } from "@screens/Events";
+import { EventsRouter } from "@screens/Events";
 import { PeopleListScreen } from "@screens/People";
 
 export type BottomRouterParams = {
@@ -16,12 +18,9 @@ export type BottomRouterParams = {
 };
 
 export type BottomRouterNavigation =
-  NativeStackNavigationProp<BottomRouterParams>;
+  MaterialBottomTabNavigationProp<BottomRouterParams>;
 
 const Tabs = createMaterialBottomTabNavigator<BottomRouterParams>();
-
-// TODO: Figure out why event/people tabs only render once!
-// Maybe because I navigate to the router instead of the route (but it is handled by tabs...)???
 
 const TabRouter = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
@@ -30,7 +29,7 @@ const TabRouter = (): ReactElement => {
 
   return (
     <Tabs.Navigator
-      backBehavior="firstRoute"
+      backBehavior="initialRoute"
       barStyle={{ backgroundColor: dark ? colors.background : colors.primary }}
       shifting={true}
     >
@@ -43,7 +42,7 @@ const TabRouter = (): ReactElement => {
         }}
       />
       <Tabs.Screen
-        component={EventListScreen}
+        component={EventsRouter}
         name="Events"
         options={{
           tabBarIcon: "calendar",
@@ -58,16 +57,6 @@ const TabRouter = (): ReactElement => {
           tabBarLabel: t("screens:peopleList.title"),
         }}
       />
-      {/* <Tabs.Screen
-        component={EventsRouter}
-        name="Events"
-        options={{ tabBarIcon: "calendar" }}
-      />
-      <Tabs.Screen
-        component={PeopleRouter}
-        name="People"
-        options={{ tabBarIcon: "account-multiple" }}
-      /> */}
     </Tabs.Navigator>
   );
 };

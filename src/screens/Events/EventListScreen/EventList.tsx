@@ -2,6 +2,7 @@ import React, { ReactElement, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Badge, Card, Text, useTheme } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 // Components
 import { Alert } from "@components/typography";
@@ -9,6 +10,7 @@ import EventListItem from "./EventListItem";
 
 // Types
 import { IEvent } from "@typings/event.types";
+import { EventsRouterNavigation } from "../EventsRouter";
 
 type EventProps = {
   /** List of events */
@@ -24,6 +26,7 @@ type EventProps = {
 const EventList = (props: EventProps): ReactElement => {
   const { events, style, title, onRemove } = props;
 
+  const navigator = useNavigation<EventsRouterNavigation>();
   const { t } = useTranslation(["common"]);
   const { colors } = useTheme();
 
@@ -44,6 +47,15 @@ const EventList = (props: EventProps): ReactElement => {
     [colors],
   );
 
+  /**
+   * Open an event's details
+   *
+   * @param event - Selected event
+   */
+  const onEventPress = (event: IEvent): void => {
+    navigator.navigate("EventDetails", { eventId: event.id });
+  };
+
   return (
     <Card elevation={2} style={[styles.list, style]}>
       <View style={[styles.listTitle, themeStyles.listTitle]}>
@@ -56,7 +68,12 @@ const EventList = (props: EventProps): ReactElement => {
       </View>
       {hasEvents &&
         events.map((event) => (
-          <EventListItem key={event.id} event={event} onRemove={onRemove} />
+          <EventListItem
+            key={event.id}
+            event={event}
+            onPress={onEventPress}
+            onRemove={onRemove}
+          />
         ))}
       {!hasEvents && (
         <Alert style={styles.listEmpty}>

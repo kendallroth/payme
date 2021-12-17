@@ -10,14 +10,25 @@ export type Props = {
   children?: any;
   /** Whether back navigation is enabled */
   back?: boolean;
+  /** Custom status bar height */
+  statusBarHeight?: number;
   /** Page subtitle */
   subtitle?: string;
   /** Page title */
   title: string;
+  /** Custom back handler */
+  onBack?: () => void;
 };
 
 const AppBar = (props: Props): ReactElement => {
-  const { back = true, children, subtitle, title } = props;
+  const {
+    back = true,
+    children,
+    statusBarHeight,
+    subtitle,
+    title,
+    onBack,
+  } = props;
 
   const navigation = useNavigation();
   const { dark } = useTheme();
@@ -25,10 +36,12 @@ const AppBar = (props: Props): ReactElement => {
   return (
     <BaseAppBar.Header
       dark={dark}
-      statusBarHeight={StatusBar.currentHeight}
+      statusBarHeight={statusBarHeight ?? StatusBar.currentHeight}
       style={styles.header}
     >
-      {back && <BaseAppBar.BackAction onPress={navigation.goBack} />}
+      {back && (
+        <BaseAppBar.BackAction onPress={onBack ? onBack : navigation.goBack} />
+      )}
       <BaseAppBar.Content subtitle={subtitle} title={title} />
       {children}
     </BaseAppBar.Header>

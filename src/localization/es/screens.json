@@ -10,10 +10,15 @@
     "eventAddSuccess": "Evento agregado",
     "eventEditSuccess": "Actualizar {{title}}"
   },
+  "eventDetails": {
+    "peopleSelectTitle": "Seleccionar Asistentes"
+  },
   "eventList": {
     "title": "Eventos",
     "listFuture": "Próximos Eventos",
-    "listPast": "Eventos Pasados",
+    "listPast": "Eventos Pasados"
+  },
+  "eventShared": {
     "deleteEventConfirmTitle": "Quitar Evento",
     "deleteEventConfirmDescription": "¿Estás seguro de que quieres eliminar este evento?",
     "deleteEventConfirmWarning": "¡Eliminar un evento también borrará toda su asistencia!",
@@ -21,7 +26,11 @@
   },
   "home": {
     "title": "Hogar",
-    "welcomeText": "¡Bienvenido!"
+    "welcomeText": "¡Bienvenido!",
+    "eventsAllPaid": "¡Todos los eventos son pagos!",
+    "eventsSomeUnpaid": "¡Algunos eventos no son remunerados!",
+    "peopleAllPaid": "¡Todas las personas han pagado!",
+    "peopleSomeUnpaid": "Algunos personas no han pagado!"
   },
   "peopleAddEdit": {
     "titleAdd": "Añadir Personas",
