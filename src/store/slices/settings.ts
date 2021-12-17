@@ -32,7 +32,7 @@ interface SettingsState {
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
   behaviours: {
-    tabsResetHistory: false,
+    tabsResetHistory: true,
   },
   developer: false,
   language: SettingsService.getDeviceLanguage(),
