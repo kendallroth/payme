@@ -2,7 +2,7 @@ import React, { ReactElement, useRef, useState } from "react";
 import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
 import { Alert, StyleSheet, View } from "react-native";
-import { List, Text } from "react-native-paper";
+import { List, Text, useTheme } from "react-native-paper";
 
 // Components
 import { LanguageIcon } from "@components/icons";
@@ -50,6 +50,7 @@ const SettingsScreen = (): ReactElement => {
   const dispatch = useAppDispatch();
   const loader = useAppLoader();
   const { notify } = useSnackbar();
+  const { colors } = useTheme();
   const { i18n, t } = useTranslation(["common", "screens"]);
 
   const languageConfig = useAppSelector(selectLanguageConfig);
@@ -206,7 +207,7 @@ const SettingsScreen = (): ReactElement => {
       <List.Item
         description={t("screens:settingsDeveloper.listItemResetDescription")}
         left={(leftProps): ReactElement => (
-          <List.Icon {...leftProps} icon="lock-reset" />
+          <List.Icon {...leftProps} color={colors.primary} icon="lock-reset" />
         )}
         title={t("screens:settingsDeveloper.listItemResetTitle")}
         onLongPress={onOpenAppReset}

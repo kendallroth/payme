@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
-import { List } from "react-native-paper";
+import { List, useTheme } from "react-native-paper";
 
 // Utilities
 import { useSnackbar } from "@hooks";
@@ -43,6 +43,7 @@ const SettingsListItem = (props: Props): ReactElement => {
 
   const navigator = useNavigation<SettingsRouterNavigation>();
   const { notifyError } = useSnackbar();
+  const { colors } = useTheme();
   const { t } = useTranslation(["common"]);
 
   /**
@@ -82,7 +83,7 @@ const SettingsListItem = (props: Props): ReactElement => {
       {...props}
       disabled={disabled}
       left={(leftProps): ReactElement => (
-        <List.Icon {...leftProps} icon={icon} />
+        <List.Icon {...leftProps} color={colors.primary} icon={icon} />
       )}
       title={title}
       right={renderRight}
