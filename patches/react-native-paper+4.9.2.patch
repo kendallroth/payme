@@ -1,3 +1,31 @@
+diff --git a/node_modules/react-native-paper/src/components/BottomNavigation.tsx b/node_modules/react-native-paper/src/components/BottomNavigation.tsx
+index 3d89c97..654dbca 100644
+--- a/node_modules/react-native-paper/src/components/BottomNavigation.tsx
++++ b/node_modules/react-native-paper/src/components/BottomNavigation.tsx
+@@ -396,6 +396,7 @@ const BottomNavigation = ({
+    */
+   const [loaded, setLoaded] = React.useState<string[]>([focusedKey]);
+ 
+   if (!loaded.includes(focusedKey)) {
+     // Set the current tab to be loaded if it was not loaded before
+     setLoaded((loaded) => [...loaded, focusedKey]);
+@@ -609,8 +610,15 @@ const BottomNavigation = ({
+       <View style={[styles.content, { backgroundColor: colors.background }]}>
+         {routes.map((route, index) => {
+           if (!loaded.includes(route.key)) {
++            /**
++             * 
++             * NOTE: Disable lazy loading to deal with several issues it causes:
++             *         - Navigating directly to an event from dashboard (before "EventsStack" mounted)
++             *           causes a difference in "back" history ("EventList" skipped)!
++             *         - Event/People FAB icons do not animate in initially (not mounted)
++             */
+             // Don't render a screen if we've never navigated to it
+-            return null;
++            // return null;
+           }
+ 
+           const focused = navigationState.index === index;
 diff --git a/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx b/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx
 index 93d5af4..fc28092 100644
 --- a/node_modules/react-native-paper/src/components/Checkbox/CheckboxItem.tsx
