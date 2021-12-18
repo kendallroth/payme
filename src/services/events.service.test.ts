@@ -13,20 +13,27 @@ describe("'separateEventsByTime'", () => {
       date: "2021-11-29T05:03:59.744Z",
       title: "Future",
     };
-    const pastEvent: IEvent = {
+    const todayEvent: IEvent = {
       id: "2",
+      archivedAt: null,
+      createdAt: "fake",
+      date: "2021-11-28T15:03:59.744Z",
+      title: "Today",
+    };
+    const pastEvent: IEvent = {
+      id: "3",
       archivedAt: null,
       createdAt: "fake",
       date: "2021-11-27T05:03:59.744Z",
       title: "Past",
     };
-    const comparisonDate = "2021-11-28T05:03:59.744Z";
-    const input: IEvent[] = [futureEvent, pastEvent];
+    const comparisonDate = "2021-11-28T05:00:00.000Z";
+    const input: IEvent[] = [todayEvent, futureEvent, pastEvent];
 
     const output = EventsService.separateEventsByTime(input, comparisonDate);
 
     const expected: IEventsByTime = {
-      futureEvents: [futureEvent],
+      futureEvents: [todayEvent, futureEvent],
       pastEvents: [pastEvent],
     };
 
