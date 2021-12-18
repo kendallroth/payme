@@ -11,6 +11,8 @@ import { IPersonForEvent } from "@typings/attendance.types";
 type EventPeopleListItemProps = {
   /** Person with relation to the event */
   person: IPersonForEvent;
+  /** Whether entire list item is selectable */
+  selectable?: boolean;
   /** Toggle whether person is attending the event */
   onToggle: (person: IPersonForEvent) => void;
 };
@@ -18,19 +20,27 @@ type EventPeopleListItemProps = {
 // TODO: Handle selecting people for attendance!
 
 const EventPeopleListItem = (props: EventPeopleListItemProps): ReactElement => {
-  const { person, onToggle } = props;
+  const { person, selectable = false, onToggle: onToggleProp } = props;
+
+  const disabled = Boolean(person.attending && person.paidAt);
 
   // TODO: Consider using swipe left/right to toggle attendance
+
+  /**
+   * List item toggle
+   */
+  const onToggle = (): void => onToggleProp(person);
 
   return (
     <List.Item
       key={person.id}
+      disabled={disabled}
       left={(leftProps: any): ReactElement => (
         <Checkbox.Android
           {...leftProps}
-          disabled={person.attending && person.paidAt}
+          disabled={disabled}
           status={person.attending ? "checked" : "unchecked"}
-          onPress={(): void => onToggle(person)}
+          onPress={onToggle}
         />
       )}
       right={(rightProps: any): ReactElement | null => (
@@ -41,6 +51,7 @@ const EventPeopleListItem = (props: EventPeopleListItemProps): ReactElement => {
         />
       )}
       title={person.name}
+      onPress={selectable ? onToggle : undefined}
     />
   );
 };

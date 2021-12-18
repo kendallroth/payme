@@ -1,11 +1,10 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
-import { List, Switch } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
-import { Alert } from "@components/typography";
+import BehavioursScreenListItemSwitch from "./BehavioursScreenListItemSwitch";
 
 // Utilities
 import { useAppDispatch, useAppSelector } from "@hooks";
@@ -37,23 +36,26 @@ const BehavioursScreen = (): ReactElement => {
     <Page>
       <AppBar title={t("screens:settingsBehaviours.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
-        <List.Item
+        <BehavioursScreenListItemSwitch
           description={t(
             "screens:settingsBehaviours.listItemTabHistoryResetDescription",
           )}
-          right={(): ReactElement => (
-            <Switch
-              value={appBehaviours.tabsResetHistory}
-              onValueChange={(val: boolean): void =>
-                onBooleanChange("tabsResetHistory", val)
-              }
-            />
-          )}
+          stateKey="tabsResetHistory"
           title={t("screens:settingsBehaviours.listItemTabHistoryResetTitle")}
+          value={appBehaviours.tabsResetHistory}
+          onChange={onBooleanChange}
         />
-        <Alert style={styles.pageAlert}>
-          {t("screens:settingsBehaviours.moreBehavioursAlert")}
-        </Alert>
+        <BehavioursScreenListItemSwitch
+          description={t(
+            "screens:settingsBehaviours.listItemSelectAttendeeCheckboxRowsDescription",
+          )}
+          stateKey="selectAttendeeCheckboxRows"
+          title={t(
+            "screens:settingsBehaviours.listItemSelectAttendeeCheckboxRowsTitle",
+          )}
+          value={appBehaviours.selectAttendeeCheckboxRows}
+          onChange={onBooleanChange}
+        />
       </ScrollView>
     </Page>
   );
@@ -62,11 +64,6 @@ const BehavioursScreen = (): ReactElement => {
 const styles = StyleSheet.create({
   pageContent: {
     flexGrow: 1,
-  },
-  pageAlert: {
-    marginTop: 24,
-    paddingHorizontal: 24,
-    alignSelf: "center",
   },
 });
 

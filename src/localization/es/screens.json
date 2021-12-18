@@ -86,9 +86,10 @@
   },
   "settingsBehaviours": {
     "title": "Comportamientos",
-    "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas",
-    "listItemTabHistoryResetTitle": "Restablecer historial de pestañas",
-    "moreBehavioursAlert": "¡Más comportamientos próximamente!"
+    "listItemSelectAttendeeCheckboxRowsDescription": "Si las filas de las casillas de verificación de la lista de asistentes se pueden seleccionar.",
+    "listItemSelectAttendeeCheckboxRowsTitle": "Seleccionar filas de casillas de verificación de asistentes",
+    "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas.",
+    "listItemTabHistoryResetTitle": "Restablecer historial de pestañas"
   },
   "settingsDeveloper": {
     "title": "Depurar",

@@ -7,6 +7,8 @@ import { Alert } from "@components/typography";
 import EventPeopleListItem from "./EventPeopleListItem";
 
 // Utilities
+import { useAppSelector } from "@hooks";
+import { selectBehaviours } from "@store/slices/settings";
 import { flatListIdExtractor } from "@utilities/list.util";
 
 // Types
@@ -22,6 +24,8 @@ type EventPeopleListProps = {
 const EventPeopleList = (props: EventPeopleListProps): ReactElement => {
   const { people, onPersonToggle } = props;
 
+  const appBehaviours = useAppSelector(selectBehaviours);
+
   const { t } = useTranslation(["common"]);
 
   /**
@@ -33,7 +37,11 @@ const EventPeopleList = (props: EventPeopleListProps): ReactElement => {
   const renderPersonItem = ({
     item,
   }: ListRenderItemInfo<IPersonForEvent>): ReactElement => (
-    <EventPeopleListItem person={item} onToggle={onPersonToggle} />
+    <EventPeopleListItem
+      person={item}
+      selectable={appBehaviours?.selectAttendeeCheckboxRows}
+      onToggle={onPersonToggle}
+    />
   );
 
   // TODO: Render something else (big image) when no people have been added!
