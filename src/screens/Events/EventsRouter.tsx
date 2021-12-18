@@ -40,7 +40,7 @@ const EventsStack = (): ReactElement => {
   const stackNavigation = useNavigation<EventsRouterNavigation>();
 
   useEffect(() => {
-    const unsubscribe = tabNavigation.addListener("tabPress", () => {
+    const unsubscribePress = tabNavigation.addListener("tabPress", () => {
       if (appBehaviours?.tabsResetHistory) {
         // Directly returning to Events tab should optionally reset state (less confusion)
         // TODO: Maybe find a way to do this proactively, so that the tab doesn't focus
@@ -49,7 +49,7 @@ const EventsStack = (): ReactElement => {
       }
     });
 
-    return unsubscribe;
+    return unsubscribePress;
   }, [appBehaviours, stackNavigation, tabNavigation]);
 
   // NOTE: Extra non-collapsable view required to fix issue where navigating to tab

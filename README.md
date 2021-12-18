@@ -77,6 +77,7 @@ Since the upgrade to Expo SDK 43, `@react-native-community/eslint-config` does n
 
 Version `4.10.0` of `react-native-paper` has issues with TypeScript for any component based upon the `Text` component. Downgrading to `3.9.2` resolves the issues without missing many additional features.
 
+By default, the `BottomNavigation` component mounts tabs lazily. However, this caused several issues that resulted in disabling (via patch) the lazy mounting. The biggest issue was that navigating to "EventDetails" (from Home) _before_ mounting the "EventsTab" would mean the "EventList" screen was not included in history, resulting in strange back behaviour.
 
 #### `@react-navigation/material-bottom-tabs`
 
