@@ -10,7 +10,12 @@ import { PaymentIndicator } from "@components/typography";
 import PeopleList from "./PeopleList";
 
 // Utilities
-import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useScrollingFab,
+  useSnackbar,
+} from "@hooks";
 import {
   addPeople,
   removePerson,
@@ -27,6 +32,7 @@ const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
   const [editedPerson, setEditedPerson] = useState<IPerson | null>(null);
   const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
+  const { fabVisible, scrollViewRef, onListScroll } = useScrollingFab();
   const managePersonRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useAppDispatch();
@@ -140,13 +146,16 @@ const PeopleListScreen = (): ReactElement => {
         onChangeText={setSearchText}
       />
       <PeopleList
+        innerRef={scrollViewRef}
         people={filteredPeople}
         style={styles.peopleList}
         onEdit={onPersonEditPress}
         onRemove={onPersonDeletePress}
+        onScroll={onListScroll}
       />
       <ScreenFAB
         icon="account-plus"
+        visible={fabVisible}
         onPress={(): void => managePersonRef.current?.open()}
       />
       <ManagePersonSheet

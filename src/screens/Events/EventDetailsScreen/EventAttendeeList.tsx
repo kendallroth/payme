@@ -10,6 +10,7 @@ import EventAttendeeListItem from "./EventAttendeeListItem";
 import { flatListIdExtractor } from "@utilities/list.util";
 
 // Types
+import { ScrollEvent } from "@typings/app.types";
 import { IPersonForEvent } from "@typings/attendance.types";
 
 type EventAttendeeListProps = {
@@ -19,10 +20,12 @@ type EventAttendeeListProps = {
   onPay: (person: IPersonForEvent) => void;
   /** Remove an attendee */
   onRemove: (person: IPersonForEvent) => void;
+  /** Scroll handler */
+  onScroll?: (event: ScrollEvent) => void;
 };
 
 const EventAttendeeList = (props: EventAttendeeListProps): ReactElement => {
-  const { attendees, onPay, onRemove } = props;
+  const { attendees, onPay, onRemove, onScroll } = props;
 
   const { t } = useTranslation(["screens"]);
 
@@ -51,6 +54,7 @@ const EventAttendeeList = (props: EventAttendeeListProps): ReactElement => {
       )}
       renderItem={renderAttendeeItem}
       style={[styles.list]}
+      onScroll={onScroll}
     />
   );
 };

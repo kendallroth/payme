@@ -16,7 +16,12 @@ import EventPeopleSelect from "./EventPeopleSelect";
 import EventAttendeeList from "./EventAttendeeList";
 
 // Utilities
-import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useScrollingFab,
+  useSnackbar,
+} from "@hooks";
 import {
   selectPeopleForEvent,
   toggleAttendanceThunk,
@@ -44,6 +49,7 @@ const EventDetailsScreen = (): ReactElement | null => {
   const navigation = useNavigation();
   const route = useRoute<EventDetailsScreenProps>();
   const { eventId } = route.params;
+  const { fabVisible, onListScroll } = useScrollingFab();
   const event = useAppSelector((state) => selectEvent(state, eventId));
   const peopleForEvent = useAppSelector((state) =>
     selectPeopleForEvent(state, eventId),
@@ -203,9 +209,11 @@ const EventDetailsScreen = (): ReactElement | null => {
         attendees={attendees}
         onPay={onAttendeePayPress}
         onRemove={onAttendeeRemovePress}
+        onScroll={onListScroll}
       />
       <ScreenFAB
         icon="account-multiple-plus"
+        visible={fabVisible}
         onPress={(): void => setIsSelectAttendeesShown(true)}
       />
       <ConfirmDialog
