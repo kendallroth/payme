@@ -55,9 +55,7 @@ const attendanceSlice = createSlice({
         };
 
         attendanceAdapter.addOne(state, newAttendance);
-        // TODO: Update stats if using
       } else if (!attending && existingAttendance) {
-        // TODO: Update stats if using
         attendanceAdapter.removeOne(state, existingAttendance.id);
       }
     },
@@ -99,7 +97,7 @@ const attendanceSlice = createSlice({
         (accum, attendance) => {
           return !attendance || attendance.personId !== action.payload
             ? accum
-            : [...accum, action.payload];
+            : [...accum, attendance.id];
         },
         [] as string[],
       );
