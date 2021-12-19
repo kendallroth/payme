@@ -7,7 +7,7 @@ import {
 } from "@reduxjs/toolkit";
 
 // Utilites
-import { fakePeople } from "../data/people";
+import { createFakePerson, fakePeople } from "../data/people";
 import { addDebugDataAction, resetAppAction } from "../actions";
 import { RootState } from "../index";
 
@@ -65,13 +65,19 @@ const peopleSlice = createSlice({
     builder.addCase(addDebugDataAction, (state, action) => {
       if (!action.payload.people) return;
 
-      // Only add debug people if not already populated in store
+      // Only add "known" debug people if not already populated in store
       const existingPeople = Object.values(state.entities);
       fakePeople.forEach((person) => {
         if (existingPeople.find((e) => e?.name === person.name)) return;
 
         peopleAdapter.addOne(state, person);
       });
+
+      // Add a few additional random people
+      for (let i = 0; i < 5; i++) {
+        const fakePerson = createFakePerson();
+        peopleAdapter.addOne(state, fakePerson);
+      }
     });
     builder.addCase(resetAppAction, (state, action) => {
       if (!action.payload.people) return;
