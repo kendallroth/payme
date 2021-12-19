@@ -22,6 +22,8 @@ const PaymentIndicator = (
   const hasBoth = Boolean(attending && unpaid);
   if (!attending && !unpaid) return null;
 
+  const iconSize = 20;
+
   return (
     <View style={[styles.indicator, style]}>
       {Boolean(unpaid) && (
@@ -30,7 +32,7 @@ const PaymentIndicator = (
           <Icon
             color={colors.error}
             name="alert-circle"
-            size={18}
+            size={iconSize}
             style={styles.indicatorIcon}
           />
         </Fragment>
@@ -42,7 +44,7 @@ const PaymentIndicator = (
           <Icon
             color={colors.primary}
             name="account-multiple"
-            size={18}
+            size={iconSize}
             style={styles.indicatorIcon}
           />
         </Fragment>

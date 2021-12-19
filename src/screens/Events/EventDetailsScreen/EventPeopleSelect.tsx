@@ -6,6 +6,7 @@ import { Searchbar, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
+import { PaymentIndicator } from "@components/typography";
 import EventPeopleList from "./EventPeopleList";
 
 // Utilities
@@ -82,7 +83,12 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
           statusBarHeight={isIOS ? undefined : 0}
           title={t("screens:eventDetails.peopleSelectTitle")}
           onBack={onClose}
-        />
+        >
+          <PaymentIndicator
+            attending={event.stats?.attending}
+            style={styles.peopleStats}
+          />
+        </AppBar>
         <Searchbar
           placeholder={t("common:phrases.search")}
           style={styles.peopleSearch}
@@ -107,6 +113,9 @@ const styles = StyleSheet.create({
     margin: 24,
     marginTop: 8,
     elevation: 2,
+  },
+  peopleStats: {
+    marginRight: 20,
   },
 });
 
