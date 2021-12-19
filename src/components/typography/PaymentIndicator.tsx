@@ -30,7 +30,7 @@ const PaymentIndicator = (
           <Icon
             color={colors.error}
             name="alert-circle"
-            size={20}
+            size={18}
             style={styles.indicatorIcon}
           />
         </Fragment>
@@ -42,7 +42,7 @@ const PaymentIndicator = (
           <Icon
             color={colors.primary}
             name="account-multiple"
-            size={20}
+            size={18}
             style={styles.indicatorIcon}
           />
         </Fragment>
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   indicatorSeparator: {
-    marginHorizontal: 8,
+    marginLeft: 4,
+    marginRight: 6,
   },
 });
 

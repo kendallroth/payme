@@ -3,6 +3,9 @@ import { StatusBar, StyleSheet } from "react-native";
 import { Appbar as BaseAppBar, useTheme } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
+// Components
+import AppBarMenu from "./AppBarMenu";
+
 // Utilities
 import { sharedColors } from "@styles/theme";
 
@@ -57,5 +60,6 @@ const styles = StyleSheet.create({
 });
 
 AppBar.Action = BaseAppBar.Action;
+AppBar.ActionMenu = AppBarMenu;
 
 export default AppBar;
