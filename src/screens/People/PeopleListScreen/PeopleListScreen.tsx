@@ -6,6 +6,7 @@ import { Searchbar } from "react-native-paper";
 // Components
 import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
 import { AppBar, Page, ScreenFAB } from "@components/layout";
+import { PaymentIndicator } from "@components/typography";
 import PeopleList from "./PeopleList";
 
 // Utilities
@@ -126,7 +127,12 @@ const PeopleListScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title={t("screens:peopleList.title")} />
+      <AppBar title={t("screens:peopleList.title")}>
+        <PaymentIndicator
+          attending={people.length}
+          style={styles.peopleStats}
+        />
+      </AppBar>
       <Searchbar
         placeholder={t("common:phrases.search")}
         style={styles.peopleSearch}
@@ -168,6 +174,9 @@ const styles = StyleSheet.create({
   peopleSearch: {
     margin: 24,
     marginTop: 8,
+  },
+  peopleStats: {
+    marginRight: 24,
   },
 });
 
