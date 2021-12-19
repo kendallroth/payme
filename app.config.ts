@@ -3,7 +3,7 @@ import { ExpoConfig } from "@expo/config";
 // Utilities
 import { version } from "./package.json";
 
-const primaryColor = "#219ebc";
+const primaryColor = "#2196f3";
 
 export default (): ExpoConfig => ({
   // Information
@@ -32,9 +32,12 @@ export default (): ExpoConfig => ({
   // Android overrides
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/icon-clear.png",
-      backgroundColor: "#2196f3",
+      foregroundImage: "./assets/icon_clear.png",
+      backgroundColor: primaryColor,
     },
+    package: "com.kendallroth.payme",
+    permissions: [],
+    versionCode: 2,
   },
   androidNavigationBar: {
     barStyle: "dark-content",
@@ -42,6 +45,8 @@ export default (): ExpoConfig => ({
 
   // iOS overrides
   ios: {
+    buildNumber: version,
+    bundleIdentifier: "ca.kendallroth.payme",
     // Icon must be 1024x1024 (no transparency)
     icon: "./assets/icon.png",
     supportsTablet: false,

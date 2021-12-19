@@ -1,5 +1,7 @@
 /** Customizable app behaviour settings */
 export interface IAppBehaviours {
+  /** Whether "Select Attendee" checkbox rows are select */
+  selectAttendeeCheckboxRows: boolean;
   /** Whether tab history is reset when navigating between tabs */
   tabsResetHistory: boolean;
 }

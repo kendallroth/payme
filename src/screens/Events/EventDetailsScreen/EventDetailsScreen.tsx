@@ -2,7 +2,7 @@ import React, { ReactElement, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Vibration } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Text } from "react-native-paper";
+import { Menu, Text } from "react-native-paper";
 
 // Components
 import {
@@ -11,11 +11,17 @@ import {
   ManageEventSheet,
 } from "@components/dialogs";
 import { AppBar, Page, ScreenFAB } from "@components/layout";
+import { PaymentIndicator } from "@components/typography";
 import EventPeopleSelect from "./EventPeopleSelect";
 import EventAttendeeList from "./EventAttendeeList";
 
 // Utilities
-import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useScrollingFab,
+  useSnackbar,
+} from "@hooks";
 import {
   selectPeopleForEvent,
   toggleAttendanceThunk,
@@ -26,9 +32,10 @@ import { formatDateString } from "@utilities/date.util";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
+import { AppBarMenuRef } from "@components/layout/AppBarMenu";
+import { IPersonForEvent } from "@typings/attendance.types";
 import { IEvent } from "@typings/event.types";
 import { EventDetailsScreenProps } from "../EventsRouter";
-import { IPersonForEvent } from "@typings/attendance.types";
 
 const EventDetailsScreen = (): ReactElement | null => {
   const [isDeleteDialogShown, setIsDeleteDialogShown] = useState(false);
@@ -36,11 +43,13 @@ const EventDetailsScreen = (): ReactElement | null => {
   const [removedAttendee, setRemovedAttendee] =
     useState<IPersonForEvent | null>(null);
   const manageEventRef = useRef<BottomSheetRef>(null);
+  const menuActionRef = useRef<AppBarMenuRef>(null);
 
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const route = useRoute<EventDetailsScreenProps>();
   const { eventId } = route.params;
+  const { fabVisible, onListScroll } = useScrollingFab();
   const event = useAppSelector((state) => selectEvent(state, eventId));
   const peopleForEvent = useAppSelector((state) =>
     selectPeopleForEvent(state, eventId),
@@ -119,6 +128,7 @@ const EventDetailsScreen = (): ReactElement | null => {
    * Prompt user for confirmation before deleting event
    */
   const onEventDeletePress = (): void => {
+    menuActionRef.current?.close();
     setIsDeleteDialogShown(true);
   };
 
@@ -149,6 +159,7 @@ const EventDetailsScreen = (): ReactElement | null => {
    * Display an event for editing
    */
   const onEventEditPress = (): void => {
+    menuActionRef.current?.close();
     manageEventRef.current?.open();
   };
 
@@ -176,16 +187,33 @@ const EventDetailsScreen = (): ReactElement | null => {
   return (
     <Page>
       <AppBar subtitle={eventSubtitle} title={event.title}>
-        <AppBar.Action icon="pencil" onPress={onEventEditPress} />
-        <AppBar.Action icon="delete" onPress={onEventDeletePress} />
+        <PaymentIndicator
+          attending={event.stats?.attending}
+          style={styles.eventStats}
+          unpaid={event.stats?.unpaid}
+        />
+        <AppBar.ActionMenu ref={menuActionRef}>
+          <Menu.Item
+            icon="pencil"
+            title={t("common:actions.edit")}
+            onPress={onEventEditPress}
+          />
+          <Menu.Item
+            icon="delete"
+            title={t("common:actions.delete")}
+            onPress={onEventDeletePress}
+          />
+        </AppBar.ActionMenu>
       </AppBar>
       <EventAttendeeList
         attendees={attendees}
         onPay={onAttendeePayPress}
         onRemove={onAttendeeRemovePress}
+        onScroll={onListScroll}
       />
       <ScreenFAB
         icon="account-multiple-plus"
+        visible={fabVisible}
         onPress={(): void => setIsSelectAttendeesShown(true)}
       />
       <ConfirmDialog
@@ -222,6 +250,7 @@ const EventDetailsScreen = (): ReactElement | null => {
 };
 
 const styles = StyleSheet.create({
+  eventStats: {},
   removeDialogAttendee: {
     marginTop: 16,
     fontWeight: "bold",

@@ -23,8 +23,6 @@ import { compareSafeStrings } from "@utilities/string";
 import { BottomSheetRef } from "./BottomSheet";
 
 interface IFormData {
-  /** Number of people added (used for disabling "required" validation) */
-  count: number;
   name: string;
 }
 
@@ -44,7 +42,6 @@ type ManagePersonSheetProps = {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getSchema = (t: TFunction<("common" | "screens")[], undefined>) =>
   yup.object({
-    count: yup.number(),
     name: yup
       .string()
       .label(t("screens:peopleAddEdit.personNameLabel"))
@@ -63,7 +60,6 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
     const { t } = useTranslation(["common", "screens"]);
     const form = useForm<IFormData>({
       defaultValues: {
-        count: 0,
         name: person?.name ?? "",
       },
       resolver: yupResolver(getSchema(t)),
@@ -151,9 +147,11 @@ const ManagePersonSheet = forwardRef<BottomSheetRef, ManagePersonSheetProps>(
 
       const newNames = [...names, newName];
       setNames(newNames);
-      form.reset();
-      // Track number of names added to conditionally disable 'required' name validation
-      form.setValue("count", newNames.length);
+      // NOTE: Workaround to reset form submission state for validation purposes,
+      //         as the submission handler appears to set submitted state at the end?
+      setTimeout(() => {
+        form.reset();
+      }, 10);
       return [true, newNames];
     };
 

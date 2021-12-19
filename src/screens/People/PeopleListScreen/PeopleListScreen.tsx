@@ -6,10 +6,16 @@ import { Searchbar } from "react-native-paper";
 // Components
 import { DeletePersonDialog, ManagePersonSheet } from "@components/dialogs";
 import { AppBar, Page, ScreenFAB } from "@components/layout";
+import { PaymentIndicator } from "@components/typography";
 import PeopleList from "./PeopleList";
 
 // Utilities
-import { useAppDispatch, useAppSelector, useSnackbar } from "@hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useScrollingFab,
+  useSnackbar,
+} from "@hooks";
 import {
   addPeople,
   removePerson,
@@ -26,6 +32,7 @@ const PeopleListScreen = (): ReactElement => {
   const [searchText, setSearchText] = useState("");
   const [editedPerson, setEditedPerson] = useState<IPerson | null>(null);
   const [deletedPerson, setDeletedPerson] = useState<IPerson | null>(null);
+  const { fabVisible, scrollViewRef, onListScroll } = useScrollingFab();
   const managePersonRef = useRef<BottomSheetRef>(null);
 
   const dispatch = useAppDispatch();
@@ -126,7 +133,12 @@ const PeopleListScreen = (): ReactElement => {
 
   return (
     <Page>
-      <AppBar title={t("screens:peopleList.title")} />
+      <AppBar title={t("screens:peopleList.title")}>
+        <PaymentIndicator
+          attending={people.length}
+          style={styles.peopleStats}
+        />
+      </AppBar>
       <Searchbar
         placeholder={t("common:phrases.search")}
         style={styles.peopleSearch}
@@ -134,13 +146,16 @@ const PeopleListScreen = (): ReactElement => {
         onChangeText={setSearchText}
       />
       <PeopleList
+        innerRef={scrollViewRef}
         people={filteredPeople}
         style={styles.peopleList}
         onEdit={onPersonEditPress}
         onRemove={onPersonDeletePress}
+        onScroll={onListScroll}
       />
       <ScreenFAB
         icon="account-plus"
+        visible={fabVisible}
         onPress={(): void => managePersonRef.current?.open()}
       />
       <ManagePersonSheet
@@ -168,6 +183,9 @@ const styles = StyleSheet.create({
   peopleSearch: {
     margin: 24,
     marginTop: 8,
+  },
+  peopleStats: {
+    marginRight: 24,
   },
 });
 

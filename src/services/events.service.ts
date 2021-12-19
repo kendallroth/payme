@@ -43,7 +43,7 @@ class EventsService {
   separateEventsByTime(events: IEvent[], date?: string): IEventsByTime {
     return events.reduce(
       (accum, e) => {
-        const isPast = dayjs(date).isAfter(e.date);
+        const isPast = dayjs(date).isAfter(e.date, "day");
         if (isPast) {
           return { ...accum, pastEvents: [...accum.pastEvents, e] };
         } else {

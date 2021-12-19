@@ -40,7 +40,7 @@ type ProgressIconProps = {
   /** Style */
   style?: StyleProp<ViewStyle>;
   /** Progress value (non-percentage) */
-  value?: number;
+  value?: number | string;
 };
 
 const ProgressIcon = (props: ProgressIconProps): ReactElement => {
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   progressText: {
     position: "absolute",
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: "bold",
   },
 });

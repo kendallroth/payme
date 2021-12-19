@@ -6,17 +6,15 @@ import { useIsFocused } from "@react-navigation/native";
 // Types
 import { MaterialCommunityIcons } from "@typings/app.types";
 
-// NOTE: Switching away from the Portal fixed the issue with bottom position
-//         on iOS, but introduced a change to how the buttons are rendered.
-//         Since they now are mounted in screens, they do not animate out!
-
 type ScreenFABProps = {
   /** FAB icon */
   icon: keyof MaterialCommunityIcons;
+  /** Whether FAB is visible */
+  visible?: boolean;
 } & ComponentProps<typeof FAB>;
 
 const ScreenFAB = (props: ScreenFABProps): ReactElement => {
-  const { icon, ...rest } = props;
+  const { icon, visible = true, ...rest } = props;
 
   const isScreenFocused = useIsFocused();
 
@@ -24,7 +22,7 @@ const ScreenFAB = (props: ScreenFABProps): ReactElement => {
     <FAB
       icon={icon}
       style={styles.portalFAB}
-      visible={isScreenFocused}
+      visible={isScreenFocused && visible}
       {...rest}
     />
   );

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
@@ -17,9 +17,11 @@ import { Alert } from "@components/typography";
 import { flatListIdExtractor } from "@utilities/list.util";
 
 // Types
+import { ScrollEvent } from "@typings/app.types";
 import { IPerson } from "@typings/people.types";
 
 type PeopleProps = {
+  innerRef?: RefObject<FlatList>;
   /** List of people */
   people: IPerson[];
   /** List container style */
@@ -28,10 +30,12 @@ type PeopleProps = {
   onEdit: (person: IPerson) => void;
   /** Person removal handler */
   onRemove: (person: IPerson) => void;
+  /** Scroll handler */
+  onScroll?: (event: ScrollEvent) => void;
 };
 
 const PeopleList = (props: PeopleProps): ReactElement => {
-  const { people, style, onEdit, onRemove } = props;
+  const { innerRef, people, style, onEdit, onRemove, onScroll } = props;
 
   const { t } = useTranslation(["common"]);
 
@@ -69,6 +73,7 @@ const PeopleList = (props: PeopleProps): ReactElement => {
 
   return (
     <FlatList
+      ref={innerRef}
       data={people}
       keyExtractor={flatListIdExtractor}
       ListEmptyComponent={(): ReactElement => (
@@ -78,6 +83,7 @@ const PeopleList = (props: PeopleProps): ReactElement => {
       )}
       renderItem={renderPersonItem}
       style={[styles.list, style]}
+      onScroll={onScroll}
     />
   );
 };

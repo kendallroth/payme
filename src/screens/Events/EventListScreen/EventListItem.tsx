@@ -54,7 +54,7 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
       <ProgressIcon
         progress={percent}
         style={styles.listItemLeftIcon}
-        value={unpaid}
+        value={`${Math.floor(percent * 100)}%`}
       />
     );
   };
@@ -71,7 +71,7 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
         <PaymentIndicator
           attending={event.stats?.attending}
           style={styles.listItemPaymentIndicator}
-          // unpaid={event.stats?.unpaid}
+          unpaid={event.stats?.unpaid}
         />
       </View>
     );

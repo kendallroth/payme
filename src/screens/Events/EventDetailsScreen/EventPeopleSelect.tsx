@@ -6,6 +6,7 @@ import { Searchbar, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
+import { PaymentIndicator } from "@components/typography";
 import EventPeopleList from "./EventPeopleList";
 
 // Utilities
@@ -70,7 +71,9 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
       isVisible={visible}
       style={styles.modal}
       // Replicate normal iOS "back" swipe behaviour (Android has back button)
-      swipeDirection={isIOS ? "right" : undefined}
+      // NOTE: This is currently broken on iOS and prevents scrolling entirely!
+      // Source: https://github.com/react-native-modal/react-native-modal/issues/236
+      // swipeDirection={isIOS ? "right" : undefined}
       onBackButtonPress={onClose}
       onBackdropPress={onClose}
       onSwipeComplete={isIOS ? onClose : undefined}
@@ -80,7 +83,12 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
           statusBarHeight={isIOS ? undefined : 0}
           title={t("screens:eventDetails.peopleSelectTitle")}
           onBack={onClose}
-        />
+        >
+          <PaymentIndicator
+            attending={event.stats?.attending}
+            style={styles.peopleStats}
+          />
+        </AppBar>
         <Searchbar
           placeholder={t("common:phrases.search")}
           style={styles.peopleSearch}
@@ -105,6 +113,9 @@ const styles = StyleSheet.create({
     margin: 24,
     marginTop: 8,
     elevation: 2,
+  },
+  peopleStats: {
+    marginRight: 20,
   },
 });
 
