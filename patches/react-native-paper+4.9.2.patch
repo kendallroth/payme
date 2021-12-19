@@ -1,15 +1,8 @@
 diff --git a/node_modules/react-native-paper/src/components/BottomNavigation.tsx b/node_modules/react-native-paper/src/components/BottomNavigation.tsx
-index 3d89c97..654dbca 100644
+index 3d89c97..e974b72 100644
 --- a/node_modules/react-native-paper/src/components/BottomNavigation.tsx
 +++ b/node_modules/react-native-paper/src/components/BottomNavigation.tsx
-@@ -396,6 +396,7 @@ const BottomNavigation = ({
-    */
-   const [loaded, setLoaded] = React.useState<string[]>([focusedKey]);
- 
-   if (!loaded.includes(focusedKey)) {
-     // Set the current tab to be loaded if it was not loaded before
-     setLoaded((loaded) => [...loaded, focusedKey]);
-@@ -609,8 +610,15 @@ const BottomNavigation = ({
+@@ -609,8 +609,15 @@ const BottomNavigation = ({
        <View style={[styles.content, { backgroundColor: colors.background }]}>
          {routes.map((route, index) => {
            if (!loaded.includes(route.key)) {
