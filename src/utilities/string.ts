@@ -10,6 +10,24 @@ export const compareSafeStrings = (target: string, input: string): boolean => {
 };
 
 /**
+ * Generate initials from a name
+ *
+ * @param   name - Input name
+ * @returns Name initials
+ */
+export const getInitials = (name: string): string => {
+  if (!name) return "N/A";
+
+  const parts = name.split(" ");
+  const firstInitial = name.substring(0, 1).toUpperCase();
+  if (parts.length < 2) {
+    return firstInitial;
+  }
+
+  return `${firstInitial} ${parts[1].substring(0, 1).toUpperCase()}`;
+};
+
+/**
  * Loosely determine whether a safe string contains another string
  *
  * @param   target - Complete target string

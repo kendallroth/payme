@@ -72,8 +72,8 @@ const HomeScreen = (): ReactElement | null => {
         <Image source={require("@assets/icon.png")} style={styles.pageLogo} />
         <View style={styles.pageStats}>
           <HomeScreenSection
+            align="left"
             completedText={t("screens:home.eventsAllPaid")}
-            direction="left"
             emptyText={t("screens:home.eventsEmpty")}
             items={topUnpaidEvents}
             style={styles.pageStat}
@@ -89,9 +89,9 @@ const HomeScreen = (): ReactElement | null => {
             unpaid={eventCountUnpaid}
           />
           <HomeScreenSection
+            align="right"
             comingSoon
             completedText={t("screens:home.peopleAllPaid")}
-            direction="right"
             emptyText={t("screens:home.peopleEmpty")}
             items={[]}
             // TODO: Enable tracking people unpaid progress

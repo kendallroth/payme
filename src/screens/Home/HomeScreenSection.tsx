@@ -7,18 +7,21 @@ import { Badge, Surface, Text, useTheme } from "react-native-paper";
 import { ProgressIcon } from "@components/icons";
 import { Alert } from "@components/typography";
 
+// Utilities
+import { getShadowStyles } from "@styles/utilities";
+
 // Types
 import { LeftRight } from "@typings/app.types";
 
 type HomeScreenSectionProps<ItemType> = {
+  /** Whether section is left/right aligned */
+  align: LeftRight;
   /** Whether section is implemented */
   comingSoon?: boolean;
   /** Completed section text */
   completedText: string;
   /** Empty section text */
   emptyText: string;
-  /** Whether section is left/right aligned */
-  direction: LeftRight;
   /** Section items */
   items: ItemType[];
   /** Callback to render an item */
@@ -37,9 +40,9 @@ const HomeScreenSection = <T extends object>(
   props: HomeScreenSectionProps<T>,
 ): ReactElement | null => {
   const {
+    align,
     comingSoon = false,
     completedText,
-    direction,
     emptyText,
     items,
     renderItem,
@@ -73,11 +76,17 @@ const HomeScreenSection = <T extends object>(
     <Surface
       style={[
         styles.section,
-        direction === "left" ? styles.sectionLeft : styles.sectionRight,
+        align === "left" ? styles.sectionLeft : styles.sectionRight,
         style,
       ]}
     >
-      <View style={[styles.sectionTitle, themeStyles.sectionTitle]}>
+      <View
+        style={[
+          styles.sectionTitle,
+          themeStyles.sectionTitle,
+          align === "left" ? styles.sectionTitleLeft : styles.sectionTitleRight,
+        ]}
+      >
         <Text style={[styles.sectionTitleText, themeStyles.sectionTitleText]}>
           {title}
         </Text>
@@ -118,12 +127,13 @@ const HomeScreenSection = <T extends object>(
   );
 };
 
+const sectionBorderRadius = 8;
 const contentPadding = 16;
 const styles = StyleSheet.create({
   section: {
     marginVertical: 16,
     elevation: 2,
-    overflow: "hidden",
+    ...getShadowStyles(),
   },
   sectionComingSoon: {
     padding: contentPadding,
@@ -150,19 +160,25 @@ const styles = StyleSheet.create({
   },
   sectionLeft: {
     marginRight: 48,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
+    borderTopRightRadius: sectionBorderRadius,
+    borderBottomRightRadius: sectionBorderRadius,
   },
   sectionRight: {
     marginLeft: 48,
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
+    borderTopLeftRadius: sectionBorderRadius,
+    borderBottomLeftRadius: sectionBorderRadius,
   },
   sectionTitle: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 16,
+  },
+  sectionTitleLeft: {
+    borderTopRightRadius: sectionBorderRadius,
+  },
+  sectionTitleRight: {
+    borderTopLeftRadius: sectionBorderRadius,
   },
   sectionTitleText: {
     fontSize: 18,
