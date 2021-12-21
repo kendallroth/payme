@@ -3,7 +3,6 @@
 Simple app that tracks who has paid for an event.
 
 - Track small payments for an event
-- Use common people lists for an event
 
 > [Expo - `testing`](https://expo.dev/@kendallroth/payme?release-channel=testing)
 
@@ -11,11 +10,7 @@ Simple app that tracks who has paid for an event.
 
 - Overview (_list of oustanding events_)*
 - Events (_list of events for payment_)
-- People (_lists of common groups of payees_)
-
-## TODOs
-
-- Handle removing deleted person from event attendance
+- People (_lists of recurring payees_)
 
 ## Development
 
