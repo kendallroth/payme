@@ -32,7 +32,7 @@ export default (): ExpoConfig => ({
   // Android overrides
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/icon_clear.png",
+      foregroundImage: "./assets/android_launcher.png",
       backgroundColor: primaryColor,
     },
     package: "ca.kendallroth.payme",
