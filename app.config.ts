@@ -12,7 +12,7 @@ export default (): ExpoConfig => ({
   version, // Android 'versionName', iOS 'CFBundleShortVersionString'
   orientation: "portrait",
   platforms: ["android", "ios"],
-  entryPoint: "./src/App.tsx",
+  entryPoint: "index.js",
 
   jsEngine: "hermes",
 
@@ -35,7 +35,7 @@ export default (): ExpoConfig => ({
       foregroundImage: "./assets/icon_clear.png",
       backgroundColor: primaryColor,
     },
-    package: "com.kendallroth.payme",
+    package: "ca.kendallroth.payme",
     permissions: [],
     versionCode: 2,
   },
