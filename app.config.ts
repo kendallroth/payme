@@ -37,7 +37,7 @@ export default (): ExpoConfig => ({
     },
     package: "ca.kendallroth.payme",
     permissions: [],
-    versionCode: 2,
+    versionCode: 3,
   },
   androidNavigationBar: {
     barStyle: "dark-content",
