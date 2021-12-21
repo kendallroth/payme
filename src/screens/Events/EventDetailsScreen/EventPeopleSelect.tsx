@@ -5,12 +5,12 @@ import Modal from "react-native-modal";
 import { Searchbar, useTheme } from "react-native-paper";
 
 // Components
-import { AppBar, Page } from "@components/layout";
+import { AppBar, Page, ScreenFAB } from "@components/layout";
 import { PaymentIndicator } from "@components/typography";
 import EventPeopleList from "./EventPeopleList";
 
 // Utilities
-import { useAppDispatch } from "@hooks";
+import { useAppDispatch, useScrollingFab } from "@hooks";
 import { includesSafeString } from "@utilities/string";
 
 // Types
@@ -35,6 +35,7 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
   const [searchText, setSearchText] = useState("");
 
   const dispatch = useAppDispatch();
+  const { fabVisible, onListScroll } = useScrollingFab();
   const { colors } = useTheme();
   const { t } = useTranslation(["common", "screens"]);
 
@@ -75,8 +76,7 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
       // Source: https://github.com/react-native-modal/react-native-modal/issues/236
       // swipeDirection={isIOS ? "right" : undefined}
       onBackButtonPress={onClose}
-      onBackdropPress={onClose}
-      onSwipeComplete={isIOS ? onClose : undefined}
+      // onSwipeComplete={isIOS ? onClose : undefined}
     >
       <Page>
         <AppBar
@@ -98,7 +98,9 @@ const EventPeopleSelect = (props: EventPeopleSelectProps): ReactElement => {
         <EventPeopleList
           people={filteredPeople}
           onPersonToggle={onToggleAttendancePerson}
+          onScroll={onListScroll}
         />
+        <ScreenFAB icon="check" visible={fabVisible} onPress={onClose} />
       </Page>
     </Modal>
   );
