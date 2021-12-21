@@ -74,7 +74,8 @@
     "appDeveloped": "Desarrollado por Kendall Roth © {{date}}",
     "chipContact": "Contacto",
     "chipPortfolio": "Portafolio",
-    "chipRepository": "Repositorio"
+    "chipRepository": "Repositorio",
+    "contributorsTitle": "Colaboradores"
   },
   "settingsAppReset": {
     "title": "Restablecer la Aplicación",

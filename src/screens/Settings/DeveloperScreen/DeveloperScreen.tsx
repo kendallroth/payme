@@ -119,7 +119,8 @@ const DeveloperScreen = (): ReactElement => {
         <Button
           color={colors.error}
           style={styles.exitButton}
-          onPress={onExitDeveloper}
+          onLongPress={onExitDeveloper}
+          onPress={(): void => {}}
         >
           {t("screens:settingsDeveloper.buttonExitDeveloper")}
         </Button>

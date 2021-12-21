@@ -8,6 +8,7 @@ import { Chip, Text, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
+import ContributorListItem from "./ContributorListItem";
 
 // Utilities
 import config from "@config";
@@ -19,6 +20,46 @@ interface IDeveloperActions {
   name: string;
   url: string;
 }
+
+export type ContributorActionType =
+  | "development"
+  | "documentation"
+  | "localization";
+
+interface ContributorActions {
+  /** Contributor action description */
+  description: string;
+  /** Contributor action type */
+  type: ContributorActionType;
+}
+
+export interface Contributor {
+  /** List of contributor's actions */
+  actions: ContributorActions[];
+  /** Avatar colour */
+  color?: string;
+  /** Contributor name */
+  name: string;
+  /** Contributor website */
+  website?: string;
+}
+
+const contributors: Contributor[] = [
+  {
+    actions: [
+      { description: "Primary developer", type: "development" },
+      { description: "English", type: "localization" },
+    ],
+    color: "#B80F0A",
+    name: "Kendall Roth",
+    website: "https://www.kendallroth.ca",
+  },
+  {
+    actions: [{ description: "Spanish", type: "localization" }],
+    color: "#FFA500",
+    name: "Lukasz Antos",
+  },
+];
 
 const AboutScreen = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
@@ -65,9 +106,25 @@ const AboutScreen = (): ReactElement => {
     <Page>
       <AppBar title={t("screens:settingsAbout.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
-        <Text style={[styles.aboutDescription, themeStyles.aboutDescription]}>
-          {t("screens:settingsAbout.appDescription")}
+        <View style={[styles.aboutDescription, themeStyles.aboutDescription]}>
+          <Text style={styles.aboutDescriptionText}>
+            {t("screens:settingsAbout.appDescription")}
+          </Text>
+        </View>
+        <Text style={styles.aboutContributorsTitle}>
+          {t("screens:settingsAbout.contributorsTitle")}
         </Text>
+        <View style={styles.aboutContributorsList}>
+          {contributors.map(
+            (c, idx): ReactElement => (
+              <ContributorListItem
+                key={c.name}
+                align={idx % 2 ? "left" : "right"}
+                contributor={c}
+              />
+            ),
+          )}
+        </View>
         <View style={styles.aboutDeveloper}>
           <Text style={styles.aboutDeveloperText}>
             {t("screens:settingsAbout.appDeveloped", {
@@ -105,14 +162,26 @@ const AboutScreen = (): ReactElement => {
 
 const pagePadding = 24;
 const styles = StyleSheet.create({
+  aboutContributorsList: {
+    marginHorizontal: -pagePadding,
+    marginBottom: 24,
+  },
+  aboutContributorsTitle: {
+    marginTop: 24,
+    marginBottom: 8,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   aboutDescription: {
     marginBottom: 16,
     paddingVertical: 4,
     paddingLeft: 16,
-    fontSize: 18,
-    lineHeight: 24,
     borderLeftWidth: 4,
     borderRadius: 4,
+  },
+  aboutDescriptionText: {
+    fontSize: 18,
+    lineHeight: 24,
   },
   aboutDeveloper: {
     marginTop: "auto",

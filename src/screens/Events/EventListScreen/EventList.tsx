@@ -8,6 +8,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Alert } from "@components/typography";
 import EventListItem from "./EventListItem";
 
+// Utilities
+import { getShadowStyles } from "@styles/utilities";
+
 // Types
 import { IEvent } from "@typings/event.types";
 import { EventsRouterNavigation } from "../EventsRouter";
@@ -80,10 +83,11 @@ const EventList = (props: EventProps): ReactElement => {
   );
 };
 
+const listBorderRadius = 16;
 const styles = StyleSheet.create({
   list: {
-    overflow: "hidden",
-    borderRadius: 16,
+    borderRadius: listBorderRadius,
+    ...getShadowStyles(),
   },
   listEmpty: {
     paddingHorizontal: 16,
@@ -94,6 +98,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 16,
+    borderTopRightRadius: listBorderRadius,
+    borderTopLeftRadius: listBorderRadius,
   },
   listTitleText: {
     fontSize: 16,
