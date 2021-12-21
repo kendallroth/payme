@@ -9,18 +9,21 @@ import { MaterialCommunityIcons } from "@typings/app.types";
 type ScreenFABProps = {
   /** FAB icon */
   icon: keyof MaterialCommunityIcons;
+  /** FAB label */
+  label?: string;
   /** Whether FAB is visible */
   visible?: boolean;
 } & ComponentProps<typeof FAB>;
 
 const ScreenFAB = (props: ScreenFABProps): ReactElement => {
-  const { icon, visible = true, ...rest } = props;
+  const { icon, label, visible = true, ...rest } = props;
 
   const isScreenFocused = useIsFocused();
 
   return (
     <FAB
       icon={icon}
+      label={label}
       style={styles.portalFAB}
       visible={isScreenFocused && visible}
       {...rest}

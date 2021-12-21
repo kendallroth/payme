@@ -21,6 +21,7 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+credentials.json
 
 # OS-specific
 .DS_Store

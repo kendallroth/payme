@@ -12,6 +12,7 @@ import { selectBehaviours } from "@store/slices/settings";
 import { flatListIdExtractor } from "@utilities/list.util";
 
 // Types
+import { ScrollEvent } from "@typings/app.types";
 import { IPersonForEvent } from "@typings/attendance.types";
 
 type EventPeopleListProps = {
@@ -19,10 +20,12 @@ type EventPeopleListProps = {
   people: IPersonForEvent[];
   /** Toggle whether a person is attending the event */
   onPersonToggle: (person: IPersonForEvent) => void;
+  /** Scroll handler */
+  onScroll?: (event: ScrollEvent) => void;
 };
 
 const EventPeopleList = (props: EventPeopleListProps): ReactElement => {
-  const { people, onPersonToggle } = props;
+  const { people, onPersonToggle, onScroll } = props;
 
   const appBehaviours = useAppSelector(selectBehaviours);
 
@@ -57,6 +60,7 @@ const EventPeopleList = (props: EventPeopleListProps): ReactElement => {
       )}
       renderItem={renderPersonItem}
       style={[styles.list]}
+      onScroll={onScroll}
     />
   );
 };

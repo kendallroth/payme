@@ -12,7 +12,7 @@ export default (): ExpoConfig => ({
   version, // Android 'versionName', iOS 'CFBundleShortVersionString'
   orientation: "portrait",
   platforms: ["android", "ios"],
-  entryPoint: "./src/App.tsx",
+  entryPoint: "index.js",
 
   jsEngine: "hermes",
 
@@ -32,10 +32,10 @@ export default (): ExpoConfig => ({
   // Android overrides
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/icon_clear.png",
+      foregroundImage: "./assets/android_launcher.png",
       backgroundColor: primaryColor,
     },
-    package: "com.kendallroth.payme",
+    package: "ca.kendallroth.payme",
     permissions: [],
     versionCode: 2,
   },
