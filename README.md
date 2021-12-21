@@ -1,16 +1,24 @@
 # PayMe
 
+![](https://github.com/kendallroth/payme/workflows/Code%20Quality/badge.svg)
+![](https://img.shields.io/github/v/release/kendallroth/payme?include_prereleases)
+![](https://img.shields.io/badge/android--lightgreen?logo=android&logoColor=lightgreen)
+![](https://img.shields.io/badge/apple--lightgrey?logo=apple&logoColor=offwite)
+
 Simple app that tracks who has paid for an event.
 
-- Track small payments for an event
-
+> [Expo - `release`](https://expo.dev/@kendallroth/payme)<br />
 > [Expo - `testing`](https://expo.dev/@kendallroth/payme?release-channel=testing)
 
 ## Features
 
-- Overview (_list of oustanding events_)*
+- Overview (_list of oustanding events_)
 - Events (_list of events for payment_)
 - People (_lists of recurring payees_)
+
+## Contributing
+
+Thanks to [all those](CONTRIBUTORS.md) who have contributed to this project so far!
 
 ## Development
 
@@ -26,17 +34,27 @@ npm run start -- --clear
 
 Releases can be deployed through Expo Go (for testing) or the Expo managed build system (for release). The app version is taken from the `package.json`, which should be updated before every major deployment. App environment configuration is possible with the `expo-updates` package, which exposes the value of the `releaseChannel` used when building the app.
 
-> **NOTE:** Remember to update the `version` in `package.json` before each deployment!
+> **NOTE:** Remember to update the `version` in `package.json` before each release/deployment! This is especially important for App Store releases
 
-> **NOTE:** Remember to properly set the **release channel** for each deployment!
+### Production Releases
+
+Production builds and releases are handled with [EAS Build](https://docs.expo.dev/build/introduction/) and [EAS Submit](https://docs.expo.dev/submit/introduction/).
+
+> **Documentation in progress**
 
 ### Testing Releases
 
-Testing releases are released through Expo Go, which allows
+Testing releases are released through Expo Go, which allows releasing for several environments.
 
 ```sh
+# Publish to a default environment
+expo publish
+
+# Publish to a specific environment
 expo publish --release-channel <ENVIRONMENT>
 ```
+
+> **NOTE:** Remember to properly set the **release channel** for each deployment (if needed)!
 
 ### Production Releases
 
@@ -80,6 +98,5 @@ The `@react-navigation/material-bottom-tabs` introduced an Android issue in Expo
 
 ## TODOs
 
-- Fix validation bug when trying to "save" multiple added people with an empty text field (since validation still runs)!
 - Explore localized date formatting with ([`i18n Formatting`](https://www.i18next.com/translation-function/formatting)) (alternative at [Brains and Beards](https://brainsandbeards.com/blog/i18n-in-react-native-apps#formatting))
 - Improve theme colors (especially dark theme)
