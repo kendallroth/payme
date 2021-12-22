@@ -163,6 +163,11 @@ const SettingsScreen = (): ReactElement => {
         route="About"
         title={t("screens:settingsAbout.title")}
       />
+      <SettingsListItem
+        icon="account-multiple"
+        route="Contributors"
+        title={t("screens:settingsContributors.title")}
+      />
       <List.Subheader>
         {t("screens:settings.listSectionCustomize")}
       </List.Subheader>
@@ -172,7 +177,7 @@ const SettingsScreen = (): ReactElement => {
           <LanguageIcon
             {...rightProps}
             flag={languageConfig.flag}
-            size={32}
+            size={30}
             style={styles.settingsLanguageIcon}
           />
         )}

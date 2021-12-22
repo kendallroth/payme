@@ -8,11 +8,13 @@ import { Chip, Text, useTheme } from "react-native-paper";
 
 // Components
 import { AppBar, Page } from "@components/layout";
-import ContributorListItem from "./ContributorListItem";
+import { Quote } from "@components/typography";
 
 // Utilities
 import config from "@config";
 import { sharedColors } from "@theme";
+
+// Types
 import { MaterialCommunityIcons } from "@typings/app.types";
 
 interface IDeveloperActions {
@@ -20,46 +22,6 @@ interface IDeveloperActions {
   name: string;
   url: string;
 }
-
-export type ContributorActionType =
-  | "development"
-  | "documentation"
-  | "localization";
-
-interface ContributorActions {
-  /** Contributor action description */
-  description: string;
-  /** Contributor action type */
-  type: ContributorActionType;
-}
-
-export interface Contributor {
-  /** List of contributor's actions */
-  actions: ContributorActions[];
-  /** Avatar colour */
-  color?: string;
-  /** Contributor name */
-  name: string;
-  /** Contributor website */
-  website?: string;
-}
-
-const contributors: Contributor[] = [
-  {
-    actions: [
-      { description: "Primary developer", type: "development" },
-      { description: "English", type: "localization" },
-    ],
-    color: "#B80F0A",
-    name: "Kendall Roth",
-    website: "https://www.kendallroth.ca",
-  },
-  {
-    actions: [{ description: "Spanish", type: "localization" }],
-    color: "#FFA500",
-    name: "Lukasz Antos",
-  },
-];
 
 const AboutScreen = (): ReactElement => {
   const { t } = useTranslation(["screens"]);
@@ -85,9 +47,15 @@ const AboutScreen = (): ReactElement => {
     },
   ];
 
+  const steps = [
+    t("screens:settingsAbout.guideStep1"),
+    t("screens:settingsAbout.guideStep2"),
+    t("screens:settingsAbout.guideStep3"),
+  ];
+
   const themeStyles = useMemo(
     () => ({
-      aboutDescription: {
+      aboutSummary: {
         borderLeftColor: colors.primary,
       },
       developerChips: {
@@ -106,28 +74,28 @@ const AboutScreen = (): ReactElement => {
     <Page>
       <AppBar title={t("screens:settingsAbout.title")} />
       <ScrollView contentContainerStyle={styles.pageContent}>
-        <View style={[styles.aboutDescription, themeStyles.aboutDescription]}>
-          <Text style={styles.aboutDescriptionText}>
-            {t("screens:settingsAbout.appDescription")}
-          </Text>
-        </View>
-        <Text style={styles.aboutContributorsTitle}>
-          {t("screens:settingsAbout.contributorsTitle")}
+        <Quote>{t("screens:settingsAbout.appSummary")}</Quote>
+        <Text style={styles.aboutDescription}>
+          {t("screens:settingsAbout.appDescription")}
         </Text>
-        <View style={styles.aboutContributorsList}>
-          {contributors.map(
-            (c, idx): ReactElement => (
-              <ContributorListItem
-                key={c.name}
-                align={idx % 2 ? "left" : "right"}
-                contributor={c}
+        <View style={styles.aboutSteps}>
+          {steps.map((step, idx) => (
+            <View key={step} style={styles.aboutStepsStep}>
+              <Icon
+                color={colors.accent}
+                // @ts-ignore
+                name={`numeric-${idx + 1}-circle`}
+                size={24}
+                style={styles.aboutStepsStepIcon}
               />
-            ),
-          )}
+              <Text style={styles.aboutStepsStepText}>{step}</Text>
+            </View>
+          ))}
         </View>
+        <View style={styles.aboutSpace} />
         <View style={styles.aboutDeveloper}>
           <Text style={styles.aboutDeveloperText}>
-            {t("screens:settingsAbout.appDeveloped", {
+            {t("screens:settingsAbout.appDeveloper", {
               date: dayjs().format("YYYY"),
             })}
           </Text>
@@ -162,29 +130,12 @@ const AboutScreen = (): ReactElement => {
 
 const pagePadding = 24;
 const styles = StyleSheet.create({
-  aboutContributorsList: {
-    marginHorizontal: -pagePadding,
-    marginBottom: 24,
-  },
-  aboutContributorsTitle: {
-    marginTop: 24,
-    marginBottom: 8,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   aboutDescription: {
-    marginBottom: 16,
-    paddingVertical: 4,
-    paddingLeft: 16,
-    borderLeftWidth: 4,
-    borderRadius: 4,
-  },
-  aboutDescriptionText: {
-    fontSize: 18,
-    lineHeight: 24,
+    marginVertical: 24,
+    fontSize: 16,
   },
   aboutDeveloper: {
-    marginTop: "auto",
+    marginTop: 24,
   },
   aboutDeveloperActions: {
     flexDirection: "row",
@@ -201,6 +152,21 @@ const styles = StyleSheet.create({
   },
   aboutDeveloperText: {
     textAlign: "center",
+  },
+  aboutSteps: {},
+  aboutStepsStep: {
+    flexDirection: "row",
+    marginVertical: 4,
+  },
+  aboutStepsStepIcon: {
+    top: -1,
+  },
+  aboutStepsStepText: {
+    marginLeft: 8,
+    fontSize: 18,
+  },
+  aboutSpace: {
+    flexGrow: 1,
   },
   pageContent: {
     flexGrow: 1,

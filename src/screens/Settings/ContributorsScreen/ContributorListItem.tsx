@@ -7,7 +7,7 @@ import { Avatar, Chip, IconButton, Text, useTheme } from "react-native-paper";
 import { getInitials } from "@utilities/string";
 
 // Types
-import { Contributor, ContributorActionType } from "./AboutScreen";
+import { Contributor, ContributorActionType } from "./ContributorsScreen";
 import { LeftRight, MaterialCommunityIcons } from "@typings/app.types";
 import { getShadowStyles } from "@styles/utilities";
 

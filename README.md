@@ -36,12 +36,6 @@ Releases can be deployed through Expo Go (for testing) or the Expo managed build
 
 > **NOTE:** Remember to update the `version` in `package.json` before each release/deployment! This is especially important for App Store releases
 
-### Production Releases
-
-Production builds and releases are handled with [EAS Build](https://docs.expo.dev/build/introduction/) and [EAS Submit](https://docs.expo.dev/submit/introduction/).
-
-> **Documentation in progress**
-
 ### Testing Releases
 
 Testing releases are released through Expo Go, which allows releasing for several environments.
@@ -58,7 +52,12 @@ expo publish --release-channel <ENVIRONMENT>
 
 ### Production Releases
 
-_Coming Soon_
+
+### Production Releases
+
+Production builds and releases are handled with [EAS Build](https://docs.expo.dev/build/introduction/) and [EAS Submit](https://docs.expo.dev/submit/introduction/).
+
+> _Documentation in progress_
 
 ## UI
 

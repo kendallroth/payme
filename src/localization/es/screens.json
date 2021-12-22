@@ -70,12 +70,15 @@
   },
   "settingsAbout": {
     "title": "Sobre",
-    "appDescription": "“PayMe” es una aplicación móvil simple para rastrear quién pagó por un evento.",
-    "appDeveloped": "Desarrollado por Kendall Roth © {{date}}",
+    "appDescription": "PayMe tiene como objetivo simplificar el proceso de seguimiento de la asistencia y el pago del evento. En lugar de utilizar listas y aplicaciones variadas para rastrear quién viene y quién ha pagado, PayMe agiliza el proceso en un flujo de trabajo simple.",
+    "appDeveloper": "Desarrollado por Kendall Roth © {{date}}",
+    "appSummary": "“PayMe” es una aplicación móvil simple para rastrear quién pagó por un evento.",
+    "guideStep1": "Agregar y administrar personas",
+    "guideStep2": "Agregar y administrar eventors",
+    "guideStep3": "Administrar los asistentes al evento y los pagos",
     "chipContact": "Contacto",
     "chipPortfolio": "Portafolio",
-    "chipRepository": "Repositorio",
-    "contributorsTitle": "Colaboradores"
+    "chipRepository": "Repositorio"
   },
   "settingsAppReset": {
     "title": "Restablecer la Aplicación",
@@ -92,9 +95,16 @@
     "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas.",
     "listItemTabHistoryResetTitle": "Restablecer historial de pestañas"
   },
+  "settingsContributors": {
+    "title": "Colaboradores",
+    "contributorPrompt": "¿Interesado en ayudar?",
+    "contributorThanks": "¡Un agradecimiento especial a todas las personas que han ayudado a este proyecto hasta ahora!"
+  },
   "settingsDeveloper": {
     "title": "Depurar",
-    "buttonExitDeveloper": "Salir del Modo de Desarrollador",
+    "exitDeveloperButton": "Salir del Modo de Desarrollador",
+    "exitDeveloperConfirmDescription": "¿Estás seguro de que quieres salir del modo desarrollador?",
+    "exitDeveloperConfirmTitle": "¿Salir del modo de desarrollador?",
     "listItemDeviceModel": "Modelo",
     "listItemDeviceOS": "OS",
     "listItemDeviceType": "Typo",

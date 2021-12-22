@@ -58,9 +58,21 @@ const DeveloperScreen = (): ReactElement => {
    * Exit developer mode
    */
   const onExitDeveloper = (): void => {
-    dispatch(setAppDeveloper(false));
+    Alert.alert(
+      t("screens:settingsDeveloper.exitDeveloperConfirmTitle"),
+      t("screens:settingsDeveloper.exitDeveloperConfirmDescription"),
+      [
+        { text: t("common:choices.cancel"), style: "cancel" },
+        {
+          text: t("common:choices.confirm"),
+          onPress: async (): Promise<void> => {
+            dispatch(setAppDeveloper(false));
 
-    navigator.goBack();
+            navigator.goBack();
+          },
+        },
+      ],
+    );
   };
 
   return (
@@ -119,10 +131,9 @@ const DeveloperScreen = (): ReactElement => {
         <Button
           color={colors.error}
           style={styles.exitButton}
-          onLongPress={onExitDeveloper}
-          onPress={(): void => {}}
+          onPress={onExitDeveloper}
         >
-          {t("screens:settingsDeveloper.buttonExitDeveloper")}
+          {t("screens:settingsDeveloper.exitDeveloperButton")}
         </Button>
       </ScrollView>
     </Page>
