@@ -131,7 +131,8 @@
     "resetDataTitle": "Reset App Data"
   },
   "settingsLanguage": {
-    "title": "Select Language"
+    "title": "Select Language",
+    "betaWarning": "Beta translations are incomplete!"
   },
   "settingsReportBug": {
     "title": "Report a Bug",

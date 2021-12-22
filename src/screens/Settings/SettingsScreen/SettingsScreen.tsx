@@ -38,6 +38,7 @@ import {
   AppTheme,
   IAppResetOptions,
 } from "@typings/settings.types";
+import { LANGUAGES } from "@utilities/constants";
 
 const DEVELOPER_MODE_TAPS = 10;
 
@@ -112,12 +113,25 @@ const SettingsScreen = (): ReactElement => {
    * @param value - App language
    */
   const onSelectLanguage = (value: AppLanguage): void => {
+    // Skip updating app language if selection is current language
+    if (value === languageConfig.code) {
+      languageRef.current?.close();
+      return;
+    }
+
     // Change language in localization context
     i18n.changeLanguage(value);
 
     dispatch(setAppLanguage(value));
 
     languageRef.current?.close();
+
+    if (LANGUAGES[value].beta) {
+      // Need to allow language sheet to close before showing notification
+      setTimeout(() => {
+        notify(t("screens:settingsLanguage.betaWarning"));
+      }, 750);
+    }
   };
 
   /**
@@ -176,6 +190,7 @@ const SettingsScreen = (): ReactElement => {
         right={(rightProps): ReactElement => (
           <LanguageIcon
             {...rightProps}
+            beta={languageConfig.beta}
             flag={languageConfig.flag}
             size={30}
             style={styles.settingsLanguageIcon}
@@ -204,9 +219,11 @@ const SettingsScreen = (): ReactElement => {
         title={t("screens:settings.listItemBug")}
       />
       <SettingsListItem
-        // icon="lightbulb-on"
-        icon="email"
+        icon="lightbulb-on"
         title={t("screens:settings.listItemSuggestion")}
+        right={(rightProps): ReactElement => (
+          <List.Icon {...rightProps} icon="email-send" />
+        )}
         onPress={onSuggestImprovement}
       />
       <List.Item
@@ -268,7 +285,6 @@ const styles = StyleSheet.create({
   },
   settingsFooterVersion: {},
   settingsLanguageIcon: {
-    alignSelf: "center",
     left: -12,
   },
 });

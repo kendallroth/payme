@@ -24,9 +24,10 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
   (props: LanguageModalProps, ref): ReactElement => {
     const { language: currentLanguage, onSelect } = props;
 
-    const { t } = useTranslation(["screens"]);
+    const { t } = useTranslation(["common", "screens"]);
 
     const languages = Object.values(LANGUAGES);
+    const betaPhrase = ` (${t("common:phrases.beta")})`;
 
     return (
       <BottomSheet
@@ -45,6 +46,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
                   {...leftProps}
                   icon={({ size }): ReactElement => (
                     <LanguageIcon
+                      beta={language.beta}
                       flag={language.flag}
                       selected={currentLanguage === language.code}
                       size={size * 1.25}
@@ -54,8 +56,7 @@ const LanguageModal = forwardRef<BottomSheetRef, LanguageModalProps>(
                   )}
                 />
               )}
-              // TODO: https://brainsandbeards.com/blog/i18n-in-react-native-apps#overrides
-              title={language.title}
+              title={`${language.title}${language.beta ? betaPhrase : ""}`}
               selected={currentLanguage === language.code}
               onPress={(): void => onSelect(language.code)}
             />

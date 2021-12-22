@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { SvgXml } from "react-native-svg";
-import { useTheme } from "react-native-paper";
+import { Badge, useTheme } from "react-native-paper";
 
 type LanguageIconProps = {
+  /** Whether language is in beta (warning badge) */
+  beta?: boolean;
   /** Flag XML string */
   flag: string;
   /** Whether language is selected */
@@ -15,7 +17,7 @@ type LanguageIconProps = {
 };
 
 const LanguageIcon = (props: LanguageIconProps): ReactElement => {
-  const { flag, selected = false, size, style } = props;
+  const { beta = false, flag, selected = false, size, style } = props;
 
   const { colors } = useTheme();
 
@@ -27,26 +29,36 @@ const LanguageIcon = (props: LanguageIconProps): ReactElement => {
     languageIcon: {
       borderColor: colors.grey.light,
     },
+    languageIconBadge: {
+      backgroundColor: colors.warning,
+    },
     languageIconSelected: {
       borderColor: colors.primary,
     },
   };
 
   return (
-    <View
-      style={[
-        styles.languageIcon,
-        themeStyles.languageIcon,
-        selected ? themeStyles.languageIconSelected : undefined,
-        style,
-      ]}
-    >
-      <SvgXml
-        xml={flag}
-        height={height}
-        width={size}
-        style={styles.languageIconSvg}
-      />
+    <View style={[styles.languageIconParent, style]}>
+      <View
+        style={[
+          styles.languageIcon,
+          themeStyles.languageIcon,
+          selected ? themeStyles.languageIconSelected : undefined,
+        ]}
+      >
+        <SvgXml
+          xml={flag}
+          height={height}
+          width={size}
+          style={styles.languageIconSvg}
+        />
+      </View>
+      {beta && (
+        <Badge
+          size={12}
+          style={[styles.languageIconBadge, themeStyles.languageIconBadge]}
+        />
+      )}
     </View>
   );
 };
@@ -57,9 +69,17 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 2,
   },
+  languageIconBadge: {
+    position: "absolute",
+    right: -4,
+    top: -4,
+  },
   // SVG has slight borders around to be hidden
   languageIconSvg: {
     transform: [{ scale: 1.025 }],
+  },
+  languageIconParent: {
+    position: "relative",
   },
 });
 

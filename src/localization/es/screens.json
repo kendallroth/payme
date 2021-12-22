@@ -131,7 +131,8 @@
     "resetDataTitle": "Restablecer Datos de la Aplicación"
   },
   "settingsLanguage": {
-    "title": "Seleccione el idioma"
+    "title": "Seleccione el idioma",
+    "betaWarning": "¡Los idiomas beta están incompletos!"
   },
   "settingsReportBug": {
     "title": "Reportar un Error",
