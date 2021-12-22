@@ -1,7 +1,17 @@
+import * as Application from "expo-application";
 import Constants from "expo-constants";
 
 // Utilities
-import { version } from "../../package.json";
+import { version as packageVersion } from "../../package.json";
+
+const runningInExpo = Constants.appOwnership === "expo";
+
+const version = !runningInExpo
+  ? Application.nativeApplicationVersion
+  : packageVersion;
+const versionBuild = !runningInExpo
+  ? Application.nativeBuildVersion
+  : packageVersion;
 
 /** App configuration links */
 interface IAppConfigLinks {
@@ -19,8 +29,10 @@ interface IAppConfig {
   environment: string;
   /** App links */
   links: IAppConfigLinks;
-  /** App version */
+  /** App version name (semantic) */
   version: string;
+  /** App version build number */
+  versionBuild: string;
 }
 
 const config: IAppConfig = {
@@ -31,7 +43,8 @@ const config: IAppConfig = {
     developerUrl: "https://www.kendallroth.ca",
     repositoryUrl: "https://github.com/kendallroth/payme",
   },
-  version,
+  version: version ?? packageVersion,
+  versionBuild: versionBuild ?? packageVersion,
 };
 
 export default config;
