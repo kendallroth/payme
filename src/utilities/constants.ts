@@ -15,7 +15,6 @@ export const SAMPLE_ISO_DATE = "2021-11-28T05:03:59.744Z";
 export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
   [AppLanguage.ENGLISH]: {
     code: AppLanguage.ENGLISH,
-    disabled: false,
     flag: US,
     title: "English",
   },
@@ -26,8 +25,8 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
     title: "Français",
   },
   [AppLanguage.SPANISH]: {
+    beta: true,
     code: AppLanguage.SPANISH,
-    disabled: false,
     flag: ES,
     title: "Español",
   },

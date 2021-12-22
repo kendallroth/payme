@@ -15,6 +15,8 @@ export enum AppLanguage {
 
 /** App language configuration */
 export interface IAppLanguageConfig {
+  /** Whether language is in beta (partially complete) */
+  beta?: boolean;
   /** Language code */
   code: AppLanguage;
   /** Language description */
@@ -51,7 +53,7 @@ export interface IAppResetOptions {
   /**
    * Whether to reset attendance
    *
-   * NOTE: This is automatic if events or people are reset!
+   * NOTE: This is automatic if either events or people were reset!
    */
   attendance: boolean;
   /** Whether to reset settings */

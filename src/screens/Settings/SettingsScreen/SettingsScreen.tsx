@@ -112,6 +112,12 @@ const SettingsScreen = (): ReactElement => {
    * @param value - App language
    */
   const onSelectLanguage = (value: AppLanguage): void => {
+    // Skip updating app language if selection is current language
+    if (value === languageConfig.code) {
+      languageRef.current?.close();
+      return;
+    }
+
     // Change language in localization context
     i18n.changeLanguage(value);
 
@@ -176,6 +182,7 @@ const SettingsScreen = (): ReactElement => {
         right={(rightProps): ReactElement => (
           <LanguageIcon
             {...rightProps}
+            beta={languageConfig.beta}
             flag={languageConfig.flag}
             size={30}
             style={styles.settingsLanguageIcon}
@@ -268,7 +275,6 @@ const styles = StyleSheet.create({
   },
   settingsFooterVersion: {},
   settingsLanguageIcon: {
-    alignSelf: "center",
     left: -12,
   },
 });
