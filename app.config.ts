@@ -5,11 +5,30 @@ import { version } from "./package.json";
 
 const primaryColor = "#2196f3";
 
+/**
+ * Semantic version name (viewable)
+ *
+ * Android - 'versionName'
+ * iOS     - 'CFBundleShortVersionString'
+ */
+const versionName = version;
+/**
+ * Android build code (increment with each submitted build)
+ */
+const androidVersionCode = 4;
+/**
+ * iOS semantic build code (increment with each submitted build)
+ *
+ * NOTE: Can include additional integers to indicate release candidates
+ *         until the version is released (remove 'rc#' suffix).
+ */
+const iosBuildNumber = `${version}rc2`;
+
 export default (): ExpoConfig => ({
   // Information
   name: "PayMe",
   slug: "payme",
-  version, // Android 'versionName', iOS 'CFBundleShortVersionString'
+  version: versionName,
   orientation: "portrait",
   platforms: ["android", "ios"],
   entryPoint: "index.js",
@@ -37,7 +56,7 @@ export default (): ExpoConfig => ({
     },
     package: "ca.kendallroth.payme",
     permissions: [],
-    versionCode: 3,
+    versionCode: androidVersionCode,
   },
   androidNavigationBar: {
     barStyle: "dark-content",
@@ -45,7 +64,7 @@ export default (): ExpoConfig => ({
 
   // iOS overrides
   ios: {
-    buildNumber: version,
+    buildNumber: iosBuildNumber,
     bundleIdentifier: "ca.kendallroth.payme",
     // Icon must be 1024x1024 (no transparency)
     icon: "./assets/icon.png",
