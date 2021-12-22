@@ -38,6 +38,7 @@ import {
   AppTheme,
   IAppResetOptions,
 } from "@typings/settings.types";
+import { LANGUAGES } from "@utilities/constants";
 
 const DEVELOPER_MODE_TAPS = 10;
 
@@ -124,6 +125,13 @@ const SettingsScreen = (): ReactElement => {
     dispatch(setAppLanguage(value));
 
     languageRef.current?.close();
+
+    if (LANGUAGES[value].beta) {
+      // Need to allow language sheet to close before showing notification
+      setTimeout(() => {
+        notify(t("screens:settingsLanguage.betaWarning"));
+      }, 750);
+    }
   };
 
   /**
@@ -211,9 +219,11 @@ const SettingsScreen = (): ReactElement => {
         title={t("screens:settings.listItemBug")}
       />
       <SettingsListItem
-        // icon="lightbulb-on"
-        icon="email"
+        icon="lightbulb-on"
         title={t("screens:settings.listItemSuggestion")}
+        right={(rightProps): ReactElement => (
+          <List.Icon {...rightProps} icon="email-send" />
+        )}
         onPress={onSuggestImprovement}
       />
       <List.Item
