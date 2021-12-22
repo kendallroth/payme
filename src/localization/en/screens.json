@@ -70,12 +70,15 @@
   },
   "settingsAbout": {
     "title": "About",
-    "appDescription": "“PayMe” is a simple mobile app to track who has paid for an event.",
-    "appDeveloped": "Developed by Kendall Roth © {{date}}",
+    "appDescription": "PayMe is intended to simplify the process of tracking event attendance and payment. Rather than using assorted lists and apps to track who is coming and who has paid, PayMe streamlines the process into a simple workflow.",
+    "appDeveloper": "Developed by Kendall Roth © {{date}}",
+    "appSummary": "“PayMe” is a simple mobile app to track who has paid for an event.",
+    "guideStep1": "Add and manage people",
+    "guideStep2": "Add and manage events",
+    "guideStep3": "Manage event attendees and payment",
     "chipContact": "Contact",
     "chipPortfolio": "Portfolio",
-    "chipRepository": "Repository",
-    "contributorsTitle": "Contributors"
+    "chipRepository": "Repository"
   },
   "settingsAppReset": {
     "title": "Reset App",
@@ -92,9 +95,16 @@
     "listItemTabHistoryResetDescription": "Whether tab navigation resets tab history.",
     "listItemTabHistoryResetTitle": "Reset tab history"
   },
+  "settingsContributors": {
+    "title": "Contributors",
+    "contributorPrompt": "Interested in helping out?",
+    "contributorThanks": "Special thanks to all the people who have helped this project so far!"
+  },
   "settingsDeveloper": {
     "title": "Debug",
-    "buttonExitDeveloper": "Exit Developer Mode",
+    "exitDeveloperButton": "Exit Developer Mode",
+    "exitDeveloperConfirmDescription": "Are you sure you want to exit developer mode?",
+    "exitDeveloperConfirmTitle": "Exit Developer Mode?",
     "listItemDeviceModel": "Model",
     "listItemDeviceOS": "OS",
     "listItemDeviceType": "Type",
