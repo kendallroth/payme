@@ -1,3 +1,119 @@
+diff --git a/node_modules/react-native-paper/lib/commonjs/components/BottomNavigation.js b/node_modules/react-native-paper/lib/commonjs/components/BottomNavigation.js
+index 14bd7b3..35562fe 100644
+--- a/node_modules/react-native-paper/lib/commonjs/components/BottomNavigation.js
++++ b/node_modules/react-native-paper/lib/commonjs/components/BottomNavigation.js
+@@ -375,8 +375,15 @@ const BottomNavigation = ({
+     }]
+   }, routes.map((route, index) => {
+     if (!loaded.includes(route.key)) {
++      /**
++       * 
++       * NOTE: Disable lazy loading to deal with several issues it causes:
++       *         - Navigating directly to an event from dashboard (before "EventsStack" mounted)
++       *           causes a difference in "back" history ("EventList" skipped)!
++       *         - Event/People FAB icons do not animate in initially (not mounted)
++       */
+       // Don't render a screen if we've never navigated to it
+-      return null;
++      // return null;
+     }
+ 
+     const focused = navigationState.index === index;
+diff --git a/node_modules/react-native-paper/lib/commonjs/components/Checkbox/CheckboxItem.js b/node_modules/react-native-paper/lib/commonjs/components/Checkbox/CheckboxItem.js
+index d6719a0..3ffbabe 100644
+--- a/node_modules/react-native-paper/lib/commonjs/components/Checkbox/CheckboxItem.js
++++ b/node_modules/react-native-paper/lib/commonjs/components/Checkbox/CheckboxItem.js
+@@ -46,6 +46,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
+  *```
+  */
+ const CheckboxItem = ({
++  disabled,
+   style,
+   status,
+   label,
+@@ -58,6 +59,7 @@ const CheckboxItem = ({
+   ...props
+ }) => {
+   const checkboxProps = { ...props,
++    disabled,
+     status,
+     theme
+   };
+@@ -73,6 +75,7 @@ const CheckboxItem = ({
+   }
+ 
+   return /*#__PURE__*/React.createElement(_TouchableRipple.default, {
++    disabled,
+     onPress: onPress,
+     testID: testID
+   }, /*#__PURE__*/React.createElement(_reactNative.View, {
+@@ -80,7 +83,7 @@ const CheckboxItem = ({
+     pointerEvents: "none"
+   }, isLeading && checkbox, /*#__PURE__*/React.createElement(_Text.default, {
+     style: [styles.label, {
+-      color: theme.colors.text,
++      color: disabled ? theme.colors.disabled : theme.colors.text,
+       textAlign: isLeading ? 'right' : 'left'
+     }, labelStyle]
+   }, label), !isLeading && checkbox));
+diff --git a/node_modules/react-native-paper/lib/module/components/BottomNavigation.js b/node_modules/react-native-paper/lib/module/components/BottomNavigation.js
+index ee780eb..30d08c6 100644
+--- a/node_modules/react-native-paper/lib/module/components/BottomNavigation.js
++++ b/node_modules/react-native-paper/lib/module/components/BottomNavigation.js
+@@ -341,8 +341,15 @@ const BottomNavigation = ({
+     }]
+   }, routes.map((route, index) => {
+     if (!loaded.includes(route.key)) {
++      /**
++       * 
++       * NOTE: Disable lazy loading to deal with several issues it causes:
++       *         - Navigating directly to an event from dashboard (before "EventsStack" mounted)
++       *           causes a difference in "back" history ("EventList" skipped)!
++       *         - Event/People FAB icons do not animate in initially (not mounted)
++       */
+       // Don't render a screen if we've never navigated to it
+-      return null;
++      // return null;
+     }
+ 
+     const focused = navigationState.index === index;
+diff --git a/node_modules/react-native-paper/lib/module/components/Checkbox/CheckboxItem.js b/node_modules/react-native-paper/lib/module/components/Checkbox/CheckboxItem.js
+index 3601459..b2e8cc6 100644
+--- a/node_modules/react-native-paper/lib/module/components/Checkbox/CheckboxItem.js
++++ b/node_modules/react-native-paper/lib/module/components/Checkbox/CheckboxItem.js
+@@ -26,6 +26,7 @@ import { withTheme } from '../../core/theming';
+  *```
+  */
+ const CheckboxItem = ({
++  disabled,
+   style,
+   status,
+   label,
+@@ -38,6 +39,7 @@ const CheckboxItem = ({
+   ...props
+ }) => {
+   const checkboxProps = { ...props,
++    disabled,
+     status,
+     theme
+   };
+@@ -53,6 +55,7 @@ const CheckboxItem = ({
+   }
+ 
+   return /*#__PURE__*/React.createElement(TouchableRipple, {
++    disabled,
+     onPress: onPress,
+     testID: testID
+   }, /*#__PURE__*/React.createElement(View, {
+@@ -60,7 +63,7 @@ const CheckboxItem = ({
+     pointerEvents: "none"
+   }, isLeading && checkbox, /*#__PURE__*/React.createElement(Text, {
+     style: [styles.label, {
+-      color: theme.colors.text,
++      color: disabled ? theme.colors.disabled : theme.colors.text,
+       textAlign: isLeading ? 'right' : 'left'
+     }, labelStyle]
+   }, label), !isLeading && checkbox));
 diff --git a/node_modules/react-native-paper/src/components/BottomNavigation.tsx b/node_modules/react-native-paper/src/components/BottomNavigation.tsx
 index 3d89c97..e974b72 100644
 --- a/node_modules/react-native-paper/src/components/BottomNavigation.tsx

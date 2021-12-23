@@ -15,14 +15,14 @@ const versionName = version;
 /**
  * Android build code (increment with each submitted build)
  */
-const androidVersionCode = 6;
+const androidVersionCode = 7;
 /**
  * iOS semantic build code (increment with each submitted build)
  *
  * NOTE: Different from Android version code in that it may be reset
  *         with each version change; however, this is deemed confusing!
  */
-const iosBuildNumber = 3;
+const iosBuildNumber = 4;
 
 export default (): ExpoConfig => ({
   // Information
