@@ -6,6 +6,8 @@ import { Text, useTheme } from "react-native-paper";
 type PaymentIndicatorProps = {
   /** Number of attending people (optional) */
   attending?: number | null;
+  /** Whether attending count should always be shown (even if empty) */
+  showAttending?: boolean;
   /** Style */
   style?: StyleProp<ViewStyle>;
   /** Number of unpaid attendees (optional) */
@@ -15,12 +17,12 @@ type PaymentIndicatorProps = {
 const PaymentIndicator = (
   props: PaymentIndicatorProps,
 ): ReactElement | null => {
-  const { attending, style, unpaid } = props;
+  const { attending, showAttending = false, style, unpaid } = props;
 
   const { colors } = useTheme();
 
   const hasBoth = Boolean(attending && unpaid);
-  if (!attending && !unpaid) return null;
+  if (!attending && !unpaid && !showAttending) return null;
 
   const iconSize = 20;
 
@@ -38,11 +40,11 @@ const PaymentIndicator = (
         </Fragment>
       )}
       {hasBoth && <Text style={styles.indicatorSeparator}>•</Text>}
-      {Boolean(attending) && (
+      {Boolean(attending || showAttending) && (
         <Fragment>
-          <Text style={styles.indicatorText}>{attending}</Text>
+          <Text style={styles.indicatorText}>{attending ?? "0"}</Text>
           <Icon
-            color={colors.primary}
+            color={attending ? colors.primary : colors.warning}
             name="account-multiple"
             size={iconSize}
             style={styles.indicatorIcon}
