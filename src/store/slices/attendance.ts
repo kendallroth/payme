@@ -9,6 +9,7 @@ import {
 // Utilites
 import { EventsService } from "@services";
 import { addDebugDataAction, resetAppAction } from "../actions";
+import { fakeAttendance } from "../data/attendance";
 import { RootState } from "../index";
 import { eventStatsUpdate, removeEvent } from "./events";
 import { removePerson } from "./people";
@@ -76,7 +77,16 @@ const attendanceSlice = createSlice({
     builder.addCase(addDebugDataAction, (state, action) => {
       if (!action.payload.events || !action.payload.people) return;
 
-      // TODO: Only add debug attendance if not already populated in store
+      // Only add debug attendance if not already populated in store
+      const existingAttendance = Object.values(state.entities);
+      fakeAttendance.forEach((attendance) => {
+        const existsInStore = existingAttendance.find(
+          (e) => e?.eventId === attendance.eventId && e?.personId === attendance.personId, // prettier-ignore
+        );
+        if (existsInStore) return;
+
+        attendanceAdapter.addOne(state, attendance);
+      });
     });
     // Clean up attendance when an event is removed
     builder.addCase(removeEvent, (state, action) => {

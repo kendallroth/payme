@@ -23,6 +23,7 @@ import { IEvent } from "@typings/event.types";
 import { RootRouterNavigation } from "src/AppRouter";
 
 const getTopUnpaidEvents = (events: IEvent[]): IEvent[] => {
+  // Include events with no attendees
   const unpaidEvents = events.filter(
     (e) => !e.stats?.attending || e.stats?.unpaid,
   );

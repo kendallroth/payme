@@ -60,4 +60,15 @@ const randomNumber = (min: number, max: number, inclusive = false): number => {
   return Math.floor(Math.random() * (max - min + inclusiveFactor) + min);
 };
 
-export { lerpColor, randomBool, randomItem, randomNumber };
+/**
+ * Sleep for a short period of time
+ *
+ * @param time Delay time (milliseconds)
+ */
+const sleep = (time: number): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+};
+
+export { lerpColor, randomBool, randomItem, randomNumber, sleep };

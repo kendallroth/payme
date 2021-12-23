@@ -21,10 +21,22 @@ const createFakePerson = (person?: FakePersonNew): IPerson => {
   };
 };
 
+// NOTE: Static exports are only calculated once when app loads!
+//         Additionally, these values are used in fake attendance (caution)!
 const fakePeople: IPerson[] = [
-  createFakePerson({
-    name: "Alex Tanners",
-  }),
+  createFakePerson({ name: "Alex Tanners" }),
+  createFakePerson({ name: "Cassidy Jacobs" }),
+  createFakePerson({ name: "Elizaveta Husiev" }),
+  createFakePerson({ name: "Eriberto Spencer" }),
+  createFakePerson({ name: "Kendall Roth" }),
+  createFakePerson({ name: "Rebecca Abbot" }),
+  createFakePerson(),
+  createFakePerson(),
+  createFakePerson(),
+  createFakePerson(),
+  createFakePerson(),
+  createFakePerson(),
+  createFakePerson(),
   createFakePerson(),
   createFakePerson(),
   createFakePerson(),

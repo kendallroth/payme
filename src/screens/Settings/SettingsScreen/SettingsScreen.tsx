@@ -1,7 +1,7 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { openURL } from "expo-linking";
 import { useTranslation } from "react-i18next";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, Platform, StyleSheet, View } from "react-native";
 import { List, Text, useTheme } from "react-native-paper";
 
 // Components
@@ -30,6 +30,7 @@ import {
   setAppTheme,
 } from "@store/slices/settings";
 import { sharedColors } from "@theme";
+import { sleep } from "@utilities/misc.util";
 
 // Types
 import { BottomSheetRef } from "@components/dialogs/BottomSheet";
@@ -97,6 +98,12 @@ const SettingsScreen = (): ReactElement => {
           text: t("common:choices.confirm"),
           onPress: async (): Promise<void> => {
             appResetRef.current?.close();
+
+            // NOTE: Need to wait until modal has closed before displaying loading indicator on iOS
+            if (Platform.OS === "ios") {
+              await sleep(300);
+            }
+
             loader.show(t("screens:settingsDeveloper.resetDataLoading"));
             await dispatch(resetAppThunk(resetOptions));
             loader.hide();

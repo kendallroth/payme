@@ -2,9 +2,10 @@ import i18n from "i18next";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Utilities
-import { SettingsService } from "@services";
+import { EventsService, SettingsService } from "@services";
 import { LANGUAGES, THEMES } from "@utilities/constants";
 import { addDebugDataAction, resetAppAction } from "../actions";
+import { eventStatsUpdate } from "./events";
 
 // Types
 import {
@@ -86,11 +87,21 @@ const settingsSlice = createSlice({
 // Add debug data to the store
 const addDebugDataThunk = createAsyncThunk(
   "settings/addDebugData",
-  async (options: IAppPopulateOptions, { dispatch }) => {
+  async (options: IAppPopulateOptions, { dispatch, getState }) => {
     // NOTE: Delay the action to make it feel that something is happening
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     dispatch(addDebugDataAction(options));
+
+    const rootState = getState() as RootState;
+
+    // Update event attendance after debug data has been added
+    const eventUpdates = EventsService.calculateAllEventStats(
+      Object.values(rootState.attendance.entities),
+    );
+    Object.values(eventUpdates).forEach((update) => {
+      dispatch(eventStatsUpdate(update));
+    });
   },
 );
 
@@ -99,7 +110,7 @@ const resetAppThunk = createAsyncThunk(
   "settings/resetApp",
   async (options: IAppResetOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     if (options.settings) {
       // Change language in localization context
