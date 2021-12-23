@@ -23,7 +23,9 @@ import { IEvent } from "@typings/event.types";
 import { RootRouterNavigation } from "src/AppRouter";
 
 const getTopUnpaidEvents = (events: IEvent[]): IEvent[] => {
-  const unpaidEvents = events.filter((e) => e.stats?.unpaid);
+  const unpaidEvents = events.filter(
+    (e) => !e.stats?.attending || e.stats?.unpaid,
+  );
   const topUnpaidEvents = sort(unpaidEvents)
     .desc((e) => e.stats?.unpaid)
     .slice(0, 3);
