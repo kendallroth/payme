@@ -1,10 +1,58 @@
 import dayjs from "dayjs";
 
 // Types
-import { IEvent, IEventsByTime, IEventStats } from "@typings/event.types";
+import {
+  IEvent,
+  IEventsByTime,
+  IEventStats,
+  IEventStatsUpdate,
+} from "@typings/event.types";
 import { IEventAttendance } from "@typings/attendance.types";
 
+type EventStatUpdates = {
+  [key: string]: IEventStatsUpdate | undefined;
+};
+
 class EventsService {
+  /**
+   * Calculate attendance stats for all events (with attendance)
+   *
+   * NOTE: Events with no attendance will not be included in calculations!
+   *
+   * NOTE: This is an expensive calculation and should be performed sparingly!
+   *
+   * @param   attendance Attendance records
+   * @returns Event stats for all events with attendance
+   */
+  calculateAllEventStats(
+    attendance: (IEventAttendance | undefined)[],
+  ): IEventStatsUpdate[] {
+    const updatesObj = Object.values(attendance).reduce(
+      (accum, record): EventStatUpdates => {
+        if (!record) return accum;
+        const { eventId, paidAt } = record;
+
+        const accumEvent = accum[eventId];
+        const attending = accumEvent?.attending ?? 0;
+        const unpaid = accumEvent?.unpaid ?? 0;
+
+        return {
+          ...accum,
+          [eventId]: {
+            eventId,
+            attending: attending + 1,
+            unpaid: paidAt ? unpaid : unpaid + 1,
+          },
+        };
+      },
+      {} as EventStatUpdates,
+    );
+
+    // TODO: Include events with no attendance (handles edge case of removing last event attendee before recalulating stats)
+
+    return Object.values(updatesObj).filter((i) => i) as IEventStatsUpdate[];
+  }
+
   /**
    * Calculate event attendance stats
    *

@@ -96,8 +96,8 @@ const SettingsScreen = (): ReactElement => {
         {
           text: t("common:choices.confirm"),
           onPress: async (): Promise<void> => {
-            appResetRef.current?.close();
             loader.show(t("screens:settingsDeveloper.resetDataLoading"));
+            appResetRef.current?.close();
             await dispatch(resetAppThunk(resetOptions));
             loader.hide();
             notify(t("screens:settingsDeveloper.resetDataSuccess"));

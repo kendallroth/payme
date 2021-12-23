@@ -3,7 +3,7 @@ import { date as fakeDate } from "faker";
 import { v4 as uuidv4 } from "uuid";
 
 // Utilities
-import { DATE_FORMAT_ISO_SHORT, DATE_FORMAT_NICE } from "@utilities/date.util";
+import { DATE_FORMAT_ISO_SHORT } from "@utilities/date.util";
 
 // Types
 import { IEvent } from "@typings/event.types";
@@ -21,57 +21,38 @@ const createFakeEvent = (event: FakeEventNew): IEvent => {
     id: uuidv4(),
     archivedAt: null,
     createdAt: fakeDate.past(1).toISOString(),
+    stats: {
+      attending: 0,
+      unpaid: 0,
+    },
     ...event,
   };
 };
 
+// NOTE: Static exports are only calculated once when app loads!
+//         Additionally, these values are used in fake attendance (caution)!
 const fakeEvents: IEvent[] = [
-  // Future events
-  createFakeEvent({
-    date: dayjs().add(15, "day").format(DATE_FORMAT_ISO_SHORT),
-    title: "Camping Trip",
-    cost: 25,
-    stats: {
-      attending: 14,
-      unpaid: 13,
-    },
-  }),
-  createFakeEvent({
-    date: dayjs().add(6, "day").format(DATE_FORMAT_ISO_SHORT),
-    title: "Ice Skating",
-    cost: undefined,
-    stats: {
-      attending: 5,
-      unpaid: 2,
-    },
-  }),
   // Past events
   createFakeEvent({
-    date: dayjs().subtract(1, "day").format(DATE_FORMAT_ISO_SHORT),
-    title: "Family Supper",
-    cost: undefined,
-    stats: {
-      attending: 6,
-      unpaid: 2,
-    },
+    date: dayjs().subtract(5, "day").format(DATE_FORMAT_ISO_SHORT),
+    title: "Pickup Hockey",
+    cost: 10,
   }),
   createFakeEvent({
     date: dayjs().subtract(2, "day").format(DATE_FORMAT_ISO_SHORT),
-    title: "Pickup Hockey",
-    cost: 15,
-    stats: {
-      attending: 18,
-      unpaid: 0,
-    },
+    title: "Painting Class",
+    cost: 25,
+  }),
+  // Future events
+  createFakeEvent({
+    date: dayjs().add(3, "day").format(DATE_FORMAT_ISO_SHORT),
+    title: "Ice Skating",
+    cost: undefined,
   }),
   createFakeEvent({
-    date: dayjs().subtract(5, "day").format(DATE_FORMAT_ISO_SHORT),
-    title: "Volleyball Game",
-    cost: 10,
-    stats: {
-      attending: 12,
-      unpaid: 9,
-    },
+    date: dayjs().add(10, "day").format(DATE_FORMAT_ISO_SHORT),
+    title: "Camping Trip",
+    cost: 25,
   }),
 ];
 
