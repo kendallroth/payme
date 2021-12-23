@@ -92,6 +92,8 @@
     "title": "Behaviours",
     "listItemSelectAttendeeCheckboxRowsDescription": "Whether attendee list checkbox rows are selectable.",
     "listItemSelectAttendeeCheckboxRowsTitle": "Select attendee checkbox rows",
+    "listItemShowPaymentProgressDescription": "Whether event payment progress indicators indicate payment percentage.",
+    "listItemShowPaymentProgressTitle": "Show event payment progress",
     "listItemTabHistoryResetDescription": "Whether tab navigation resets tab history.",
     "listItemTabHistoryResetTitle": "Reset tab history"
   },

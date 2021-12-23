@@ -10,6 +10,10 @@ Contact me at [kendall@kendallroth.ca](mailto:kendall@kendallroth.ca) with sugge
 - [Kendall Roth](https://github.com/kendallroth)
 - _Your name here!_
 
+## Testing
+- [Kendall Roth](https://github.com/kendallroth)
+- Kyle Roth
+
 ## Localization
 
 - English

@@ -85,7 +85,7 @@ const ProgressIcon = (props: ProgressIconProps): ReactElement => {
   const radius = size / 2 - lineWidth / 2;
   const circumference = radius * 2 * Math.PI;
 
-  if (!progress && !value) {
+  if (!progress) {
     return (
       <View style={[styles.container, styles.progressIcon, style]}>
         <Icon color={colors.warning} name={emptyIcon} size={size} />

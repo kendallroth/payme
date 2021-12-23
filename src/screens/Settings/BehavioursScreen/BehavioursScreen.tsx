@@ -56,6 +56,17 @@ const BehavioursScreen = (): ReactElement => {
           value={appBehaviours.selectAttendeeCheckboxRows}
           onChange={onBooleanChange}
         />
+        <BehavioursScreenListItemSwitch
+          description={t(
+            "screens:settingsBehaviours.listItemShowPaymentProgressDescription",
+          )}
+          stateKey="showPaymentPercentage"
+          title={t(
+            "screens:settingsBehaviours.listItemShowPaymentProgressTitle",
+          )}
+          value={appBehaviours.showPaymentPercentage}
+          onChange={onBooleanChange}
+        />
       </ScrollView>
     </Page>
   );

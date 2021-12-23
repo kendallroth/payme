@@ -2,6 +2,8 @@
 export interface IAppBehaviours {
   /** Whether "Select Attendee" checkbox rows are select */
   selectAttendeeCheckboxRows: boolean;
+  /** Whether event progress indicators show payment percentage */
+  showPaymentPercentage: boolean;
   /** Whether tab history is reset when navigating between tabs */
   tabsResetHistory: boolean;
 }

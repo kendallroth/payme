@@ -15,14 +15,14 @@ const versionName = version;
 /**
  * Android build code (increment with each submitted build)
  */
-const androidVersionCode = 4;
+const androidVersionCode = 5;
 /**
  * iOS semantic build code (increment with each submitted build)
  *
- * NOTE: Can include additional integers to indicate release candidates
- *         until the version is released (remove 'rc#' suffix).
+ * NOTE: Different from Android version code in that it may be reset
+ *         with each version change; however, this is deemed confusing!
  */
-const iosBuildNumber = `${version}rc2`;
+const iosBuildNumber = 3;
 
 export default (): ExpoConfig => ({
   // Information
@@ -64,7 +64,7 @@ export default (): ExpoConfig => ({
 
   // iOS overrides
   ios: {
-    buildNumber: iosBuildNumber,
+    buildNumber: `${iosBuildNumber}`,
     bundleIdentifier: "ca.kendallroth.payme",
     // Icon must be 1024x1024 (no transparency)
     icon: "./assets/icon.png",

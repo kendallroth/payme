@@ -15,7 +15,8 @@ import config from "@config";
 export type ContributorActionType =
   | "development"
   | "documentation"
-  | "localization";
+  | "localization"
+  | "testing";
 
 interface ContributorActions {
   /** Contributor action description */
@@ -47,8 +48,13 @@ const contributors: Contributor[] = [
   },
   {
     actions: [{ description: "Spanish", type: "localization" }],
-    color: "#FFA500",
+    color: "#3F51B5",
     name: "Lukasz Antos",
+  },
+  {
+    actions: [{ description: "Testing", type: "testing" }],
+    color: "#FFA500",
+    name: "Kyle Roth",
   },
 ];
 
