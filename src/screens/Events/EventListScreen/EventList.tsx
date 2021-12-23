@@ -70,10 +70,16 @@ const EventList = (props: EventProps): ReactElement => {
           <Badge style={themeStyles.listTitleBadge}>{events.length}</Badge>
         )}
       </View>
-      {hasEvents &&
-        events.map((event) => (
-          <EventListItem key={event.id} event={event} onPress={onEventPress} />
-        ))}
+      <View style={styles.listContent}>
+        {hasEvents &&
+          events.map((event) => (
+            <EventListItem
+              key={event.id}
+              event={event}
+              onPress={onEventPress}
+            />
+          ))}
+      </View>
       {!hasEvents && (
         <Alert style={styles.listEmpty}>
           {t("common:errors.noMatchingEvents")}
@@ -88,6 +94,12 @@ const styles = StyleSheet.create({
   list: {
     borderRadius: listBorderRadius,
     ...getShadowStyles(),
+  },
+  listContent: {
+    borderBottomRightRadius: listBorderRadius,
+    borderBottomLeftRadius: listBorderRadius,
+    // Necessary as hiding parent "list" hides box shadow on iOS!
+    overflow: "hidden",
   },
   listEmpty: {
     paddingHorizontal: 16,
