@@ -89,7 +89,7 @@ const addDebugDataThunk = createAsyncThunk(
   "settings/addDebugData",
   async (options: IAppPopulateOptions, { dispatch, getState }) => {
     // NOTE: Delay the action to make it feel that something is happening
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     dispatch(addDebugDataAction(options));
 
@@ -110,7 +110,7 @@ const resetAppThunk = createAsyncThunk(
   "settings/resetApp",
   async (options: IAppResetOptions, { dispatch }) => {
     // NOTE: Delay the action to make it feel that something is happening
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     if (options.settings) {
       // Change language in localization context
