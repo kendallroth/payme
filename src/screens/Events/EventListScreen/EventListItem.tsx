@@ -51,9 +51,14 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
     const paid = attending - unpaid;
     const percent = attending > 0 ? paid / attending : 0;
 
-    const displayValue = appBehaviours.showPaymentPercentage
-      ? `${Math.floor(percent * 100)}%`
-      : "";
+    // Display "empty" warning indicator with no attendees, or the
+    //   percentage paid (if enabled in settings).
+    const displayValue =
+      attending > 0
+        ? appBehaviours.showPaymentPercentage
+          ? `${Math.floor(percent * 100)}%`
+          : " "
+        : "";
 
     return (
       <ProgressIcon
@@ -75,6 +80,7 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
       <View {...rightProps} style={styles.listItemActions}>
         <PaymentIndicator
           attending={event.stats?.attending}
+          showAttending
           style={styles.listItemPaymentIndicator}
           unpaid={event.stats?.unpaid}
         />

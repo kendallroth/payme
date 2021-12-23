@@ -15,7 +15,7 @@ const versionName = version;
 /**
  * Android build code (increment with each submitted build)
  */
-const androidVersionCode = 5;
+const androidVersionCode = 6;
 /**
  * iOS semantic build code (increment with each submitted build)
  *

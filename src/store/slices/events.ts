@@ -138,8 +138,8 @@ export const selectEventsCount = eventsSelectors.selectTotal;
  * @returns Number of unpaid events
  */
 export const selectEventsUnpaidCount = (state: RootState): number => {
-  return Object.values(state.events.entities).filter(
-    (e) => e?.stats?.unpaid ?? 0,
+  return Object.values(state.events.entities).filter((e) =>
+    Boolean(!e?.stats?.attending || e?.stats?.unpaid),
   ).length;
 };
 
