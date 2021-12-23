@@ -30,5 +30,5 @@ Google has relatively loose requirements for screenshots, simply requiring a 16:
 
 Apple has strict requirements for screenshots, requiring from both 5.5" and 6.5" displays. These can be generated on a number of devices/emulators:
 
-- `6.5"` - iPhone 13 Pro Max, iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone 11
-- `5.5"` - iPhone 13 Pro, iPhone 13, iPhone 12 Pro, iPhone 12, iPhone 11 Pro, iPhone Xs
+- `6.5"` - iPhone 13 Pro Max, iPhone 12 Pro Max, **iPhone 11 Pro Max**, iPhone 11
+- `5.5"` - **iPhone 8 Plus**, iPhone 7 Plus
