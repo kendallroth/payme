@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from "react";
+import React, { ReactElement } from "react";
 import dayjs from "dayjs";
 import { StyleSheet, View } from "react-native";
 import { List } from "react-native-paper";
@@ -8,6 +8,8 @@ import { ProgressIcon } from "@components/icons";
 import { PaymentIndicator } from "@components/typography";
 
 // Utilities
+import { useAppSelector } from "@hooks";
+import { selectBehaviours } from "@store/slices/settings";
 import { formatDateString } from "@utilities/date.util";
 
 // Types
@@ -23,20 +25,19 @@ type EventListItemProps = {
 const EventListItem = (props: EventListItemProps): ReactElement => {
   const { event, onPress } = props;
 
+  const appBehaviours = useAppSelector(selectBehaviours);
+
   const past = dayjs().isAfter(event.date);
   let description = formatDateString(event.date);
   if (event.cost) {
     description = `${description}  •  $${event.cost}`;
   }
 
-  const themeStyles = useMemo(
-    () => ({
-      listItemTitle: {
-        fontWeight: (past ? "500" : "bold") as "bold" | "500",
-      },
-    }),
-    [past],
-  );
+  const themeStyles = {
+    listItemTitle: {
+      fontWeight: (past ? "500" : "bold") as "bold" | "500",
+    },
+  };
 
   /**
    * Render left icon
@@ -48,13 +49,17 @@ const EventListItem = (props: EventListItemProps): ReactElement => {
 
     const { attending, unpaid } = event.stats;
     const paid = attending - unpaid;
-    const percent = paid / attending;
+    const percent = attending > 0 ? paid / attending : 0;
+
+    const displayValue = appBehaviours.showPaymentPercentage
+      ? `${Math.floor(percent * 100)}%`
+      : "";
 
     return (
       <ProgressIcon
         progress={percent}
         style={styles.listItemLeftIcon}
-        value={`${Math.floor(percent * 100)}%`}
+        value={displayValue}
       />
     );
   };

@@ -25,6 +25,7 @@ const ContributorActionIconMap: Record<
   development: "code-tags",
   documentation: "file-document-edit",
   localization: "flag",
+  testing: "test-tube",
 };
 
 const ContributorListItem = (props: ContributorListItemProps): ReactElement => {

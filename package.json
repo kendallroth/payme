@@ -43,7 +43,8 @@
     "@reduxjs/toolkit": "^1.6.2",
     "country-flag-icons": "^1.4.14",
     "dayjs": "^1.10.6",
-    "expo": "^44.0.0",
+    "expo": "^44.0.1",
+    "expo-application": "~4.0.1",
     "expo-constants": "~13.0.0",
     "expo-device": "~4.1.0",
     "expo-linking": "~3.0.0",
@@ -75,8 +76,7 @@
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
     "uuid": "^8.3.2",
-    "yup": "^0.32.11",
-    "expo-application": "~4.0.1"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

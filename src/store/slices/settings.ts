@@ -36,7 +36,8 @@ interface SettingsState {
 // Provide some basic defaults until app settings are loaded
 const initialState: SettingsState = {
   behaviours: {
-    selectAttendeeCheckboxRows: false,
+    selectAttendeeCheckboxRows: true,
+    showPaymentPercentage: true,
     tabsResetHistory: true,
   },
   developer: false,

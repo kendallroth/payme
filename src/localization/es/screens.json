@@ -92,6 +92,8 @@
     "title": "Comportamientos",
     "listItemSelectAttendeeCheckboxRowsDescription": "Si las filas de las casillas de verificación de la lista de asistentes se pueden seleccionar.",
     "listItemSelectAttendeeCheckboxRowsTitle": "Seleccionar filas de casillas de verificación de asistentes",
+    "listItemShowPaymentProgressDescription": "Si los indicadores de progreso de pago del evento indican el porcentaje de pago.",
+    "listItemShowPaymentProgressTitle": "Mostrar el progreso del pago del evento",
     "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas.",
     "listItemTabHistoryResetTitle": "Restablecer historial de pestañas"
   },
