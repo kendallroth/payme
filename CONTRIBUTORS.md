@@ -19,6 +19,6 @@ Contact me at [kendall@kendallroth.ca](mailto:kendall@kendallroth.ca) with sugge
 - English
   - [Kendall Roth](https://github.com/kendallroth)
 - Spanish
-  - _Your name here!_
+  - [Lukasz Antos](https://github.com/lukant101)
 - French
   - _Your name here!_
