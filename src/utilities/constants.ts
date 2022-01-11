@@ -25,7 +25,6 @@ export const LANGUAGES: Record<AppLanguage, IAppLanguageConfig> = {
     title: "Français",
   },
   [AppLanguage.SPANISH]: {
-    beta: true,
     code: AppLanguage.SPANISH,
     flag: ES,
     title: "Español",
