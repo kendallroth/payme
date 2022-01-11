@@ -2,11 +2,11 @@
   "_comment": "src/localization/es/translation.json",
   "actions": {
     "add": "Agregar",
-    "back": "Regresa",
+    "back": "Regresar",
     "delete": "Borrar",
     "edit": "Editar",
     "remove": "Eliminar",
-    "save": "Ahorrar"
+    "save": "Guardar"
   },
   "app": {},
   "choices": {
@@ -16,9 +16,9 @@
     "yes": "Sí"
   },
   "errors": {
-    "notImplemented": "Aun no implementado",
-    "noMatchingEvents": "No hay eventos coincidentes",
-    "noMatchingPeople": "No hay gente coincidentes"
+    "notImplemented": "Aún no implementado",
+    "noMatchingEvents": "Eventos no encontrados",
+    "noMatchingPeople": "Personas no encontradas"
   },
   "phrases": {
     "beta": "beta",
@@ -27,10 +27,10 @@
     "search": "Buscar"
   },
   "validations": {
-    "invalid": "{{path}} es inválida",
-    "invalidType": "{{path}} debe ser un {{type}}",
-    "match": "{{path}} tiene un formato no válido",
+    "invalid": "{{path}} es inválido",
+    "invalidType": "{{path}} debe ser {{type}}",
+    "match": "{{path}} tiene formato inválido",
     "required": "{{path}} es requerido",
-    "stringMin": "{{path}} debe tener al menos {{min}} carácter"
+    "stringMin": "{{path}} debe tener al menos {{min}} caracteres"
   }
 }

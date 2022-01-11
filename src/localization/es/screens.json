@@ -1,18 +1,18 @@
 {
   "_comment": "src/localization/es/screens.json",
   "eventAddEdit": {
-    "titleAdd": "Añadir evento",
+    "titleAdd": "Agregar evento",
     "titleEdit": "Actualizar evento",
     "eventCostLabel": "Costo",
     "eventDateLabel": "Fecha",
     "eventDateFormatError": "Formato 'YYYY-MM-DD'",
     "eventTitleLabel": "Título",
     "eventAddSuccess": "Evento agregado",
-    "eventEditSuccess": "Actualizar {{title}}"
+    "eventEditSuccess": "{{title}} actualizado"
   },
   "eventDetails": {
-    "attendeeListEmpty": "No se han seleccionado asistentes",
-    "attendeeRemoveConfirmDescription": "¿Estás seguro de que quieres eliminar a este asistente?",
+    "attendeeListEmpty": "Asistentes no han sido seleccionados",
+    "attendeeRemoveConfirmDescription": "¿Está seguro de que desea eliminar a este asistente?",
     "attendeeRemoveConfirmTitle": "Eliminar Asistente",
     "peopleSelectTitle": "Seleccionar Asistentes"
   },
@@ -22,44 +22,44 @@
     "listPast": "Eventos Pasados"
   },
   "eventShared": {
-    "deleteEventConfirmTitle": "Quitar Evento",
-    "deleteEventConfirmDescription": "¿Estás seguro de que quieres eliminar este evento?",
-    "deleteEventConfirmWarning": "¡Eliminar un evento también borrará toda su asistencia!",
-    "deleteEventSuccess": "Remoto {{title}}"
+    "deleteEventConfirmTitle": "Eliminar Evento",
+    "deleteEventConfirmDescription": "¿Está seguro de que desea eliminar este evento?",
+    "deleteEventConfirmWarning": "¡Al eliminar un evento también se borrará toda su asistencia!",
+    "deleteEventSuccess": "{{title}} eliminado"
   },
   "home": {
-    "title": "Hogar",
+    "title": "Inicio",
     "welcomeText": "¡Bienvenido!",
-    "eventsAllPaid": "¡Todos los eventos son pagos!",
+    "eventsAllPaid": "¡Todos los eventos han sido pagados!",
     "eventsEmpty": "¡No hay eventos!",
-    "eventsSomeUnpaid": "¡Algunos eventos no son remunerados!",
+    "eventsSomeUnpaid": "¡Algunos eventos no han sido pagados!",
     "peopleAllPaid": "¡Todas las personas han pagado!",
-    "peopleEmpty": "¡No hay gente!",
-    "peopleSomeUnpaid": "Algunos personas no han pagado!"
+    "peopleEmpty": "¡No hay personas!",
+    "peopleSomeUnpaid": "Algunas personas no han pagado!"
   },
   "peopleAddEdit": {
-    "titleAdd": "Añadir Personas",
+    "titleAdd": "Agregar Personas",
     "titleEdit": "Actualizar persona",
-    "cancelAddConfirmDescription": "¿Estás seguro de que deseas cancelar la adición de {{count}} personas?",
-    "cancelAddConfirmDescription_other": "¿Estás seguro de que deseas cancelar la adición de {{count}} persona?",
+    "cancelAddConfirmDescription": "¿Está seguro de que desea cancelar la adición de {{count}} persona?",
+    "cancelAddConfirmDescription_other": "¿Está seguro de que desea cancelar la adición de {{count}} personas?",
     "cancelAddConfirmTitle": "¿Cancelar Agregando Personas?",
     "peopleAddSuccess": "Añadida {{count}} persona",
     "peopleAddSuccess_other": "Añadidas {{count}} personas",
-    "peopleCount": "+{{count}} otro",
-    "peopleCount_other": "+{{count}} otros",
-    "personEditSuccess": "Actualizar {{name}}",
+    "peopleCount": "+{{count}} otra",
+    "peopleCount_other": "+{{count}} otras",
+    "personEditSuccess": "{{name}} actualizado",
     "personNameLabel": "Nombre",
     "personNameUsedError": "Nombre ya agregado"
   },
   "peopleList": {
-    "title": "Gente",
+    "title": "Personas",
     "deletePersonConfirmTitle": "Eliminar Persona",
-    "deletePersonConfirmDescription": "¿Estás seguro de que quieres eliminar a esta persona?",
+    "deletePersonConfirmDescription": "¿Está seguro de que desea eliminar a esta persona?",
     "deletePersonConfirmWarning": "¡Eliminar a una persona también la eliminará de toda la asistencia!",
-    "deletePersonSuccess": "Eliminado {{name}}"
+    "deletePersonSuccess": "{{name}} eliminado"
   },
   "settings": {
-    "title": "Ajustes",
+    "title": "Configuración",
     "listItemBug": "Reportar un error",
     "listItemAppearance": "Apariencia",
     "listItemBehaviours": "Comportamientos",
@@ -70,9 +70,9 @@
   },
   "settingsAbout": {
     "title": "Sobre",
-    "appDescription": "PayMe tiene como objetivo simplificar el proceso de seguimiento de la asistencia y el pago del evento. En lugar de utilizar listas y aplicaciones variadas para rastrear quién viene y quién ha pagado, PayMe agiliza el proceso en un flujo de trabajo simple.",
+    "appDescription": "“PayMe” pretende simplificar el proceso de seguimiento del pago y la asistencia a eventos. En lugar de utilizar distintas listas y aplicaciones para controlar el pago y la asistencia, PayMe agiliza el proceso en un simple flujo de trabajo.",
     "appDeveloper": "Desarrollado por Kendall Roth © {{date}}",
-    "appSummary": "“PayMe” es una aplicación móvil simple para rastrear quién pagó por un evento.",
+    "appSummary": "“PayMe” es una sencilla aplicación móvil para el seguimiento de pagos e asistencia a eventos.",
     "guideStep1": "Agregar y administrar personas",
     "guideStep2": "Agregar y administrar eventors",
     "guideStep3": "Administrar los asistentes al evento y los pagos",
@@ -81,17 +81,17 @@
     "chipRepository": "Repositorio"
   },
   "settingsAppReset": {
-    "title": "Restablecer la Aplicación",
+    "title": "Restablecer la App",
     "actionSubmit": "Restablecer Seleccionado",
     "listItemAttendance": "Asistencia",
     "listItemEvents": "Eventos",
-    "listItemPeople": "Gente",
-    "listItemSettings": "Ajustes"
+    "listItemPeople": "Personas",
+    "listItemSettings": "Configuración"
   },
   "settingsBehaviours": {
     "title": "Comportamientos",
-    "listItemSelectAttendeeCheckboxRowsDescription": "Si las filas de las casillas de verificación de la lista de asistentes se pueden seleccionar.",
-    "listItemSelectAttendeeCheckboxRowsTitle": "Seleccionar filas de casillas de verificación de asistentes",
+    "listItemSelectAttendeeCheckboxRowsDescription": "Si se puede seleccionar las filas de las casillas de la lista de asistentes.",
+    "listItemSelectAttendeeCheckboxRowsTitle": "Seleccionar las filas de las casillas de la lista de asistentes",
     "listItemShowPaymentProgressDescription": "Si los indicadores de progreso de pago del evento indican el porcentaje de pago.",
     "listItemShowPaymentProgressTitle": "Mostrar el progreso del pago del evento",
     "listItemTabHistoryResetDescription": "Si la navegación por pestañas restablece el historial de pestañas.",
@@ -104,13 +104,13 @@
   },
   "settingsDeveloper": {
     "title": "Depurar",
-    "exitDeveloperButton": "Salir del Modo de Desarrollador",
-    "exitDeveloperConfirmDescription": "¿Estás seguro de que quieres salir del modo desarrollador?",
-    "exitDeveloperConfirmTitle": "¿Salir del modo de desarrollador?",
+    "exitDeveloperButton": "Salir del Modo de Desarrollo",
+    "exitDeveloperConfirmDescription": "¿Está seguro de que desea salir del modo de desarrollo?",
+    "exitDeveloperConfirmTitle": "¿Salir del modo de desarrollo?",
     "listItemBuild": "Construcción",
     "listItemDeviceModel": "Modelo",
-    "listItemDeviceOS": "OS",
-    "listItemDeviceType": "Typo",
+    "listItemDeviceOS": "S.O.",
+    "listItemDeviceType": "Tipo",
     "listItemDeviceTypeEmulator": "Emulador",
     "listItemDeviceTypePhone": "Celular",
     "listItemExpo": "Expo Go",
@@ -118,33 +118,33 @@
     "listItemPlatform": "Plataforma",
     "listItemPopulateTitle": "Agregar Datos de Depuración",
     "listItemPopulateDescription": "Mantenga presionado para insertar datos de la aplicación de depuración",
-    "listItemResetTitle": "Restablecer Aplicación",
+    "listItemResetTitle": "Restablecer App",
     "listItemResetDescription": "Mantenga presionado para restablecer los datos de la aplicación",
     "listItemVersion": "Versión",
     "listSectionActions": "Acciones del Desarrollador",
     "listSectionApp": "Aplicación",
     "listSectionDevice": "Dispositivo",
-    "populateDataDescription": "¡Los datos de depuración agregados se pueden eliminar fácilmente una vez agregados.!",
-    "populateDataLoading": "Aplicación de relleno...",
-    "populateDataSuccess": "Se agregaron los datos de la aplicación de depuración",
+    "populateDataDescription": "¡Se puede eliminar fácilmente los datos de depuración agregados!",
+    "populateDataLoading": "Poblando la App...",
+    "populateDataSuccess": "Se han agregado los datos de la aplicación de depuración",
     "populateDataTitle": "Agregar Datos de Depuración",
     "resetDataDescription": "¡Esto restablecerá el estado de la aplicación y es irreversible!",
     "resetDataLoading": "Restableciendo la aplicación ...",
-    "resetDataSuccess": "Se restablecieron los datos de la aplicación",
+    "resetDataSuccess": "Se han restablecido los datos de la aplicación",
     "resetDataTitle": "Restablecer Datos de la Aplicación"
   },
   "settingsLanguage": {
-    "title": "Seleccione el idioma",
+    "title": "Seleccionar el idioma",
     "betaWarning": "¡Los idiomas beta están incompletos!"
   },
   "settingsReportBug": {
-    "title": "Reportar un Error",
+    "title": "Reportar un error",
     "reportTitle": "¡Oh, no!",
-    "reportDescription": "Lamentamos saber que algo salió mal. Proporcione un informe detallado de los pasos que condujeron al problema y el resultado esperado frente al real.\n\nLos informes de errores se deben crear actualmente en el repositorio de GitHub. ¡Asegúrese de verificar informes similares para evitar crear duplicados!\n\nRecuerde, cuantos más detalles y pasos proporcione, más fácil será resolver el problema.",
-    "actionGitHub": "GitHub Issues"
+    "reportDescription": "Lamentamos que algo ha salido mal. Por favor, proporcione un informe detallado de los pasos que condujeron al problema y el resultado esperado frente al real.\n\nLos informes de errores deben ser creados actualmente en el repositorio de GitHub. ¡Por favor, asegúrese de comprobar que no existen informes similares para evitar crear duplicados!\n\nRecuerde, cuantos más detalles y pasos proporcione, más fácil será resolver el problema.",
+    "actionGitHub": "Problemas en GitHub"
   },
   "settingsTheme": {
-    "title": "Seleccione el tema",
+    "title": "Seleccionar el tema",
     "itemAuto": "Automático",
     "itemDark": "Oscuro",
     "itemLight": "Claro"
